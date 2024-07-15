@@ -9,24 +9,23 @@ return {
   },
   config = function()
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-    -- vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-    -- vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-    -- vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-    -- vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
+    vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+    vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+    vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+    vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
     vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#404040', italic = false })
-    vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#007c7d', italic = false })
+    vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#404040', italic = false })
 
     require('neo-tree').setup {
       window = {
         position = 'right',
         mappings = {
-          ['<space>'] = {
-            'toggle_node',
-            nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-          },
-          ['<cr>'] = 'open',
+          ['<space>'] = { 'toggle_node', nowait = false },
+          ['<cr>'] = 'open_with_window_picker',
+          ['O'] = 'open',
           ['<esc>'] = 'cancel', -- close preview or floating neo-tree window
+          ['-'] = 'navigate_up',
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['l'] = 'focus_preview',
           ['s'] = 'split_with_window_picker',
@@ -35,14 +34,7 @@ return {
           -- ['C'] = 'close_all_subnodes',
           ['z'] = 'close_all_nodes',
           --["Z"] = "expand_all_nodes",
-          ['a'] = {
-            'add',
-            -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
-            -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-            config = {
-              show_path = 'none', -- "none", "relative", "absolute"
-            },
-          },
+          ['a'] = { 'add', config = { show_path = 'none' } },
           ['A'] = 'add_directory', -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
           ['d'] = 'delete',
           ['r'] = 'rename',
@@ -50,12 +42,6 @@ return {
           ['x'] = 'cut_to_clipboard',
           ['p'] = 'paste_from_clipboard',
           ['c'] = 'copy', -- takes text input for destination, also accepts the optional config.show_path option like "add":
-          -- ["c"] = {
-          --  "copy",
-          --  config = {
-          --    show_path = "none" -- "none", "relative", "absolute"
-          --  }
-          --}
           ['m'] = 'move', -- takes text input for destination, also accepts the optional config.show_path option like "add".
           ['q'] = 'close_window',
           ['R'] = 'refresh',
@@ -65,13 +51,35 @@ return {
           ['i'] = 'show_file_details',
         },
       },
+      git_status = {
+        window = {
+          mappings = {
+            ['g'] = { 'show_help', nowait = false, config = { title = 'Git', prefix_key = 'g' } },
+            ['gA'] = 'git_add_all',
+            ['gu'] = 'git_unstage_file',
+            ['ga'] = 'git_add_file',
+            ['gr'] = 'git_revert_file',
+            ['gc'] = 'git_commit',
+            ['gp'] = 'git_push',
+            ['gg'] = 'git_commit_and_push',
+            ['i'] = 'show_file_details',
+            ['o'] = { 'show_help', nowait = false, config = { title = 'Order by', prefix_key = 'o' } },
+            ['oc'] = { 'order_by_created', nowait = false },
+            ['od'] = { 'order_by_diagnostics', nowait = false },
+            ['om'] = { 'order_by_modified', nowait = false },
+            ['on'] = { 'order_by_name', nowait = false },
+            ['os'] = { 'order_by_size', nowait = false },
+            ['ot'] = { 'order_by_type', nowait = false },
+          },
+        },
+      },
       sources = {
         'document_symbols',
         'filesystem',
         'git_status',
         'diagnostics',
       },
-      popup_border_style = 'rounded',
+      popup_border_style = 'single',
       default_component_configs = {
         diagnostics = {
           symbols = {

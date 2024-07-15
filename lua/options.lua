@@ -31,7 +31,7 @@ vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+-- vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -54,6 +54,17 @@ vim.opt.scrolloff = 10
 
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
+
+vim.diagnostic.config {
+  underline = false,
+  signs = true,
+  update_in_insert = false,
+  virtual_text = false,
+  severity_sort = true,
+  float = {
+    border = 'single',
+  },
+}
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
