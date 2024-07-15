@@ -14,3 +14,6 @@ require 'lazy-plugins'
 
 -- Basic Keymaps
 require 'keymaps'
+
+-- CMDL
+require 'custom.cmdl'

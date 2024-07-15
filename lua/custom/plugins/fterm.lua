@@ -2,7 +2,6 @@ return {
   'numToStr/FTerm.nvim',
   config = function()
     require('FTerm').setup {
-      blend = 10,
       dimensions = {
         height = 0.95,
         width = 0.95,

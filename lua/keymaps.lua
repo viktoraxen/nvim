@@ -66,10 +66,6 @@ ld_n('ts', '<cmd>Neotree document_symbols<cr>', 'Neotree document symbols')
 ld_n('td', '<cmd>Neotree diagnostics<cr>', 'Neotree diagnostics')
 
 -- Navigation
--- mp_n('<C-d>', '<C-d>zz', 'Scroll half-page down')
--- mp_n('<C-u>', '<C-u>zz', 'Scroll half-page up')
--- mp_n('<C-f>', '<C-f>zz', 'Scroll full-page down')
--- mp_n('<C-b>', '<C-b>zz', 'Scroll full-page up')
 mp_n('n', 'nzzzv', 'Next search match')
 mp_n('N', 'Nzzzv', 'Previous search match')
 
@@ -93,7 +89,7 @@ ld_n('du', '<Plug>(toggle-lsp-diag-underline)', 'Toggle virtual text')
 
 -- LSP keymaps
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'single',
+  border = 'none',
 })
 mp_n('gh', vim.lsp.buf.hover, 'LSP hover documentation')
 mp_n('gD', vim.lsp.buf.declaration, 'Goto Declaration')
