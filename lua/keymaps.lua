@@ -4,28 +4,28 @@ local map = function(mode, key, action, desc)
   vim.keymap.set(mode, key, action, { desc = desc })
 end
 
-local mp_n = function(key, action, desc)
+local mn = function(key, action, desc)
   map('n', key, action, desc)
 end
 
-local mp_v = function(key, action, desc)
+local mv = function(key, action, desc)
   map('v', key, action, desc)
 end
 
-local mp_t = function(key, action, desc)
+local mt = function(key, action, desc)
   map('t', key, action, desc)
 end
 
-local mp_i = function(key, action, desc)
+local mi = function(key, action, desc)
   map('i', key, action, desc)
 end
 
-local ld_n = function(key, action, desc)
-  mp_n('<leader>' .. key, action, desc)
+local ln = function(key, action, desc)
+  mn('<leader>' .. key, action, desc)
 end
 
-local ld_v = function(key, action, desc)
-  mp_v('<leader>' .. key, action, desc)
+local lv = function(key, action, desc)
+  mv('<leader>' .. key, action, desc)
 end
 
 local group = function(key, desc)
@@ -34,70 +34,121 @@ end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-mp_n('<Esc>', '<cmd>nohlsearch<CR>')
+mn('<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Terminal
 local term = require 'FTerm'
 
-ld_n('f', term.toggle, 'Toggle terminal')
+mn('<M-3>', term.toggle, 'Toggle terminal')
+mi('<M-3>', term.toggle, 'Toggle terminal')
+mv('<M-3>', term.toggle, 'Toggle terminal')
+mt('<M-3>', term.toggle, 'Toggle terminal')
 
 -- Visual editing
-mp_v('=', '=gv', 'Auto-indent selection')
-mp_v('>', '>gv', 'Indent selection')
-mp_v('<', '<gv', 'De-indent selection')
+mv('=', '=gv', 'Auto-indent selection')
+mv('>', '>gv', 'Indent selection')
+mv('<', '<gv', 'De-indent selection')
 
 -- Moving lines
-mp_n('<M-j>', ':m .+1<CR>==', 'Move line down')
-mp_i('<M-j>', '<Esc>:m .+1<CR>==gi', 'Move line down')
-mp_i('<M-k>', '<Esc>:m .-2<CR>==gi', 'Move line up')
-mp_v('<M-j>', ":m '>+1<CR>gv=gv", 'Move selection down')
-mp_n('<M-k>', ':m .-2<CR>==', 'Move line up')
-mp_v('<M-k>', ":m '<-2<CR>gv=gv", 'Move selection up')
+mn('<M-j>', ':m .+1<CR>==', 'Move line down')
+mi('<M-j>', '<Esc>:m .+1<CR>==gi', 'Move line down')
+mi('<M-k>', '<Esc>:m .-2<CR>==gi', 'Move line up')
+mv('<M-j>', ":m '>+1<CR>gv=gv", 'Move selection down')
+mn('<M-k>', ':m .-2<CR>==', 'Move line up')
+mv('<M-k>', ":m '<-2<CR>gv=gv", 'Move selection up')
+
 -- Basic
-ld_n('q', '<cmd>q<cr>', 'Close buffer')
-ld_n('Q', '<cmd>qa<cr>', 'Close all')
-ld_n('w', '<cmd>w<cr>', 'Save buffer')
-ld_n('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
+ln('q', '<cmd>q<cr>', 'Close buffer')
+ln('Q', '<cmd>qa<cr>', 'Close all')
+ln('w', '<cmd>w<cr>', 'Save buffer')
+ln('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
+
+-- Spider
+mn('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
+mv('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
+mn('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
+mv('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
+mn('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
+mv('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
+
+mn('E', 'e', 'End of word')
+mv('E', 'e', 'End of word')
+mn('W', 'w', 'Start of next word')
+mv('W', 'w', 'Start of next word')
+mn('B', 'b', 'Start of previous word')
+mv('B', 'b', 'Start of previous word')
+
+-- Debugging
+group('b', 'Debug')
+
+local dap = require 'dap'
+local dapui = require 'dapui'
+local set_breakpoint = function()
+  dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+end
+local start_debug = function()
+  if vim.bo.filetype == 'ruby' then
+    vim.fn.setenv('RUBYOPT', '-rdebug/open')
+  end
+
+  dap.continue()
+end
+
+ln('bj', dap.step_into, 'Step Into')
+ln('bh', dap.step_back, 'Step Back')
+ln('bl', dap.step_over, 'Step Over')
+ln('bk', dap.step_out, 'Step Out')
+
+ln('bc', start_debug, 'Start/Continue')
+ln('bq', dap.terminate, 'Terminate')
+ln('b.', dap.run_last, 'Run last')
+ln('br', dap.run_to_cursor, 'Run to cursor')
+ln('bR', dap.restart, 'Restart session')
+ln('bt', dapui.toggle, 'See last session result.')
+
+ln('bb', dap.toggle_breakpoint, 'Toggle Breakpoint')
+ln('bC', dap.clear_breakpoints, 'Clear Breakpoint')
+ln('bB', set_breakpoint, 'Set Breakpoint')
 
 -- Neotree
 group('t', 'Neotree')
 
-ld_n('ts', '<cmd>Neotree document_symbols<cr>', 'Neotree document symbols')
-ld_n('td', '<cmd>Neotree diagnostics<cr>', 'Neotree diagnostics')
+ln('ts', '<cmd>Neotree document_symbols<cr>', 'Neotree document symbols')
+ln('td', '<cmd>Neotree diagnostics<cr>', 'Neotree diagnostics')
 
 -- Navigation
-mp_n('n', 'nzzzv', 'Next search match')
-mp_n('N', 'Nzzzv', 'Previous search match')
+mn('n', 'nzzzv', 'Next search match')
+mn('N', 'Nzzzv', 'Previous search match')
 
 -- Align
-mp_n('ga', '<Plug>(EasyAlign)', 'Align')
-mp_v('ga', '<Plug>(EasyAlign)', 'Align')
+mn('ga', '<Plug>(EasyAlign)', 'Align')
+mv('ga', '<Plug>(EasyAlign)', 'Align')
 
 -- Diagnostic keymaps
 group('d', 'Diagnostics')
 
-ld_n('dk', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
-ld_n('dj', vim.diagnostic.goto_next, 'Go to next diagnostic message')
-ld_n('df', vim.diagnostic.open_float, 'Open diagnostic Float')
-ld_n('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
-ld_n('ds', vim.diagnostic.show, 'Show diagnostics')
-ld_n('dt', '<Plug>(toggle-lsp-diag)', 'Toggle diagnostics')
-ld_n('de', '<Plug>(toggle-lsp-diag-default)', 'Enable diagnostics')
-ld_n('dd', '<Plug>(toggle-lsp-diag-off)', 'Disable diagnostics')
-ld_n('dv', '<Plug>(toggle-lsp-diag-vtext)', 'Toggle virtual text')
-ld_n('du', '<Plug>(toggle-lsp-diag-underline)', 'Toggle virtual text')
+ln('dk', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
+ln('dj', vim.diagnostic.goto_next, 'Go to next diagnostic message')
+ln('df', vim.diagnostic.open_float, 'Open diagnostic Float')
+ln('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
+ln('ds', vim.diagnostic.show, 'Show diagnostics')
+ln('dt', '<Plug>(toggle-lsp-diag)', 'Toggle diagnostics')
+ln('de', '<Plug>(toggle-lsp-diag-default)', 'Enable diagnostics')
+ln('dd', '<Plug>(toggle-lsp-diag-off)', 'Disable diagnostics')
+ln('dv', '<Plug>(toggle-lsp-diag-vtext)', 'Toggle virtual text')
+ln('du', '<Plug>(toggle-lsp-diag-underline)', 'Toggle virtual text')
 
 -- LSP keymaps
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'none',
+  border = 'single',
 })
-mp_n('gh', vim.lsp.buf.hover, 'LSP hover documentation')
-mp_n('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+mn('gh', vim.lsp.buf.hover, 'LSP hover documentation')
+mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
-mp_n('gt', require('telescope.builtin').lsp_type_definitions, 'Type definition')
-mp_n('gd', require('telescope.builtin').lsp_definitions, 'Goto definition')
-mp_n('gr', require('telescope.builtin').lsp_references, 'Goto References')
-mp_n('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
+mn('gt', require('telescope.builtin').lsp_type_definitions, 'Type definition')
+mn('gd', require('telescope.builtin').lsp_definitions, 'Goto definition')
+mn('gr', require('telescope.builtin').lsp_references, 'Goto References')
+mn('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
 
 group('l', 'Language Server')
 
@@ -105,72 +156,92 @@ local format_buffer = function()
   require('conform').format { async = true, lsp_fallback = true }
 end
 
-ld_n('lc', vim.lsp.buf.code_action, 'Code Action')
-ld_n('lr', vim.lsp.buf.rename, 'Rename')
+ln('lc', vim.lsp.buf.code_action, 'Code Action')
+ln('lr', vim.lsp.buf.rename, 'Rename')
 
-ld_n('lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
-ld_n('ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
+ln('lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
+ln('ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
 
-ld_n('lf', format_buffer, 'Format buffer')
+ln('lf', format_buffer, 'Format buffer')
 
 -- Telescope
 group('s', 'Search')
 
 local tsc_bin = require 'telescope.builtin'
 
-ld_n('s.', tsc_bin.oldfiles, 'Search Recent Files ("." for repeat)')
-ld_n('sc', tsc_bin.colorscheme, 'Colorscheme')
-ld_n('sd', tsc_bin.diagnostics, 'Search Diagnostics')
-ld_n('sf', tsc_bin.find_files, 'Files')
-ld_n('sg', tsc_bin.live_grep, 'Live grep')
-ld_n('sg', tsc_bin.live_grep, 'Search by Grep')
-ld_n('sh', tsc_bin.help_tags, 'Search Help')
-ld_n('sk', tsc_bin.keymaps, 'Search Keymaps')
-ld_n('sm', tsc_bin.man_pages, 'Manual pages')
-ld_n('sr', tsc_bin.resume, 'Search Resume')
-ld_n('ss', tsc_bin.lsp_workspace_symbols, 'Workspace symbols')
-ld_n('st', tsc_bin.builtin, 'Search Select Telescope')
-ld_n('sw', tsc_bin.grep_string, 'Search current Word')
-ld_n('<leader>', tsc_bin.buffers, 'Find existing buffers')
+ln('s.', tsc_bin.oldfiles, 'Search Recent Files ("." for repeat)')
+ln('sc', tsc_bin.colorscheme, 'Colorscheme')
+ln('sd', tsc_bin.diagnostics, 'Search Diagnostics')
+ln('f', tsc_bin.find_files, 'Files')
+ln('sf', tsc_bin.find_files, 'Files')
+ln('sg', tsc_bin.live_grep, 'Live grep')
+ln('sh', tsc_bin.help_tags, 'Search Help')
+ln('sk', tsc_bin.keymaps, 'Search Keymaps')
+ln('sl', tsc_bin.highlights, 'Search Highlights')
+ln('sm', tsc_bin.man_pages, 'Manual pages')
+ln('sr', tsc_bin.resume, 'Search Resume')
+ln('ss', tsc_bin.lsp_workspace_symbols, 'Workspace symbols')
+ln('st', tsc_bin.builtin, 'Search Select Telescope')
+ln('sw', tsc_bin.grep_string, 'Search current Word')
+ln('<leader>', tsc_bin.buffers, 'Find existing buffers')
 
 -- Line numbers
 group('n', 'Line Numbers')
 
-ld_n('nn', '<cmd>set invnumber<cr>', 'Toggle line numbers')
-ld_n('nr', '<cmd>set invrelativenumber<cr>', 'Toggle relative line numbers')
+ln('nn', '<cmd>set invnumber<cr>', 'Toggle line numbers')
+ln('nr', '<cmd>set invrelativenumber<cr>', 'Toggle relative line numbers')
 
 -- Insert mode
-mp_i('jj', '<Esc>', 'Exit insert mode')
-mp_i('<C-BS>', '<cmd>echo hello<cr>', 'Ctrl + backspace')
-mp_i('<C-Del>', '<space><esc>ce', 'Ctrl + delete')
+mi('jj', '<Esc>', 'Exit insert mode')
+mi('<C-h>', '<C-w>', 'Remove word before')
+mi('<C-l>', '<C-o>dw', 'Remove word after')
+mi('<C-k>', '<esc>vklc', 'Remove above')
+mi('<C-j>', '<C-o>vjhc', 'Remove below')
+mi('<C-Del>', '<C-o>dw', 'Remove word after')
+
+-- Pasting
+mv('p', '"_dP', 'Paste without yanking')
 
 -- Terminal mode
-mp_t('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
-mp_t('jj', '<C-\\><C-n>', 'Exit terminal mode')
+mt('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
+mt('jj', '<C-\\><C-n>', 'Exit terminal mode')
 
 -- Window navigation
-mp_n('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
-mp_n('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
-mp_n('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
-mp_n('<C-k>', '<C-w><C-k>', 'Move focus to the upper window')
+mn('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
+mn('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
+mn('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
+mn('<C-k>', '<C-w><C-k>', 'Move focus to the upper window')
 
-mp_n('<C-Right>', '<C-w>2>', 'Increase window width')
-mp_n('<C-Left>', '<C-w>2<', 'Decrease window width')
-mp_n('<C-Down>', '<C-w>2+', 'Increase window height')
-mp_n('<C-Up>', '<C-w>2-', 'Decrease window height')
+mn('<C-Right>', '<C-w>2>', 'Increase window width')
+mn('<C-Left>', '<C-w>2<', 'Decrease window width')
+mn('<C-Down>', '<C-w>2+', 'Increase window height')
+mn('<C-Up>', '<C-w>2-', 'Decrease window height')
 
 group('v', 'Window')
 
-ld_n('vv', '<C-w>v', 'Split window vertically')
-ld_n('vs', '<C-w>s', 'Split window horizontally')
-ld_n('vh', '<C-w>H', 'Move window to left')
-ld_n('ve', '<C-w>=', 'Equalize window size')
+ln('vv', '<C-w>v', 'Split window vertically')
+ln('vs', '<C-w>s', 'Split window horizontally')
+ln('vh', '<C-w>H', 'Move window to left')
+ln('ve', '<C-w>=', 'Equalize window size')
+
+ln('vl', '<C-w>L', 'Move window to right')
+ln('vj', '<C-w>J', 'Move window to bottom')
+ln('vk', '<C-w>K', 'Move window to top')
+ln('vh', '<C-w>H', 'Move window to left')
+
+-- Harpoon
+group('h', 'Harpoon')
+
+ln('ha', require('harpoon.mark').add_file, 'Add file to Harpoon')
+ln('hh', require('harpoon.ui').toggle_quick_menu, 'Toggle Harpoon menu')
+ln('hj', require('harpoon.ui').nav_next, 'Navigate to next file in Harpoon')
+ln('hk', require('harpoon.ui').nav_prev, 'Navigate to previous file in Harpoon')
 
 -- Gitsigns
 group('g', 'Git')
 local gitsigns = require 'gitsigns'
 -- Navigation
-ld_n('gj', function()
+ln('gj', function()
   if vim.wo.diff then
     vim.cmd.normal { ' gj', bang = true }
   else
@@ -178,7 +249,7 @@ ld_n('gj', function()
   end
 end, 'Jump to next git change')
 
-ld_n('gk', function()
+ln('gk', function()
   if vim.wo.diff then
     vim.cmd.normal { 'gk', bang = true }
   else
@@ -200,28 +271,28 @@ local diff_commit = function()
 end
 
 -- visual mode
-ld_v('gs', stage_marked, 'stage git hunk')
-ld_v('gr', reset_marked, 'reset git hunk')
+lv('gs', stage_marked, 'stage git hunk')
+lv('gr', reset_marked, 'reset git hunk')
 
 -- normal mode
-ld_n('gs', gitsigns.stage_hunk, 'Stage hunk')
-ld_n('gr', gitsigns.reset_hunk, 'Reset hunk')
-ld_n('gS', gitsigns.stage_buffer, 'Stage buffer')
-ld_n('gu', gitsigns.undo_stage_hunk, 'Undo stage hunk')
-ld_n('gR', gitsigns.reset_buffer, 'Reset buffer')
-ld_n('gp', gitsigns.preview_hunk, 'Preview hunk')
-ld_n('gb', gitsigns.blame_line, 'Blame line')
-ld_n('gd', gitsigns.diffthis, 'Diff against index')
-ld_n('gD', diff_commit, 'Diff against last commit')
+ln('gs', gitsigns.stage_hunk, 'Stage hunk')
+ln('gr', gitsigns.reset_hunk, 'Reset hunk')
+ln('gS', gitsigns.stage_buffer, 'Stage buffer')
+ln('gu', gitsigns.undo_stage_hunk, 'Undo stage hunk')
+ln('gR', gitsigns.reset_buffer, 'Reset buffer')
+ln('gp', gitsigns.preview_hunk, 'Preview hunk')
+ln('gb', gitsigns.blame_line, 'Blame line')
+ln('gd', gitsigns.diffthis, 'Diff against index')
+ln('gD', diff_commit, 'Diff against last commit')
 
 -- Toggle
 group('gt', 'Toggle')
 
-ld_n('gtb', gitsigns.toggle_current_line_blame, 'Show blame line')
-ld_n('gtd', gitsigns.toggle_deleted, 'Show deleted')
+ln('gtb', gitsigns.toggle_current_line_blame, 'Show blame line')
+ln('gtd', gitsigns.toggle_deleted, 'Show deleted')
 
 -- Line navigation
-mp_n('H', '0', 'Go to start of line')
-mp_v('H', '0', 'Go to start of line')
-mp_n('L', '$', 'Go to end of line')
-mp_v('L', '$', 'Go to end of line')
+mn('H', '0', 'Go to start of line')
+mv('H', '0', 'Go to start of line')
+mn('L', '$', 'Go to end of line')
+mv('L', '$', 'Go to end of line')

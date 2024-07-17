@@ -8,7 +8,7 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = {},
+          statusline = { 'alpha' },
           winbar = {},
         },
         ignore_focus = {},
@@ -22,7 +22,7 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_b = { { 'b:gitsigns_head', icon = '' }, 'diff' },
         lualine_c = {
           {
             'filename',
@@ -32,9 +32,10 @@ return {
               readonly = '-',
             },
           },
+          'diagnostics',
         },
-        lualine_x = { 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
+        lualine_x = { 'copilot', 'progress' },
+        lualine_y = { 'fileformat', 'filetype' },
         lualine_z = { 'location' },
       },
       inactive_sections = {

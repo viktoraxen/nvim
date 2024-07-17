@@ -55,6 +55,8 @@ vim.opt.scrolloff = 10
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 
+vim.opt.winblend = 15
+
 vim.diagnostic.config {
   underline = false,
   signs = true,
@@ -62,7 +64,7 @@ vim.diagnostic.config {
   virtual_text = false,
   severity_sort = true,
   float = {
-    border = 'none',
+    border = 'single',
   },
 }
 
