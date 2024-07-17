@@ -119,6 +119,7 @@ ln('td', '<cmd>Neotree diagnostics<cr>', 'Neotree diagnostics')
 -- Navigation
 mn('n', 'nzzzv', 'Next search match')
 mn('N', 'Nzzzv', 'Previous search match')
+mn('-', '/', 'Search')
 
 -- Align
 mn('ga', '<Plug>(EasyAlign)', 'Align')
@@ -131,18 +132,12 @@ ln('dk', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
 ln('dj', vim.diagnostic.goto_next, 'Go to next diagnostic message')
 ln('df', vim.diagnostic.open_float, 'Open diagnostic Float')
 ln('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
-ln('ds', vim.diagnostic.show, 'Show diagnostics')
-ln('dt', '<Plug>(toggle-lsp-diag)', 'Toggle diagnostics')
-ln('de', '<Plug>(toggle-lsp-diag-default)', 'Enable diagnostics')
-ln('dd', '<Plug>(toggle-lsp-diag-off)', 'Disable diagnostics')
-ln('dv', '<Plug>(toggle-lsp-diag-vtext)', 'Toggle virtual text')
-ln('du', '<Plug>(toggle-lsp-diag-underline)', 'Toggle virtual text')
+mn('gh', vim.diagnostic.open_float, 'Open diagnostic Float')
 
 -- LSP keymaps
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'single',
 })
-mn('gh', vim.lsp.buf.hover, 'LSP hover documentation')
 mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
 mn('gt', require('telescope.builtin').lsp_type_definitions, 'Type definition')
@@ -179,6 +174,7 @@ ln('sh', tsc_bin.help_tags, 'Search Help')
 ln('sk', tsc_bin.keymaps, 'Search Keymaps')
 ln('sl', tsc_bin.highlights, 'Search Highlights')
 ln('sm', tsc_bin.man_pages, 'Manual pages')
+ln('sp', '<cmd>Telescope neovim-project discover<cr>', 'Projects')
 ln('sr', tsc_bin.resume, 'Search Resume')
 ln('ss', tsc_bin.lsp_workspace_symbols, 'Workspace symbols')
 ln('st', tsc_bin.builtin, 'Search Select Telescope')

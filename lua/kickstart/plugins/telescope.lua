@@ -1,33 +1,49 @@
 return {
-  { -- Fuzzy Finder (files, lsp, etc)
+  {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { -- If encountering errors, see telescope-fzf-native README for installation instructions
+      {
         'nvim-telescope/telescope-fzf-native.nvim',
-
-        -- `build` is used to run some command when the plugin is installed/updated.
-        -- This is only run then, not every time Neovim starts up.
         build = 'make',
-
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
         cond = function()
           return vim.fn.executable 'make' == 1
         end,
       },
       'nvim-telescope/telescope-ui-select.nvim',
-      -- 'gbrlsnchs/telescope-lsp-handlers.nvim',
-
-      -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
-      -- [[ Configure Telescope ]]
-      -- See `:help telescope` and `:help telescope.setup()`
       local telescope = require 'telescope'
+
+      local preview_horizontal = function()
+        return {
+          preview = true,
+          layout_strategy = 'horizontal',
+          sorting_strategy = 'ascending',
+          layout_config = {
+            width = 0.75,
+            height = 0.8,
+          },
+        }
+      end
+      local preview_vertical = function()
+        return {
+          preview = true,
+          layout_strategy = 'vertical',
+          sorting_strategy = 'ascending',
+          layout_config = {
+            width = 0.5,
+            height = 0.5,
+            vertical = {
+              preview_height = 0.2,
+            },
+          },
+        }
+      end
+
       telescope.setup {
         defaults = {
           winblend = 10,
@@ -37,37 +53,29 @@ return {
           results_title = false,
 
           sorting_strategy = 'ascending',
-          layout_strategy = 'center',
+          layout_strategy = 'vertical',
           layout_config = {
+            width = 0.5,
+            height = 0.3,
+            vertical = {
+              prompt_position = 'top',
+              preview_height = 0.25,
+            },
             horizontal = {
               prompt_position = 'top',
               preview_width = 0.55,
             },
           },
-          previewer = false,
+          preview = false,
         },
 
         pickers = {
-          find_files = {
-            previewer = true,
-            layout_strategy = 'horizontal',
-          },
-          diagnostics = {
-            previewer = true,
-            layout_strategy = 'horizontal',
-          },
-          live_grep = {
-            previewer = true,
-            layout_strategy = 'horizontal',
-          },
-          symbols = {
-            previewer = true,
-            layout_strategy = 'horizontal',
-          },
-          grep_string = {
-            previewer = true,
-            layout_strategy = 'horizontal',
-          },
+          find_files = preview_horizontal(),
+          diagnostics = preview_horizontal(),
+          live_grep = preview_horizontal(),
+          symbols = preview_horizontal(),
+          grep_string = preview_horizontal(),
+          highlights = preview_vertical(),
         },
       }
 
@@ -91,11 +99,6 @@ return {
               },
             },
           },
-          -- lsp_handlers = {
-          --   code_action = {
-          --     telescope = require('telescope.themes').get_dropdown {},
-          --   },
-          -- },
         },
       }
     end,
