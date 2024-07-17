@@ -1,23 +1,7 @@
 return {
   'karb94/neoscroll.nvim',
   config = function()
-    require('neoscroll').setup {
-      --   mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
-      --   easing_function = 'quintic',
-      -- }
-      --
-      -- require('neoscroll.config').set_mappings {
-      --   ['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '100' } },
-      --   ['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '100' } },
-      --   ['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '100' } },
-      --   ['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '100' } },
-      --   ['<C-y>'] = { 'scroll', { '-0.10', 'false', '20' } },
-      --   ['<C-e>'] = { 'scroll', { '0.10', 'false', '20' } },
-      --
-      --   ['zt'] = { 'zt', { '100' } },
-      --   ['zz'] = { 'zz', { '100' } },
-      --   ['zb'] = { 'zb', { '100' } },
-    }
+    require('neoscroll').setup {}
     local neoscroll = require 'neoscroll'
     local keymap = {
       -- Use the "sine" easing function

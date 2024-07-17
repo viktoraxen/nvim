@@ -1,10 +1,3 @@
--- NOTE: Plugins can specify dependencies.
---
--- The dependencies are proper plugin specifications as well - anything
--- you do for a plugin at the top level, you can do for a dependency.
---
--- Use the `dependencies` key to specify the dependencies of a particular plugin
-
 return {
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -25,7 +18,8 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
+      'nvim-telescope/telescope-ui-select.nvim',
+      -- 'gbrlsnchs/telescope-lsp-handlers.nvim',
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -33,7 +27,56 @@ return {
     config = function()
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      require('telescope').setup {
+      local telescope = require 'telescope'
+      telescope.setup {
+        defaults = {
+          winblend = 10,
+          prompt_prefix = '  ',
+          selection_caret = ' ',
+          path_display = { 'smart' },
+          results_title = false,
+
+          sorting_strategy = 'ascending',
+          layout_strategy = 'center',
+          layout_config = {
+            horizontal = {
+              prompt_position = 'top',
+              preview_width = 0.55,
+            },
+          },
+          previewer = false,
+        },
+
+        pickers = {
+          find_files = {
+            previewer = true,
+            layout_strategy = 'horizontal',
+          },
+          diagnostics = {
+            previewer = true,
+            layout_strategy = 'horizontal',
+          },
+          live_grep = {
+            previewer = true,
+            layout_strategy = 'horizontal',
+          },
+          symbols = {
+            previewer = true,
+            layout_strategy = 'horizontal',
+          },
+          grep_string = {
+            previewer = true,
+            layout_strategy = 'horizontal',
+          },
+        },
+      }
+
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'project')
+      -- pcall(require('telescope').load_extension, 'lsp-handlers')
+
+      telescope.setup {
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -47,49 +90,14 @@ return {
                 '~/dev',
               },
             },
-            previewer = false,
           },
-        },
-
-        defaults = {
-          winblend = 10,
-          prompt_prefix = '  ',
-          selection_caret = ' ',
-          path_display = { 'smart' },
-          results_title = false,
-          previewer = false,
-
-          sorting_strategy = 'ascending',
-          layout_strategy = 'horizontal',
-          layout_config = {
-            prompt_position = 'top',
-            preview_width = 0.55,
-          },
-        },
-
-        pickers = {
-          find_files = {
-            previewer = true,
-          },
-          diagnostics = {
-            previewer = true,
-          },
-          live_grep = {
-            previewer = true,
-          },
-          symbols = {
-            previewer = true,
-          },
-          grep_string = {
-            previewer = true,
-          },
+          -- lsp_handlers = {
+          --   code_action = {
+          --     telescope = require('telescope.themes').get_dropdown {},
+          --   },
+          -- },
         },
       }
-
-      -- Enable Telescope extensions if they are installed
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'project')
     end,
   },
 }
