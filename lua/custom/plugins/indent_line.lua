@@ -5,7 +5,11 @@ return {
     opts = {},
     config = function()
       require('ibl').setup {
-        indent = { highlight = highlight, char = '│' },
+        indent = { char = '│' },
+        scope = {
+          show_start = false,
+          show_end = false,
+        },
       }
     end,
   },

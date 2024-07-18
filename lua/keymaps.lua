@@ -1,7 +1,9 @@
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
 local map = function(mode, key, action, desc)
   vim.keymap.set(mode, key, action, { desc = desc })
+end
+
+local mo = function(key, action, desc)
+  map('o', key, action, desc)
 end
 
 local mn = function(key, action, desc)
@@ -66,10 +68,13 @@ ln('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
 -- Spider
 mn('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
 mv('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
+mo('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
 mn('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
 mv('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
+mo('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
 mn('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
 mv('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
+mo('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
 
 mn('E', 'e', 'End of word')
 mv('E', 'e', 'End of word')
@@ -77,6 +82,13 @@ mn('W', 'w', 'Start of next word')
 mv('W', 'w', 'Start of next word')
 mn('B', 'b', 'Start of previous word')
 mv('B', 'b', 'Start of previous word')
+
+-- Info
+group('i', 'Info')
+
+ln('il', '<cmd>:LspInfo<cr>', 'LSP')
+ln('ip', '<cmd>:Lazy<cr>', 'Plugins')
+ln('im', '<cmd>:Mason<cr>', 'Mason')
 
 -- Debugging
 group('b', 'Debug')
@@ -128,11 +140,10 @@ mv('ga', '<Plug>(EasyAlign)', 'Align')
 -- Diagnostic keymaps
 group('d', 'Diagnostics')
 
-ln('dk', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
-ln('dj', vim.diagnostic.goto_next, 'Go to next diagnostic message')
-ln('df', vim.diagnostic.open_float, 'Open diagnostic Float')
+ln('dk', '<cmd>Lspsaga diagnostic_jump_prev<cr>', 'Go to previous diagnostic message')
+ln('dj', '<cmd>Lspsaga diagnostic_jump_next<cr>', 'Go to next diagnostic message')
 ln('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
-mn('gh', vim.diagnostic.open_float, 'Open diagnostic Float')
+mn('gh', '<cmd>Lspsaga diagnostic_jump_next<cr>', 'Open diagnostic Float')
 
 -- LSP keymaps
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -140,8 +151,8 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 })
 mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
-mn('gt', require('telescope.builtin').lsp_type_definitions, 'Type definition')
-mn('gd', require('telescope.builtin').lsp_definitions, 'Goto definition')
+mn('gt', '<cmd>Lspsaga peek_type_definition<cr>', 'Peek type definition')
+mn('gd', '<cmd>Lspsaga peek_definition<cr>', 'Peek definition')
 mn('gr', require('telescope.builtin').lsp_references, 'Goto References')
 mn('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
 
@@ -151,35 +162,38 @@ local format_buffer = function()
   require('conform').format { async = true, lsp_fallback = true }
 end
 
-ln('lc', vim.lsp.buf.code_action, 'Code Action')
-ln('lr', vim.lsp.buf.rename, 'Rename')
-
-ln('lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
+ln('la', '<cmd>Lspsaga code_action<cr>', 'Code actions')
+ln('lf', '<cmd>Lspsaga finder<cr>', 'Find references')
+ln('li', '<cmd>Lspsaga incoming_calls<cr>', 'Incoming calls')
+ln('lI', '<cmd>Lspsaga finder imp<cr>', 'Find implementations')
+ln('ll', '<cmd>Lspsaga outline<cr>', 'Outline')
+ln('lo', '<cmd>Lspsaga outgoing_calls<cr>', 'Outgoing calls')
+ln('lr', '<cmd>Lspsaga rename<cr>', 'Rename')
 ln('ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
+ln('lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
 
-ln('lf', format_buffer, 'Format buffer')
+ln('lF', format_buffer, 'Format buffer')
 
 -- Telescope
 group('s', 'Search')
 
-local tsc_bin = require 'telescope.builtin'
+local tele = require 'telescope.builtin'
 
-ln('s.', tsc_bin.oldfiles, 'Search Recent Files ("." for repeat)')
-ln('sc', tsc_bin.colorscheme, 'Colorscheme')
-ln('sd', tsc_bin.diagnostics, 'Search Diagnostics')
-ln('f', tsc_bin.find_files, 'Files')
-ln('sf', tsc_bin.find_files, 'Files')
-ln('sg', tsc_bin.live_grep, 'Live grep')
-ln('sh', tsc_bin.help_tags, 'Search Help')
-ln('sk', tsc_bin.keymaps, 'Search Keymaps')
-ln('sl', tsc_bin.highlights, 'Search Highlights')
-ln('sm', tsc_bin.man_pages, 'Manual pages')
+ln('f', tele.find_files, 'Files')
+ln('s.', tele.oldfiles, 'Search Recent Files ("." for repeat)')
+ln('sc', tele.colorscheme, 'Colorscheme')
+ln('sd', tele.diagnostics, 'Search Diagnostics')
+ln('sf', tele.find_files, 'Files')
+ln('sg', tele.live_grep, 'Live grep')
+ln('sh', tele.help_tags, 'Search Help')
+ln('sk', tele.keymaps, 'Search Keymaps')
+ln('sl', tele.highlights, 'Search Highlights')
+ln('sm', tele.man_pages, 'Manual pages')
 ln('sp', '<cmd>Telescope neovim-project discover<cr>', 'Projects')
-ln('sr', tsc_bin.resume, 'Search Resume')
-ln('ss', tsc_bin.lsp_workspace_symbols, 'Workspace symbols')
-ln('st', tsc_bin.builtin, 'Search Select Telescope')
-ln('sw', tsc_bin.grep_string, 'Search current Word')
-ln('<leader>', tsc_bin.buffers, 'Find existing buffers')
+ln('sr', tele.resume, 'Search Resume')
+ln('ss', tele.lsp_workspace_symbols, 'Workspace symbols')
+ln('st', tele.builtin, 'Search Select Telescope')
+ln('sw', tele.grep_string, 'Search current Word')
 
 -- Line numbers
 group('n', 'Line Numbers')
@@ -200,7 +214,7 @@ mv('p', '"_dP', 'Paste without yanking')
 
 -- Terminal mode
 mt('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
-mt('jj', '<C-\\><C-n>', 'Exit terminal mode')
+mt('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 
 -- Window navigation
 mn('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
@@ -292,3 +306,9 @@ mn('H', '0', 'Go to start of line')
 mv('H', '0', 'Go to start of line')
 mn('L', '$', 'Go to end of line')
 mv('L', '$', 'Go to end of line')
+
+-- Copilot
+group('c', 'Copilot')
+
+ln('cd', '<cmd>Copilot disable<cr>', 'Disable')
+ln('ce', '<cmd>Copilot enable<cr>', 'Enable')

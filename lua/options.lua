@@ -56,6 +56,8 @@ vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 15
+vim.opt.pumblend = 15
+vim.opt.pumheight = 10
 
 vim.diagnostic.config {
   underline = false,

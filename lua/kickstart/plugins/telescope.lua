@@ -71,6 +71,9 @@ return {
 
         pickers = {
           find_files = preview_horizontal(),
+          lsp_references = preview_horizontal(),
+          lsp_document_symbols = preview_horizontal(),
+          lsp_dynamic_workspace_symbols = preview_horizontal(),
           diagnostics = preview_horizontal(),
           live_grep = preview_horizontal(),
           symbols = preview_horizontal(),

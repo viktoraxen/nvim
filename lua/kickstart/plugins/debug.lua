@@ -11,6 +11,9 @@ return {
     'mfussenegger/nvim-dap-python',
     'suketa/nvim-dap-ruby',
   },
+  keys = {
+    '<leader>bc',
+  },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
