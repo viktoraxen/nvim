@@ -17,6 +17,13 @@ return {
     vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#404040', italic = false })
     vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#404040', italic = false })
 
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'neo-tree',
+      callback = function()
+        vim.opt_local.fillchars = 'eob: ' -- Removes the ~ by setting end-of-buffer character to a blank space
+      end,
+    })
+
     require('neo-tree').setup {
       window = {
         position = 'right',

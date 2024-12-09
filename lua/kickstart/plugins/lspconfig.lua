@@ -82,7 +82,23 @@ return {
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
-        --
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pycodestyle = { enabled = false },
+                pylint = { enabled = false },
+                flake8 = {
+                  enabled = true,
+                  maxLineLength = 120,
+                },
+                pyflakes = { enabled = false },
+                mccabe = { enabled = false },
+                mypy = { enabled = false },
+              },
+            },
+          },
+        },
 
         rubocop = {
           -- cmd = {...},

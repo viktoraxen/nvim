@@ -140,10 +140,15 @@ mv('ga', '<Plug>(EasyAlign)', 'Align')
 -- Diagnostic keymaps
 group('d', 'Diagnostics')
 
+local toggle_signcolumn = function()
+  vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
+end
+
 ln('dk', '<cmd>Lspsaga diagnostic_jump_prev<cr>', 'Go to previous diagnostic message')
 ln('dj', '<cmd>Lspsaga diagnostic_jump_next<cr>', 'Go to next diagnostic message')
 ln('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
-mn('gh', '<cmd>Lspsaga diagnostic_jump_next<cr>', 'Open diagnostic Float')
+ln('ds', toggle_signcolumn, 'Toggle diagnostic sign column')
+ln('dd', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Open diagnostic Float')
 
 -- LSP keymaps
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -153,6 +158,7 @@ mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
 
 mn('gt', '<cmd>Lspsaga peek_type_definition<cr>', 'Peek type definition')
 mn('gd', '<cmd>Lspsaga peek_definition<cr>', 'Peek definition')
+mn('gh', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Open diagnostic Float')
 mn('gr', require('telescope.builtin').lsp_references, 'Goto References')
 mn('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
 
@@ -208,6 +214,10 @@ mi('<C-l>', '<C-o>dw', 'Remove word after')
 mi('<C-k>', '<esc>vklc', 'Remove above')
 mi('<C-j>', '<C-o>vjhc', 'Remove below')
 mi('<C-Del>', '<C-o>dw', 'Remove word after')
+mi('<C-d>', '<esc>yypi', 'Duplicate line')
+mi('<C-x>', '<C-o>dd', 'Cut line')
+mi('<C-c>', '<C-o>yy', 'Copy line')
+-- mi('<C-v>', '<C-o>p', 'Paste line')
 
 -- Pasting
 mv('p', '"_dP', 'Paste without yanking')

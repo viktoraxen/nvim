@@ -25,7 +25,13 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { { 'b:gitsigns_head', icon = '' }, 'diff' },
+        lualine_b = {
+          {
+            'b:gitsigns_head',
+            icon = '',
+          },
+          'diff',
+        },
         lualine_c = {
           {
             'filename',
@@ -36,23 +42,23 @@ return {
             },
           },
           'diagnostics',
-          {
-            color = { fg = '#7aa2f7' },
-            function()
-              if not pcall(require, 'lsp_signature') then
-                return
-              end
-              local sig = require('lsp_signature').status_line(width)
-              if sig.label == '' then
-                return ''
-              end
-              return sig.label .. '  ' .. sig.hint
-            end,
-          },
+          -- {
+          --   color = { fg = '#7aa2f7' },
+          --   function()
+          --     if not pcall(require, 'lsp_signature') then
+          --       return
+          --     end
+          --     local sig = require('lsp_signature').status_line(width)
+          --     if sig.label == '' then
+          --       return ''
+          --     end
+          --     return sig.label .. '  ' .. sig.hint
+          --   end,
+          -- },
         },
-        lualine_x = { 'copilot', 'progress' },
+        lualine_x = { 'copilot' },
         lualine_y = { 'fileformat', 'filetype' },
-        lualine_z = { 'location' },
+        lualine_z = { 'progress', 'location' },
       },
       inactive_sections = {
         lualine_a = {},

@@ -4,8 +4,8 @@ return {
     require('FTerm').setup {
       blend = 15,
       dimensions = {
-        height = 0.95,
-        width = 0.95,
+        height = 0.90,
+        width = 0.90,
         x = 0.5,
         y = 0.5,
       },

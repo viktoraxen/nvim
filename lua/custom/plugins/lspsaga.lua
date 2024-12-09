@@ -10,14 +10,15 @@ return {
         definition = {
           keys = {
             edit = '<CR>',
-            vslit = 'v',
+            vsplit = 'v',
           },
         },
         lightbulb = {
-          virtual_text = false,
+          virtual_text = true,
+          sign = false,
         },
         ui = {
-          code_action = '󱐌',
+          code_action = ' 󱐌',
           expand = '',
           collapse = '',
           scroll_up = '<C-u>',

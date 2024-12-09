@@ -3,6 +3,7 @@ return {
   opts = {
     projects = {
       '~/dev/*',
+      '~/dev/ensimag/*',
     },
     dashboard_mode = true,
     autosave_ignore_filetypes = {

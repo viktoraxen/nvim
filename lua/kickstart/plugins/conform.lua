@@ -17,14 +17,18 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         ruby = { 'rubocop' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        cpp = { 'clang-format' },
+        python = { 'black' },
+        markdown = { 'prettier' },
+      },
+      formatters = {
+        black = {
+          prepend_args = { '--line-length', '100' },
+        },
+        clang = {
+          prepend_args = { '--style=~/.clang_style' },
+        },
       },
     },
   },
 }
--- vim: ts=2 sts=2 sw=2 et

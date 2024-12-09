@@ -32,7 +32,6 @@ return {
     'onsails/lspkind.nvim',
   },
   config = function()
-    -- vim.keymap.set('i', '<C-n>', '<cmd>lua require("cmp").complete()<CR>', { noremap = true, silent = true })
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
     luasnip.config.setup {}
@@ -40,13 +39,14 @@ return {
     cmp.setup {
       window = {
         completion = {
-          winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
           side_padding = 0,
-          border = 'single',
+          border = 'rounded',
           winblend = 15,
+          col_offset = 1,
         },
         documentation = {
-          border = 'single',
+          border = 'rounded',
+          max_height = 40,
         },
       },
       view = {
@@ -63,9 +63,9 @@ return {
         completeopt = 'menu,menuone,noinsert',
       },
       mapping = cmp.mapping.preset.insert {
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-k>'] = function()
+        ['<C-j>'] = cmp.mapping.select_next_item(),
+        ['<C-k>'] = cmp.mapping.select_prev_item(),
+        ['<C-m>'] = function()
           if cmp.visible_docs() then
             cmp.close_docs()
           else
@@ -78,27 +78,21 @@ return {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(1),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-y>'] = cmp.mapping.confirm { select = true },
+        ['<C-l>'] = cmp.mapping.confirm { select = true },
+        ['<C-CR>'] = cmp.mapping.confirm { select = true },
+        ['<C-h>'] = cmp.mapping(function(fallback)
+          cmp.abort()
+          fallback()
+        end, { 'i', 's' }),
 
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<CR>'] = cmp.mapping {
-          i = function(fallback)
-            if cmp.visible() and cmp.get_active_entry() then
-              cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
-            else
-              fallback()
-            end
-          end,
-          s = cmp.mapping.confirm { select = true },
-          c = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-        },
 
-        ['<C-l>'] = cmp.mapping(function()
+        ['<C-n>'] = cmp.mapping(function()
           if luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           end
         end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function()
+        ['<C-p>'] = cmp.mapping(function()
           if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           end
@@ -127,27 +121,5 @@ return {
         },
       },
     }
-
-    local colors = require 'tokyonight.colors.night'
-
-    -- gray
-    vim.api.nvim_set_hl(0, 'CmpItemAbbrDeprecated', { bg = 'NONE', strikethrough = true, fg = '#808080' })
-    -- blue
-    vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg = 'NONE', fg = '#569CD6' })
-    vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link = 'CmpIntemAbbrMatch' })
-    -- light blue
-    vim.api.nvim_set_hl(0, 'CmpItemKindVariable', { bg = 'NONE', fg = '#9CDCFE' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindInterface', { link = 'CmpItemKindVariable' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'CmpItemKindVariable' })
-    -- pink
-    vim.api.nvim_set_hl(0, 'CmpItemKindFunction', { bg = 'NONE', fg = '#C586C0' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindMethod', { link = 'CmpItemKindFunction' })
-    -- front
-    vim.api.nvim_set_hl(0, 'CmpItemKindKeyword', { bg = 'NONE', fg = '#D4D4D4' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindProperty', { link = 'CmpItemKindKeyword' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindUnit', { link = 'CmpItemKindKeyword' })
-
-    vim.api.nvim_set_hl(0, 'CmpItemMenu', { link = 'NormalFloat' })
-    vim.api.nvim_set_hl(0, 'PMenu', { link = 'NormalFloat' })
   end,
 }
