@@ -39,12 +39,21 @@ vim.opt.hlsearch = true
 mn('<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Terminal
-local term = require 'FTerm'
+-- local term = require 'FTerm'
+mn('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mi('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mv('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mt('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
 
-mn('<M-3>', term.toggle, 'Toggle terminal')
-mi('<M-3>', term.toggle, 'Toggle terminal')
-mv('<M-3>', term.toggle, 'Toggle terminal')
-mt('<M-3>', term.toggle, 'Toggle terminal')
+mn('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mi('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mv('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mt('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+
+-- mn('<M-4>', term.toggle, 'Toggle terminal')
+-- mi('<M-4>', term.toggle, 'Toggle terminal')
+-- mv('<M-4>', term.toggle, 'Toggle terminal')
+-- mt('<M-4>', term.toggle, 'Toggle terminal')
 
 -- Visual editing
 mv('=', '=gv', 'Auto-indent selection')
@@ -137,6 +146,12 @@ mn('-', '/', 'Search')
 mn('ga', '<Plug>(EasyAlign)', 'Align')
 mv('ga', '<Plug>(EasyAlign)', 'Align')
 
+-- Copy
+mn('yA', 'ggVGy<c-o>', 'Copy all')
+mn('vA', 'ggVG', 'Select all')
+mn('dA', 'ggVGd', 'Delete all')
+mn('cA', 'ggVGc', 'Change all')
+
 -- Diagnostic keymaps
 group('d', 'Diagnostics')
 
@@ -223,7 +238,7 @@ mi('<C-c>', '<C-o>yy', 'Copy line')
 mv('p', '"_dP', 'Paste without yanking')
 
 -- Terminal mode
-mt('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
+-- mt('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
 mt('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 
 -- Window navigation

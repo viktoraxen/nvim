@@ -52,6 +52,7 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 
@@ -66,7 +67,7 @@ vim.diagnostic.config {
   virtual_text = false,
   severity_sort = true,
   float = {
-    border = 'single',
+    border = 'none',
   },
 }
 
@@ -84,5 +85,13 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.opt_local.textwidth = 80
     vim.opt_local.wrap = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'html',
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
   end,
 })

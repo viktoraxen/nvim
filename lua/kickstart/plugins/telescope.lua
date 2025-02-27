@@ -17,18 +17,21 @@ return {
     },
     config = function()
       local telescope = require 'telescope'
+      local actions = require 'telescope.actions'
 
       local preview_horizontal = function()
         return {
           preview = true,
           layout_strategy = 'horizontal',
           sorting_strategy = 'ascending',
+          -- border = 'none',
           layout_config = {
             width = 0.75,
             height = 0.8,
           },
         }
       end
+
       local preview_vertical = function()
         return {
           preview = true,
@@ -67,6 +70,15 @@ return {
             },
           },
           preview = false,
+          mappings = {
+            i = {
+              ['<C-j>'] = actions.move_selection_next,
+              ['<C-k>'] = actions.move_selection_previous,
+              ['<C-h>'] = actions.close,
+              ['<C-s>'] = actions.select_horizontal,
+              ['<C-l>'] = actions.select_default,
+            },
+          },
         },
 
         pickers = {

@@ -1,0 +1,47 @@
+snippet doc
+    /**
+     * ${1}
+     */
+
+snippet cout
+    std::cout << "${1}" << std::endl;
+
+snippet cin
+    std::cin >> ${1};
+
+snippet for
+    for (${1:int} i = 0; i < ${2:count}; i++)
+    {
+        ${3}
+    }
+
+snippet foreach
+    for (${1:const auto&} ${2:item} : ${3:container})
+    {
+        ${4}
+    }
+
+snippet while
+    while (${1:condition})
+    {
+        ${2}
+    }
+
+snippet fun
+    ${1:void} ${2:function_name}(${3:parameters})
+    {
+        ${4}
+    }
+
+snippet main
+    int main(int argc, char *argv[])
+    {
+        ${0}
+    }
+
+snippet iinf
+    std::numeric_limits<int>::max()
+
+snippet finf
+    std::numeric_limits<float>::infinity()
+

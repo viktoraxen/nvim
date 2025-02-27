@@ -17,7 +17,7 @@ return {
         {
           'rafamadriz/friendly-snippets',
           config = function()
-            require('luasnip.loaders.from_vscode').lazy_load()
+            require('luasnip.loaders.from_vscode').lazy_load { exclude = { 'cpp' } }
           end,
         },
       },
@@ -33,39 +33,57 @@ return {
   },
   config = function()
     local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
-    luasnip.config.setup {}
+    local ls = require 'luasnip'
+    local lsloader = require 'luasnip.loaders.from_snipmate'
+
+    lsloader.lazy_load { paths = '~/.config/nvim/snippets' }
 
     cmp.setup {
+      enabled = function()
+        -- disable completion in comments
+        local context = require 'cmp.config.context'
+        -- keep command mode completion enabled when cursor is in a comment
+        if vim.api.nvim_get_mode().mode == 'c' then
+          return true
+        else
+          return not context.in_treesitter_capture 'comment' and not context.in_syntax_group 'Comment'
+        end
+      end,
+
       window = {
         completion = {
           side_padding = 0,
-          border = 'rounded',
+          border = 'none',
           winblend = 15,
           col_offset = 1,
         },
         documentation = {
-          border = 'rounded',
+          border = 'none',
           max_height = 40,
+          winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
         },
       },
+
       view = {
         docs = {
           auto_open = false,
         },
       },
+
       snippet = {
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          ls.lsp_expand(args.body)
         end,
       },
+
       completion = {
         completeopt = 'menu,menuone,noinsert',
       },
+
       mapping = cmp.mapping.preset.insert {
         ['<C-j>'] = cmp.mapping.select_next_item(),
         ['<C-k>'] = cmp.mapping.select_prev_item(),
-        ['<C-m>'] = function()
+        ['<C-o>'] = function()
           if cmp.visible_docs() then
             cmp.close_docs()
           else
@@ -79,7 +97,6 @@ return {
         ['<C-d>'] = cmp.mapping.scroll_docs(1),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-l>'] = cmp.mapping.confirm { select = true },
-        ['<C-CR>'] = cmp.mapping.confirm { select = true },
         ['<C-h>'] = cmp.mapping(function(fallback)
           cmp.abort()
           fallback()
@@ -88,20 +105,23 @@ return {
         ['<C-Space>'] = cmp.mapping.complete {},
 
         ['<C-n>'] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
+          if ls.expand_or_locally_jumpable() then
+            ls.expand_or_jump()
           end
         end, { 'i', 's' }),
         ['<C-p>'] = cmp.mapping(function()
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
+          if ls.locally_jumpable(-1) then
+            ls.jump(-1)
           end
         end, { 'i', 's' }),
       },
       sources = {
         -- { name = 'copilot' },
         { name = 'nvim_lsp' },
-        { name = 'luasnip' },
+        {
+          name = 'luasnip',
+          priority = 10000,
+        },
         { name = 'path' },
       },
     }
@@ -111,6 +131,25 @@ return {
       formatting = {
         format = lspkind.cmp_format {
           mode = 'symbol_text',
+          before = function(_, vim_item)
+            -- Trims the leading junk characters from the completion items
+            vim_item.abbr = vim_item.abbr:gsub('~$', '')
+            vim_item.abbr = vim_item.abbr:gsub('^•', '')
+            vim_item.abbr = vim_item.abbr:gsub('^%s+', ''):gsub('%s+$', '')
+
+            -- Make sure the completion items are all the same width
+            -- This is to make the window a consistent width
+            local max_width = 35
+            local display_width = vim.fn.strdisplaywidth(vim_item.abbr)
+
+            if display_width > max_width then
+              vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, max_width - 3) .. '...'
+            elseif display_width < max_width then
+              vim_item.abbr = vim_item.abbr .. string.rep(' ', max_width - display_width)
+            end
+
+            return vim_item
+          end,
           menu = {
             buffer = '[Buffer]',
             nvim_lsp = '[LSP]',
