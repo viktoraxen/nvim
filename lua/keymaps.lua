@@ -1,59 +1,42 @@
 local map = function(mode, key, action, desc)
-  vim.keymap.set(mode, key, action, { desc = desc })
+    vim.keymap.set(mode, key, action, { desc = desc })
 end
 
 local mo = function(key, action, desc)
-  map('o', key, action, desc)
+    map('o', key, action, desc)
 end
 
 local mn = function(key, action, desc)
-  map('n', key, action, desc)
+    map('n', key, action, desc)
 end
 
 local mv = function(key, action, desc)
-  map('v', key, action, desc)
+    map('v', key, action, desc)
 end
 
 local mt = function(key, action, desc)
-  map('t', key, action, desc)
+    map('t', key, action, desc)
 end
 
 local mi = function(key, action, desc)
-  map('i', key, action, desc)
+    map('i', key, action, desc)
 end
 
 local ln = function(key, action, desc)
-  mn('<leader>' .. key, action, desc)
+    mn('<leader>' .. key, action, desc)
 end
 
 local lv = function(key, action, desc)
-  mv('<leader>' .. key, action, desc)
+    mv('<leader>' .. key, action, desc)
 end
 
 local group = function(key, desc)
-  require('which-key').add { mode = { 'n', 'v' }, { '<leader>' .. key, group = desc } }
+    require('which-key').add { mode = { 'n', 'v' }, { '<leader>' .. key, group = desc } }
 end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 mn('<Esc>', '<cmd>nohlsearch<CR>')
-
--- Terminal
--- local term = require 'FTerm'
-mn('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mi('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mv('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mt('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-
-mn('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mi('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mv('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mt('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-
--- mn('<M-4>', term.toggle, 'Toggle terminal')
--- mi('<M-4>', term.toggle, 'Toggle terminal')
--- mv('<M-4>', term.toggle, 'Toggle terminal')
--- mt('<M-4>', term.toggle, 'Toggle terminal')
 
 -- Visual editing
 mv('=', '=gv', 'Auto-indent selection')
@@ -68,11 +51,44 @@ mv('<M-j>', ":m '>+1<CR>gv=gv", 'Move selection down')
 mn('<M-k>', ':m .-2<CR>==', 'Move line up')
 mv('<M-k>', ":m '<-2<CR>gv=gv", 'Move selection up')
 
+-- Line navigation
+mn('H', '0', 'Go to start of line')
+mv('H', '0', 'Go to start of line')
+mn('L', '$', 'Go to end of line')
+mv('L', '$', 'Go to end of line')
+
 -- Basic
 ln('q', '<cmd>q<cr>', 'Close buffer')
 ln('Q', '<cmd>qa<cr>', 'Close all')
 ln('w', '<cmd>w<cr>', 'Save buffer')
 ln('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
+
+-- LSP keymaps
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = 'single',
+})
+
+mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+mn('gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Go to type definition')
+mn('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition')
+mn('gh', '<cmd>lua vim.diagnostic.open_float(nil, { border = "single" })<cr>', 'Open diagnostic Float')
+
+group('l', 'Language Server')
+
+local format_buffer = function()
+    require('conform').format { async = true, lsp_fallback = true }
+end
+
+ln('lF', format_buffer, 'Format buffer')
+ln('lr', '<cmd>lua require("renamer").rename()<cr>', 'Rename symbol')
+
+-- Search
+group('s', 'Search')
+
+ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Search in project')
+ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Search files')
+ln('sp', '<cmd>lua Snacks.picker.projects()<cr>', 'Search projects')
+ln('sr', '<cmd>lua Snacks.picker.resume()<cr>', 'Resume search')
 
 -- Spider
 mn('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
@@ -92,51 +108,6 @@ mv('W', 'w', 'Start of next word')
 mn('B', 'b', 'Start of previous word')
 mv('B', 'b', 'Start of previous word')
 
--- Info
-group('i', 'Info')
-
-ln('il', '<cmd>:LspInfo<cr>', 'LSP')
-ln('ip', '<cmd>:Lazy<cr>', 'Plugins')
-ln('im', '<cmd>:Mason<cr>', 'Mason')
-
--- Debugging
-group('b', 'Debug')
-
-local dap = require 'dap'
-local dapui = require 'dapui'
-local set_breakpoint = function()
-  dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-end
-local start_debug = function()
-  if vim.bo.filetype == 'ruby' then
-    vim.fn.setenv('RUBYOPT', '-rdebug/open')
-  end
-
-  dap.continue()
-end
-
-ln('bj', dap.step_into, 'Step Into')
-ln('bh', dap.step_back, 'Step Back')
-ln('bl', dap.step_over, 'Step Over')
-ln('bk', dap.step_out, 'Step Out')
-
-ln('bc', start_debug, 'Start/Continue')
-ln('bq', dap.terminate, 'Terminate')
-ln('b.', dap.run_last, 'Run last')
-ln('br', dap.run_to_cursor, 'Run to cursor')
-ln('bR', dap.restart, 'Restart session')
-ln('bt', dapui.toggle, 'See last session result.')
-
-ln('bb', dap.toggle_breakpoint, 'Toggle Breakpoint')
-ln('bC', dap.clear_breakpoints, 'Clear Breakpoint')
-ln('bB', set_breakpoint, 'Set Breakpoint')
-
--- Neotree
-group('t', 'Neotree')
-
-ln('ts', '<cmd>Neotree document_symbols<cr>', 'Neotree document symbols')
-ln('td', '<cmd>Neotree diagnostics<cr>', 'Neotree diagnostics')
-
 -- Navigation
 mn('n', 'nzzzv', 'Next search match')
 mn('N', 'Nzzzv', 'Previous search match')
@@ -152,76 +123,6 @@ mn('vA', 'ggVG', 'Select all')
 mn('dA', 'ggVGd', 'Delete all')
 mn('cA', 'ggVGc', 'Change all')
 
--- Diagnostic keymaps
-group('d', 'Diagnostics')
-
-local toggle_signcolumn = function()
-  vim.wo.signcolumn = vim.wo.signcolumn == 'yes' and 'no' or 'yes'
-end
-
-ln('dk', '<cmd>Lspsaga diagnostic_jump_prev<cr>', 'Go to previous diagnostic message')
-ln('dj', '<cmd>Lspsaga diagnostic_jump_next<cr>', 'Go to next diagnostic message')
-ln('dq', vim.diagnostic.setloclist, 'Open diagnostic quickfix list')
-ln('ds', toggle_signcolumn, 'Toggle diagnostic sign column')
-ln('dd', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Open diagnostic Float')
-
--- LSP keymaps
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'single',
-})
-mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-
-mn('gt', '<cmd>Lspsaga peek_type_definition<cr>', 'Peek type definition')
-mn('gd', '<cmd>Lspsaga peek_definition<cr>', 'Peek definition')
-mn('gh', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Open diagnostic Float')
-mn('gr', require('telescope.builtin').lsp_references, 'Goto References')
-mn('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
-
-group('l', 'Language Server')
-
-local format_buffer = function()
-  require('conform').format { async = true, lsp_fallback = true }
-end
-
-ln('la', '<cmd>Lspsaga code_action<cr>', 'Code actions')
-ln('lf', '<cmd>Lspsaga finder<cr>', 'Find references')
-ln('li', '<cmd>Lspsaga incoming_calls<cr>', 'Incoming calls')
-ln('lI', '<cmd>Lspsaga finder imp<cr>', 'Find implementations')
-ln('ll', '<cmd>Lspsaga outline<cr>', 'Outline')
-ln('lo', '<cmd>Lspsaga outgoing_calls<cr>', 'Outgoing calls')
-ln('lr', '<cmd>Lspsaga rename<cr>', 'Rename')
-ln('ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
-ln('lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace symbols')
-
-ln('lF', format_buffer, 'Format buffer')
-
--- Telescope
-group('s', 'Search')
-
-local tele = require 'telescope.builtin'
-
-ln('f', tele.find_files, 'Files')
-ln('s.', tele.oldfiles, 'Search Recent Files ("." for repeat)')
-ln('sc', tele.colorscheme, 'Colorscheme')
-ln('sd', tele.diagnostics, 'Search Diagnostics')
-ln('sf', tele.find_files, 'Files')
-ln('sg', tele.live_grep, 'Live grep')
-ln('sh', tele.help_tags, 'Search Help')
-ln('sk', tele.keymaps, 'Search Keymaps')
-ln('sl', tele.highlights, 'Search Highlights')
-ln('sm', tele.man_pages, 'Manual pages')
-ln('sp', '<cmd>Telescope neovim-project discover<cr>', 'Projects')
-ln('sr', tele.resume, 'Search Resume')
-ln('ss', tele.lsp_workspace_symbols, 'Workspace symbols')
-ln('st', tele.builtin, 'Search Select Telescope')
-ln('sw', tele.grep_string, 'Search current Word')
-
--- Line numbers
-group('n', 'Line Numbers')
-
-ln('nn', '<cmd>set invnumber<cr>', 'Toggle line numbers')
-ln('nr', '<cmd>set invrelativenumber<cr>', 'Toggle relative line numbers')
-
 -- Insert mode
 mi('jj', '<Esc>', 'Exit insert mode')
 mi('<C-h>', '<C-w>', 'Remove word before')
@@ -232,13 +133,22 @@ mi('<C-Del>', '<C-o>dw', 'Remove word after')
 mi('<C-d>', '<esc>yypi', 'Duplicate line')
 mi('<C-x>', '<C-o>dd', 'Cut line')
 mi('<C-c>', '<C-o>yy', 'Copy line')
--- mi('<C-v>', '<C-o>p', 'Paste line')
 
 -- Pasting
 mv('p', '"_dP', 'Paste without yanking')
 
--- Terminal mode
--- mt('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
+-- Terminal
+
+mn('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mi('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mv('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+mt('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
+
+mn('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mi('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mv('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mt('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+
 mt('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 
 -- Window navigation
@@ -264,76 +174,8 @@ ln('vj', '<C-w>J', 'Move window to bottom')
 ln('vk', '<C-w>K', 'Move window to top')
 ln('vh', '<C-w>H', 'Move window to left')
 
--- Harpoon
-group('h', 'Harpoon')
+-- Line numbers
+group('n', 'Line Numbers')
 
-ln('ha', require('harpoon.mark').add_file, 'Add file to Harpoon')
-ln('hh', require('harpoon.ui').toggle_quick_menu, 'Toggle Harpoon menu')
-ln('hj', require('harpoon.ui').nav_next, 'Navigate to next file in Harpoon')
-ln('hk', require('harpoon.ui').nav_prev, 'Navigate to previous file in Harpoon')
-
--- Gitsigns
-group('g', 'Git')
-local gitsigns = require 'gitsigns'
--- Navigation
-ln('gj', function()
-  if vim.wo.diff then
-    vim.cmd.normal { ' gj', bang = true }
-  else
-    gitsigns.nav_hunk 'next'
-  end
-end, 'Jump to next git change')
-
-ln('gk', function()
-  if vim.wo.diff then
-    vim.cmd.normal { 'gk', bang = true }
-  else
-    gitsigns.nav_hunk 'prev'
-  end
-end, 'Jump to previous git change')
-
--- Actions
-local stage_marked = function()
-  gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-end
-
-local reset_marked = function()
-  gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-end
-
-local diff_commit = function()
-  gitsigns.diffthis '@'
-end
-
--- visual mode
-lv('gs', stage_marked, 'stage git hunk')
-lv('gr', reset_marked, 'reset git hunk')
-
--- normal mode
-ln('gs', gitsigns.stage_hunk, 'Stage hunk')
-ln('gr', gitsigns.reset_hunk, 'Reset hunk')
-ln('gS', gitsigns.stage_buffer, 'Stage buffer')
-ln('gu', gitsigns.undo_stage_hunk, 'Undo stage hunk')
-ln('gR', gitsigns.reset_buffer, 'Reset buffer')
-ln('gp', gitsigns.preview_hunk, 'Preview hunk')
-ln('gb', gitsigns.blame_line, 'Blame line')
-ln('gd', gitsigns.diffthis, 'Diff against index')
-ln('gD', diff_commit, 'Diff against last commit')
-
--- Toggle
-group('gt', 'Toggle')
-
-ln('gtb', gitsigns.toggle_current_line_blame, 'Show blame line')
-ln('gtd', gitsigns.toggle_deleted, 'Show deleted')
-
--- Line navigation
-mn('H', '0', 'Go to start of line')
-mv('H', '0', 'Go to start of line')
-mn('L', '$', 'Go to end of line')
-mv('L', '$', 'Go to end of line')
-
--- Copilot
-group('c', 'Copilot')
-
-ln('cd', '<cmd>Copilot disable<cr>', 'Disable')
-ln('ce', '<cmd>Copilot enable<cr>', 'Enable')
+ln('nn', '<cmd>set invnumber<cr>', 'Toggle line numbers')
+ln('nr', '<cmd>set invrelativenumber<cr>', 'Toggle relative line numbers')
