@@ -9,7 +9,7 @@ return {
         indent = require 'plugins.qol.snacks.indent',
         input = { enabled = true },
         -- dashboard = require("plugins.qol.snacks.dashboard"),
-        lazygit = { enabled = true },
+        lazygit = require 'plugins.qol.snacks.lazygit',
         notifier = require 'plugins.qol.snacks.notifier',
         picker = require 'plugins.qol.snacks.picker',
         quickfile = { enabled = true },

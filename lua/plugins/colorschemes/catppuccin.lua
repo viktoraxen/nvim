@@ -4,11 +4,12 @@ return {
     config = function()
         require('catppuccin').setup {
             dim_inactive = {
-                enabled = true,
+                enabled = false,
                 shade = 'dark',
                 percentage = 0.1,
             },
         }
+
         vim.cmd [[colorscheme catppuccin-macchiato]]
     end,
 }

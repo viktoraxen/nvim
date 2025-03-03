@@ -4,8 +4,11 @@ require('lazy').setup({
     { import = 'plugins.lsp' },
     { import = 'plugins.qol' },
 }, {
+    install = {
+        colorscheme = { 'catppuccin' },
+    },
     ui = {
-        border = 'single',
-        backdrop = false,
+        border = 'double',
+        backdrop = 100,
     },
 })

@@ -118,7 +118,8 @@ return {
 
             require('mason').setup {
                 ui = {
-                    border = 'none',
+                    border = 'double',
+                    backdrop = 100,
                 },
             }
 

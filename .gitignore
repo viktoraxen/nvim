@@ -5,5 +5,3 @@ nvim
 
 spell/
 lazy-lock.json
-
-lua/custom/plugins/disabled

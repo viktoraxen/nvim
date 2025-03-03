@@ -38,6 +38,8 @@ end
 vim.opt.hlsearch = true
 mn('<Esc>', '<cmd>nohlsearch<CR>')
 
+ln('A', '<cmd>Alpha<cr>', 'Alpha')
+
 -- Visual editing
 mv('=', '=gv', 'Auto-indent selection')
 mv('>', '>gv', 'Indent selection')

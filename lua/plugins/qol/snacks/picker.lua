@@ -8,6 +8,10 @@ return {
         preset = function()
             return vim.o.columns >= 120 and 'default' or 'vertical'
         end,
+        layout = {
+            backdrop = false,
+            border = 'double',
+        },
     },
     ---@class snacks.picker.matcher.Config
     matcher = {
