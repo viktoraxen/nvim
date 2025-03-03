@@ -42,6 +42,8 @@ mn('<Esc>', '<cmd>nohlsearch<CR>')
 mv('=', '=gv', 'Auto-indent selection')
 mv('>', '>gv', 'Indent selection')
 mv('<', '<gv', 'De-indent selection')
+-- mv('gc', 'gcgv', 'Comment selection')
+-- mv('gb', 'gbgv', 'Comment selection block')
 
 -- Moving lines
 mn('<M-j>', ':m .+1<CR>==', 'Move line down')
@@ -74,6 +76,7 @@ mn('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition')
 mn('gh', '<cmd>lua vim.diagnostic.open_float(nil, { border = "single" })<cr>', 'Open diagnostic Float')
 
 group('l', 'Language Server')
+group('p', 'Peek')
 
 local format_buffer = function()
     require('conform').format { async = true, lsp_fallback = true }
@@ -118,7 +121,7 @@ mn('ga', '<Plug>(EasyAlign)', 'Align')
 mv('ga', '<Plug>(EasyAlign)', 'Align')
 
 -- Copy
-mn('yA', 'ggVGy<c-o>', 'Copy all')
+mn('yA', 'ggVGy', 'Copy all')
 mn('vA', 'ggVG', 'Select all')
 mn('dA', 'ggVGd', 'Delete all')
 mn('cA', 'ggVGc', 'Change all')
