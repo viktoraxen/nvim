@@ -8,7 +8,6 @@ return {
         bigfile = { enabled = true },
         indent = require 'plugins.qol.snacks.indent',
         input = { enabled = true },
-        -- dashboard = require("plugins.qol.snacks.dashboard"),
         lazygit = require 'plugins.qol.snacks.lazygit',
         notifier = require 'plugins.qol.snacks.notifier',
         picker = require 'plugins.qol.snacks.picker',
