@@ -51,22 +51,21 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
+-- vim.opt.winborder = 'rounded'
+
 vim.diagnostic.config {
     underline = true,
     signs = false,
     update_in_insert = false,
-    virtual_text = false,
+    virtual_lines = { current_line = true },
+    -- virtual_text = { current_line = true },
     severity_sort = true,
     float = {
-        border = 'none',
-    },
+        border = 'rounded',
+        source = 'if_many',
+        header = '',
+        scope = 'line',
+        prefix = require('helpers.diagnostics').diagnostic_prefix,
+        suffix = ''
+    }
 }
-
--- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})

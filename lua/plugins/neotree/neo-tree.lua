@@ -49,7 +49,7 @@ return {
                     ['x'] = 'cut_to_clipboard',
                     ['p'] = 'paste_from_clipboard',
                     ['c'] = 'copy_to_clipboard', -- takes text input for destination, also accepts the optional config.show_path option like "add":
-                    ['m'] = 'move', -- takes text input for destination, also accepts the optional config.show_path option like "add".
+                    ['m'] = 'move',              -- takes text input for destination, also accepts the optional config.show_path option like "add".
                     ['q'] = 'close_window',
                     ['R'] = 'refresh',
                     ['?'] = 'show_help',
@@ -111,19 +111,19 @@ return {
                         {
                             'container',
                             content = {
-                                { 'name', zindex = 10 },
+                                { 'name',          zindex = 10 },
                                 {
                                     'symlink_target',
                                     zindex = 10,
                                     highlight = 'NeoTreeSymbolicLinkTarget',
                                 },
-                                { 'clipboard', zindex = 10 },
-                                { 'diagnostics', errors_only = true, zindex = 20, align = 'right', hide_when_expanded = true },
-                                { 'git_status', zindex = 10, align = 'right', hide_when_expanded = true },
-                                { 'file_size', zindex = 10, align = 'right' },
-                                { 'type', zindex = 10, align = 'right' },
-                                { 'last_modified', zindex = 10, align = 'right' },
-                                { 'created', zindex = 10, align = 'right' },
+                                { 'clipboard',     zindex = 10 },
+                                { 'diagnostics',   errors_only = true, zindex = 20,     align = 'right',          hide_when_expanded = true },
+                                { 'git_status',    zindex = 10,        align = 'right', hide_when_expanded = true },
+                                { 'file_size',     zindex = 10,        align = 'right' },
+                                { 'type',          zindex = 10,        align = 'right' },
+                                { 'last_modified', zindex = 10,        align = 'right' },
+                                { 'created',       zindex = 10,        align = 'right' },
                             },
                         },
                     },
@@ -142,11 +142,11 @@ return {
                                     zindex = 10,
                                     highlight = 'NeoTreeSymbolicLinkTarget',
                                 },
-                                { 'clipboard', zindex = 10 },
-                                { 'bufnr', zindex = 10 },
-                                { 'modified', zindex = 20, align = 'left' },
+                                { 'clipboard',   zindex = 10 },
+                                { 'bufnr',       zindex = 10 },
+                                { 'modified',    zindex = 20, align = 'left' },
                                 { 'diagnostics', zindex = 20, align = 'left' },
-                                { 'git_status', zindex = 10, align = 'right' },
+                                { 'git_status',  zindex = 10, align = 'right' },
                                 -- { 'file_size', zindex = 10, align = 'right' },
                                 -- { 'type', zindex = 10, align = 'right' },
                                 -- { 'last_modified', zindex = 10, align = 'right' },
@@ -156,7 +156,7 @@ return {
                     },
                     message = {
                         { 'indent', with_markers = false },
-                        { 'name', highlight = 'NeoTreeMessage' },
+                        { 'name',   highlight = 'NeoTreeMessage' },
                     },
                     terminal = {
                         { 'indent' },
@@ -166,8 +166,8 @@ return {
                     },
                 },
                 indent = {
-                    indent_size = 2,
-                    padding     = 1, -- extra padding on left hand side
+                    indent_size        = 2,
+                    padding            = 1, -- extra padding on left hand side
                     -- indent guides
                     with_markers       = true,
                     indent_marker      = '│',
@@ -188,10 +188,10 @@ return {
                 git_status = {
                     symbols = {
                         -- Change type
-                        added    = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
-                        modified = '', -- or "", but this is redundant info if you use git_status_colors on the name
-                        deleted  = '', -- this can only be used in the git_status source
-                        renamed  = '󰳞', -- this can only be used in the git_status source
+                        added     = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
+                        modified  = '', -- or "", but this is redundant info if you use git_status_colors on the name
+                        deleted   = '', -- this can only be used in the git_status source
+                        renamed   = '󰳞', -- this can only be used in the git_status source
                         -- Status type
                         untracked = '',
                         ignored   = '',

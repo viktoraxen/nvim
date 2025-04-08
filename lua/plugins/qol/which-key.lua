@@ -6,6 +6,7 @@ return {
             icons = {
                 rules = false,
             },
+            delay = 500,
         }
     end,
 }

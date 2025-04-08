@@ -1,6 +1,4 @@
 return function()
-    require('which-key').add { mode = { 'n', 'v' }, { '<leader>g', group = 'Git' } }
-
     -- Save the original notify function
     local original_notify = vim.notify
 

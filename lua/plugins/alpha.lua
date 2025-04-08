@@ -19,8 +19,8 @@ return {
             dashboard.button('e', '  Explorer', ':Neotree position=float<CR>'),
             dashboard.button('p', '  Projects', ':lua Snacks.picker.projects()<CR>'),
             dashboard.button('i', '  Plugins', ':Lazy<CR>'),
-            dashboard.button('l', '󱌴  Language Server', ':Mason<CR>'),
-            dashboard.button('c', '󰢻  Configuration', ':cd ~/.config/nvim <CR> :e init.lua <CR> lua Snacks.picker.files()'),
+            dashboard.button('c', '󰢻  Configuration',
+                ':cd ~/.config/nvim <CR> :e init.lua <CR> lua Snacks.picker.files()'),
             dashboard.button('q', '󱎘  Quit', ':qa<CR>'),
         }
 

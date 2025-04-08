@@ -4,10 +4,14 @@ return {
         'ray-x/lsp_signature.nvim',
     },
     config = function()
+        local theme = require('lualine.themes.catppuccin')
+
+        theme.normal.c.bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = 'auto',
+                theme = theme,
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
@@ -42,23 +46,23 @@ return {
                         },
                     },
                     'diagnostics',
-                        },
-                        lualine_x = { 'copilot' },
-                        lualine_y = { 'fileformat', 'filetype' },
-                        lualine_z = { 'progress', 'location' },
-                    },
-                    inactive_sections = {
-                        lualine_a = {},
-                        lualine_b = {},
-                        lualine_c = { 'filename' },
-                        lualine_x = { 'location' },
-                        lualine_y = {},
-                        lualine_z = {},
-                    },
-                    tabline = {},
-                    winbar = {},
-                    inactive_winbar = {},
-                    extensions = {},
-                }
-            end,
+                },
+                lualine_x = { 'copilot' },
+                lualine_y = { 'filetype' },
+                lualine_z = { 'progress', 'location' },
+            },
+            inactive_sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = { 'filename' },
+                lualine_x = { 'location' },
+                lualine_y = {},
+                lualine_z = {},
+            },
+            tabline = {},
+            winbar = {},
+            inactive_winbar = {},
+            extensions = {},
         }
+    end,
+}

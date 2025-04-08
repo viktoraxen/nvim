@@ -30,8 +30,12 @@ local lv = function(key, action, desc)
     mv('<leader>' .. key, action, desc)
 end
 
-local group = function(key, desc)
+local leader_group = function(key, desc)
     require('which-key').add { mode = { 'n', 'v' }, { '<leader>' .. key, group = desc } }
+end
+
+local group = function(key, desc)
+    require('which-key').add { mode = { 'n', 'v' }, { key, group = desc } }
 end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
@@ -47,14 +51,6 @@ mv('<', '<gv', 'De-indent selection')
 -- mv('gc', 'gcgv', 'Comment selection')
 -- mv('gb', 'gbgv', 'Comment selection block')
 
--- Moving lines
-mn('<M-j>', ':m .+1<CR>==', 'Move line down')
-mi('<M-j>', '<Esc>:m .+1<CR>==gi', 'Move line down')
-mi('<M-k>', '<Esc>:m .-2<CR>==gi', 'Move line up')
-mv('<M-j>', ":m '>+1<CR>gv=gv", 'Move selection down')
-mn('<M-k>', ':m .-2<CR>==', 'Move line up')
-mv('<M-k>', ":m '<-2<CR>gv=gv", 'Move selection up')
-
 -- Line navigation
 mn('H', '0', 'Go to start of line')
 mv('H', '0', 'Go to start of line')
@@ -67,41 +63,65 @@ ln('Q', '<cmd>qa<cr>', 'Close all')
 ln('w', '<cmd>w<cr>', 'Save buffer')
 ln('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
 
+leader_group('c', 'Co-Pilot')
+
+ln('cc', '<cmd>Copilot toggle<cr>', 'Toggle')
+ln('cd', '<cmd>Copilot disable<cr>', 'Disable')
+ln('ce', '<cmd>Copilot enable<cr>', 'Enable')
+
 -- LSP keymaps
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = 'single',
-})
+local show_line_diagnostics = require('helpers.diagnostics').show_current_line_diagnostics
 
-mn('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-mn('gt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Go to type definition')
-mn('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition')
-mn('gh', '<cmd>lua vim.diagnostic.open_float(nil, { border = "single" })<cr>', 'Open diagnostic Float')
+mn('gh', show_line_diagnostics, 'Show line diagnostics')
+mn('gj', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic')
+mn('gk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous diagnostic')
 
-group('l', 'Language Server')
-group('p', 'Peek')
+mn('K', '<cmd>lua require("helpers.lsp").hover()<cr>', 'Hover')
 
-local format_buffer = function()
-    require('conform').format { async = true, lsp_fallback = true }
-end
+leader_group('l', 'Language Server')
+leader_group('p', 'Peek')
 
-ln('lF', format_buffer, 'Format buffer')
-ln('lr', '<cmd>lua require("renamer").rename()<cr>', 'Rename symbol')
+group('g', 'Go to')
+group('gr', 'LSP Buffer')
+
+mn('gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code action')
+mn('grc', '<cmd>lua vim.lsp.buf.declaration()<cr>', 'Go to declaration')
+mn('grd', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition')
+mn('grf', '<cmd>lua vim.lsp.buf.format()<cr>', 'Format buffer')
+mn('gri', '<cmd>lua vim.lsp.buf.implementation()<cr>', 'Implementation')
+mn('grn', '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename symbol')
+mn('grr', '<cmd>lua vim.lsp.buf.references()<cr>', 'References')
+mn('grt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Go to type definition')
+
+ln('lc', '<cmd>lua Snacks.picker.lsp_declarations()<cr>', 'Declarations')
+ln('ld', '<cmd>lua Snacks.picker.lsp_definitions()<cr>', 'Definitions')
+ln('lr', '<cmd>lua Snacks.picker.lsp_references()<cr>', 'References')
+ln('li', '<cmd>lua Snacks.picker.lsp_implementations()<cr>', 'Implementations')
+ln('ls', '<cmd>lua Snacks.picker.lsp_symbols()<cr>', 'Symbols')
+ln('lt', '<cmd>lua Snacks.picker.lsp_type_definitions()<cr>', 'Type Definitions')
+ln('lw', '<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>', 'Workspace Symbols')
 
 -- Search
-group('s', 'Search')
+leader_group('s', 'Search')
 
-ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Search in project')
-ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Search files')
-ln('sp', '<cmd>lua Snacks.picker.projects()<cr>', 'Search projects')
-ln('sr', '<cmd>lua Snacks.picker.resume()<cr>', 'Resume search')
+ln('f', '<cmd>lua Snacks.picker.files()<cr>', 'Search files')
+ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Grep')
+ln('sd', '<cmd>lua Snacks.picker.diagnostics()<cr>', 'Diagnostics')
+ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Files')
+ln('si', '<cmd>lua Snacks.picker.icons()<cr>', 'Icons')
+ln('sp', '<cmd>lua Snacks.picker.projects()<cr>', 'Projects')
+ln('sP', '<cmd>lua Snacks.picker.pickers()<cr>', 'Pickers')
+ln('sr', '<cmd>lua Snacks.picker.resume()<cr>', 'Resume')
 
 -- Spider
 mn('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
 mv('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
 mo('e', "<cmd>lua require('spider').motion('e')<cr>", 'End of word')
+
 mn('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
 mv('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
 mo('w', "<cmd>lua require('spider').motion('w')<cr>", 'Start of next word')
+
 mn('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
 mv('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
 mo('b', "<cmd>lua require('spider').motion('b')<cr>", 'Start of previous word')
@@ -167,7 +187,7 @@ mn('<C-Left>', '<C-w>2<', 'Decrease window width')
 mn('<C-Down>', '<C-w>2+', 'Increase window height')
 mn('<C-Up>', '<C-w>2-', 'Decrease window height')
 
-group('v', 'Window')
+leader_group('v', 'Window')
 
 ln('vv', '<C-w>v', 'Split window vertically')
 ln('vs', '<C-w>s', 'Split window horizontally')
@@ -180,7 +200,7 @@ ln('vk', '<C-w>K', 'Move window to top')
 ln('vh', '<C-w>H', 'Move window to left')
 
 -- Line numbers
-group('n', 'Line Numbers')
+leader_group('n', 'Line Numbers')
 
 ln('nn', '<cmd>set invnumber<cr>', 'Toggle line numbers')
 ln('nr', '<cmd>set invrelativenumber<cr>', 'Toggle relative line numbers')
