@@ -76,6 +76,6 @@ vim.api.nvim_set_hl(0, "ToggleTerm1FloatBorder", { link = "FloatBorder" })
 
 vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
 vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "DiagnosticInfo" })
+vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Comment" })
 
 vim.api.nvim_set_hl(0, "SnacksPickerInputCursorLine", { link = "Normal" })
