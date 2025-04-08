@@ -60,6 +60,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
         vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Comment" })
     end,
 })
 

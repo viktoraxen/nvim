@@ -18,15 +18,39 @@ return {
         vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#404040', italic = false })
 
         vim.api.nvim_create_autocmd('FileType', {
+            desc = 'Disable fillchars for NeoTree',
             pattern = 'neo-tree',
             callback = function()
                 vim.opt_local.fillchars = 'eob: ' -- Removes the ~ by setting end-of-buffer character to a blank space
             end,
         })
 
+        -- Highlight linking is done in autocommands.lua to make sure the autocommands are loaded before the colorschemes
+
         require('neo-tree').setup {
             window = {
-                position = 'right',
+                position = 'float',
+                popup = {
+                    relative = 'editor',
+                    position = {
+                        col = '100%',
+                        row = 0,
+                    },
+                    win_options = {
+                        concealcursor = true
+                    },
+                    size = {
+                        width = 43,
+                        height = vim.o.lines - 2
+                    },
+                    border = {
+                        style = {
+                            top_left = "│", top = "", top_right = "",
+                            left = "│", right = "",
+                            bottom_left = "│", bottom = "", bottom_right = "",
+                        },
+                    },
+                },
                 mappings = {
                     ['<space>'] = { 'toggle_node', nowait = false },
                     ['<cr>'] = 'open_with_window_picker',

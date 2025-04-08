@@ -61,7 +61,7 @@ mv('L', '$', 'Go to end of line')
 ln('q', '<cmd>q<cr>', 'Close buffer')
 ln('Q', '<cmd>qa<cr>', 'Close all')
 ln('w', '<cmd>w<cr>', 'Save buffer')
-ln('e', '<cmd>Neotree toggle right<cr>', 'Open Neotree')
+ln('e', '<cmd>Neotree toggle<cr>', 'Open Neotree')
 
 leader_group('c', 'Co-Pilot')
 
