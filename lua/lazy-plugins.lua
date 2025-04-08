@@ -11,7 +11,8 @@ require('lazy').setup({
         colorscheme = { 'catppuccin' },
     },
     ui = {
-        border = 'double',
+        border = 'rounded',
         backdrop = 100,
+        size = { width = 0.89, height = 0.85 },
     },
 })

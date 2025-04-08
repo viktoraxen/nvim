@@ -45,25 +45,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-    desc = "Set highlight groups for floating windows",
-    pattern = "*",
-    callback = function()
-        vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
-        vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-    end,
-})
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-    desc = "Set highlight groups for NeoTree",
-    pattern = "*",
-    callback = function()
-        vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
-        vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
-        vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Comment" })
-    end,
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
     callback = function(event)

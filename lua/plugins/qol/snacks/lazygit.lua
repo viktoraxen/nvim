@@ -1,6 +1,6 @@
 return {
     win = {
-        border = 'double',
-        backdrop = 100,
+        border = 'rounded',
+        backdrop = false,
     },
 }

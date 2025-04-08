@@ -4,11 +4,11 @@ vim.g.have_nerd_font = true
 
 require 'autocommands'
 
-require 'options'
-
 require 'lazy-bootstrap'
 
 require 'lazy-plugins'
+
+require 'options'
 
 require 'lsp'
 

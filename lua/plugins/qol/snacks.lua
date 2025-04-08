@@ -15,26 +15,9 @@ return {
         scope = { enabled = true },
         scroll = require 'plugins.qol.snacks.scroll',
         -- statuscolumn = { enabled = true },
-        terminal = { enabled = true },
+        terminal = require 'plugins.qol.snacks.terminal',
         words = { enabled = true },
         styles = require 'plugins.qol.snacks.styles',
-    },
-
-    picker = {
-        projects = {
-            dev = { '~/dev' },
-            patterns = { 'CMakeLists.txt' },
-        },
-    },
-
-    keys = {
-        {
-            '<leader>gg',
-            function()
-                Snacks.lazygit()
-            end,
-            desc = 'Lazygit',
-        },
     },
 
     init = require 'plugins.qol.snacks.initsnacks',

@@ -63,11 +63,16 @@ ln('Q', '<cmd>qa<cr>', 'Close all')
 ln('w', '<cmd>w<cr>', 'Save buffer')
 ln('e', '<cmd>Neotree toggle<cr>', 'Open Neotree')
 
-leader_group('c', 'Co-Pilot')
+-- CoPilot
+leader_group('c', 'CoPilot')
 
 ln('cc', '<cmd>Copilot toggle<cr>', 'Toggle')
 ln('cd', '<cmd>Copilot disable<cr>', 'Disable')
 ln('ce', '<cmd>Copilot enable<cr>', 'Enable')
+
+-- Git
+leader_group('g', 'Git')
+ln('gg', '<cmd>lua Snacks.lazygit()<cr>', 'Lazygit')
 
 -- LSP keymaps
 local show_line_diagnostics = require('helpers.diagnostics').show_current_line_diagnostics
@@ -104,7 +109,7 @@ ln('lw', '<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>', 'Workspace Symbol
 -- Search
 leader_group('s', 'Search')
 
-ln('f', '<cmd>lua Snacks.picker.files()<cr>', 'Search files')
+ln('f', require('helpers.pickers').open_files_vscode, 'Search files')
 ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Grep')
 ln('sd', '<cmd>lua Snacks.picker.diagnostics()<cr>', 'Diagnostics')
 ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Files')
@@ -169,10 +174,10 @@ mi('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
 mv('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
 mt('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
 
-mn('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mi('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mv('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
-mt('<M-3>', '<cmd>ToggleTerm direction=float<cr>', 'Toggle terminal')
+mn('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
+mi('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
+mv('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
+mt('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
 
 mt('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 
