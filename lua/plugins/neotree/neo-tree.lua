@@ -28,6 +28,9 @@ return {
         -- Highlight linking is done in autocommands.lua to make sure the autocommands are loaded before the colorschemes
 
         require('neo-tree').setup {
+            filesystem = {
+                use_trash = true,
+            },
             window = {
                 position = 'float',
                 popup = {

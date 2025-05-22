@@ -4,6 +4,6 @@ return {
     config = function()
         require('catppuccin').setup()
 
-        vim.cmd [[colorscheme catppuccin-macchiato]]
+        vim.cmd [[colorscheme catppuccin-mocha]]
     end,
 }

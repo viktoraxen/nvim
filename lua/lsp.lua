@@ -20,7 +20,7 @@ vim.lsp.config['clangd'] = {
         'clangd',
         '--header-insertion=iwyu',
         '--clang-tidy',
-        '--log=verbose'
+        '--log=verbose',
     },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'hpp', 'h' },
     root_markers = { 'build.sh' },

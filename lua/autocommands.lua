@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
     desc = 'Hide diagnostic virtual lines when moving cursor',
     pattern = '*',
     callback = function()
-        require('helpers.diagnostics').hide_current_line_diagnostics()
+        require('utils.diagnostics').hide_current_line_diagnostics()
         -- vim.diagnostic.config { virtual_lines = false }
     end,
 })

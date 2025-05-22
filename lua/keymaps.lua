@@ -26,10 +26,6 @@ local ln = function(key, action, desc)
     mn('<leader>' .. key, action, desc)
 end
 
-local lv = function(key, action, desc)
-    mv('<leader>' .. key, action, desc)
-end
-
 local leader_group = function(key, desc)
     require('which-key').add { mode = { 'n', 'v' }, { '<leader>' .. key, group = desc } }
 end
@@ -42,14 +38,17 @@ end
 vim.opt.hlsearch = true
 mn('<Esc>', '<cmd>nohlsearch<CR>')
 
+local debug = require('utils.debug')
+
+leader_group('r', 'Run')
+ln('rd', debug.current, 'Debug Current')
+
 ln('A', '<cmd>Alpha<cr>', 'Alpha')
 
 -- Visual editing
 mv('=', '=gv', 'Auto-indent selection')
 mv('>', '>gv', 'Indent selection')
 mv('<', '<gv', 'De-indent selection')
--- mv('gc', 'gcgv', 'Comment selection')
--- mv('gb', 'gbgv', 'Comment selection block')
 
 -- Line navigation
 mn('H', '0', 'Go to start of line')
@@ -64,24 +63,24 @@ ln('w', '<cmd>w<cr>', 'Save buffer')
 ln('e', '<cmd>Neotree toggle<cr>', 'Open Neotree')
 
 -- CoPilot
-leader_group('c', 'CoPilot')
+leader_group('p', 'CoPilot')
 
-ln('cc', '<cmd>Copilot toggle<cr>', 'Toggle')
-ln('cd', '<cmd>Copilot disable<cr>', 'Disable')
-ln('ce', '<cmd>Copilot enable<cr>', 'Enable')
+ln('pc', '<cmd>Copilot toggle<cr>', 'Toggle')
+ln('pd', '<cmd>Copilot disable<cr>', 'Disable')
+ln('pe', '<cmd>Copilot enable<cr>', 'Enable')
 
 -- Git
 leader_group('g', 'Git')
 ln('gg', '<cmd>lua Snacks.lazygit()<cr>', 'Lazygit')
 
 -- LSP keymaps
-local show_line_diagnostics = require('helpers.diagnostics').show_current_line_diagnostics
+local show_line_diagnostics = require('utils.diagnostics').show_current_line_diagnostics
 
 mn('gh', show_line_diagnostics, 'Show line diagnostics')
 mn('gj', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic')
 mn('gk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous diagnostic')
 
-mn('K', '<cmd>lua require("helpers.lsp").hover()<cr>', 'Hover')
+mn('K', require("utils.lsp").hover, 'Hover')
 
 leader_group('l', 'Language Server')
 leader_group('p', 'Peek')
@@ -109,7 +108,7 @@ ln('lw', '<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>', 'Workspace Symbol
 -- Search
 leader_group('s', 'Search')
 
-ln('f', require('helpers.pickers').open_files_vscode, 'Search files')
+ln('f', require('utils.pickers').open_files_vscode, 'Search files')
 ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Grep')
 ln('sd', '<cmd>lua Snacks.picker.diagnostics()<cr>', 'Diagnostics')
 ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Files')

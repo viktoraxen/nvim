@@ -51,8 +51,6 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
--- vim.opt.winborder = 'rounded'
-
 vim.diagnostic.config {
     underline = true,
     signs = false,
@@ -65,7 +63,7 @@ vim.diagnostic.config {
         source = 'if_many',
         header = '',
         scope = 'line',
-        prefix = require('helpers.diagnostics').diagnostic_prefix,
+        prefix = require('utils.diagnostics').diagnostic_prefix,
         suffix = ''
     }
 }

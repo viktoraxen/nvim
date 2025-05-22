@@ -1,0 +1,38 @@
+return {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    keys = {
+        { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Breakpoint" },
+        { "<leader>dd", "<cmd>DapContinue<cr>",         desc = "Continue" },
+        { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step Into" },
+        { "<leader>do", "<cmd>DapStepOut<cr>",          desc = "Step Out" },
+        { "<leader>ds", "<cmd>DapStepOver<cr>",         desc = "Step Over" },
+        { "<leader>dt", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+        { "<leader>dq", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+    },
+    config = function()
+        local dap = require('dap')
+
+        dap.adapters.codelldb = {
+            type = 'server',
+            port = '${port}',
+            executable = {
+                command = 'codelldb',
+                args = { '--port', '${port}' }
+            },
+        }
+
+        dap.configurations.cpp = {
+            {
+                name = "Launch file",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                    return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false,
+            },
+        }
+    end,
+}
