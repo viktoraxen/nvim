@@ -5,7 +5,7 @@ M.cpp = function()
     local gpp = require("utils.cpp.gpp")
 
     if cmake.is_cmake_project() then
-        cmake.build_and_debug()
+        cmake.generate_build_debug()
     else
         gpp.build_and_debug()
     end

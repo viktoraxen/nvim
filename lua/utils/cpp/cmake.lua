@@ -1,20 +1,20 @@
 local M = {}
 
 local files = require("utils.files")
-local async = require("plenary.async")
-local job = require("plenary.job")
+local job = require("utils.job")
 
 M.is_cmake_project = function()
     return files.file_exists("CMakeLists.txt")
 end
 
-M.target_file = function()
+
+local target_file = function()
     if not M.is_cmake_project() then return end
 
     local lines = {}
     local target_name = nil
 
-    local cmake_path = vim.fn.getcwd() .. "/CMakeLists.txt"
+    local cmake_path = vim.loop.cwd() .. "/CMakeLists.txt"
 
     local file = io.open(cmake_path, "r")
 
@@ -43,109 +43,167 @@ M.target_file = function()
     return target_name
 end
 
-local build_job = function(args)
-    local debug = args.debug or false
-    local clean = args.clean or false
-    local ninja = vim.fn.executable("ninja")
 
-    if files.directory_exists("build") then
-        if clean then vim.fn.system("rm -rf build") end
-    else
-        vim.fn.system("mkdir build")
-    end
+local clean_job = function(args)
+    args = args or {}
+    local build_dir = args.build_dir or "build"
+
+    local clean_job = job.notifying({
+        name = "Clean",
+        command = "rm",
+        args = {
+            "-rf", build_dir
+        },
+    })
+
+    return clean_job
+end
+
+
+local generate_job = function(args)
+    args = args or {}
+    local debug = args.debug or false
+    local build_dir = args.build_dir or "build"
+    local ninja = vim.fn.executable("ninja")
 
     local generator = ninja and "Ninja" or "Unix Makefiles"
     local build_type = debug and "Debug" or "Release"
 
-    local cmake_stderr = {}
-
-    local cmake_job = job:new({
+    local cmake_job = job.notifying({
+        name = "Generate",
         command = "cmake",
         args = {
             "-S", ".",
-            "-B", "build",
+            "-B", build_dir,
             "-G", generator,
             "-DCMAKE_BUILD_TYPE=" .. build_type
         },
-        on_stderr = function(_, data)
-            if data then
-                table.insert(cmake_stderr, data)
-            end
-        end,
-        on_exit = function(j, code, signal)
-            if code ~= 0 then
-                vim.schedule(function()
-                    vim.notify("CMake failed! Exit code " .. code, vim.log.levels.ERROR)
-
-                    if #cmake_stderr ~= 0 then
-                        vim.notify("CMake output: \n" .. table.concat(cmake_stderr, "\n"))
-                    end
-                end)
-            end
-        end
     })
-
-    local generator_stderr = {}
-
-    local generator_job = job:new({
-        command = ninja and "ninja" or "make",
-        args = {
-            "-C", "build"
-        },
-        on_stderr = function(_, data)
-            if data then
-                table.insert(generator_stderr, data)
-            end
-        end,
-        on_exit = function(j, code, signal)
-            if code ~= 0 then
-                vim.schedule(function()
-                    vim.notify("Make failed! Exit code " .. code, vim.log.levels.ERROR)
-
-                    if #generator_stderr ~= 0 then
-                        vim.notify("Make output: \n" .. table.concat(generator_stderr, "\n"))
-                    end
-                end)
-
-                return
-            end
-        end
-    })
-
-    cmake_job:and_then_on_success(generator_job)
 
     return cmake_job
 end
 
 
-M.build_and_debug = function()
-    local j = build_job({
-        debug = true
+local build_job = function(args)
+    args = args or {}
+    local build_dir = args.build_dir or "build"
+    local ninja = vim.fn.executable("ninja")
+
+    local make_job = job.notifying({
+        name = "Build",
+        command = ninja and "ninja" or "make",
+        args = {
+            "-C", build_dir
+        },
     })
 
-    j:after_success(function()
-        vim.schedule(function()
-            vim.notify("Build successful!", vim.log.levels.INFO)
-
-            local target = M.target_file()
-            local target_path = "build/" .. target
-
-            if not files.file_exists(target_path) then
-                vim.notify("Could not find target file \'" .. target_path .. "\'", vim.log.levels.ERROR)
-                return
-            end
-
-            require("dap").run({
-                type = "codelldb",
-                request = "launch",
-                program = target_path,
-                cwd = "${workspaceFolder}",
-                stopOnEntry = false,
-            })
-        end)
-    end)
-
-    j:start()
+    return make_job
 end
+
+
+M.debug_target = function(args)
+    args = args or {}
+    local build_dir = args.build_dir or "build"
+
+    local target = target_file()
+
+    vim.schedule(function()
+        if not target then
+            vim.notify("Could not find target file", vim.log.levels.ERROR)
+            return
+        end
+
+        local target_path = build_dir .. "/" .. target
+
+        if not files.file_exists(target_path) then
+            vim.notify("Could not find target file \'" .. target_path .. "\'", vim.log.levels.ERROR)
+            return
+        end
+
+        vim.notify("Debugging target: " .. target_path, vim.log.levels.INFO)
+
+        require("dap").run({
+            type = "codelldb",
+            request = "launch",
+            program = target_path,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = false,
+        })
+    end)
+end
+
+
+M.clean = function()
+    local result_job = clean_job()
+    result_job:start()
+end
+
+
+M.generate = function()
+    local result_job = generate_job({ debug = false })
+    result_job:start()
+end
+
+
+M.generate_debug = function()
+    local result_job = generate_job({ debug = true })
+    result_job:start()
+end
+
+
+M.build = function()
+    local result_job = build_job()
+    result_job:start()
+end
+
+
+M.debug = M.debug_target
+
+
+M.clean_generate = function()
+    local result_job = clean_job()
+    result_job:and_then_on_success(generate_job())
+    result_job:start()
+end
+
+
+M.generate_build = function()
+    local result_job = generate_job()
+    result_job:and_then_on_success(build_job())
+    result_job:start()
+end
+
+
+M.build_debug = function()
+    local result_job = build_job()
+    result_job:after_success(M.debug_target)
+    result_job:start()
+end
+
+
+M.clean_generate_build = function()
+    local result_job = clean_job()
+    result_job:and_then_on_success(generate_job())
+    result_job:and_then_on_success(build_job())
+    result_job:start()
+end
+
+
+M.generate_build_debug = function()
+    local result_job = generate_job({ debug = true })
+    result_job:and_then_on_success(build_job())
+    result_job:after_success(M.debug_target)
+    result_job:start()
+end
+
+
+M.clean_generate_build_debug = function()
+    local result_job = clean_job()
+    result_job:and_then_on_success(generate_job({ debug = true }))
+    result_job:and_then_on_success(build_job())
+    result_job:after_success(M.debug_target)
+    result_job:start()
+end
+
 
 return M

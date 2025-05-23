@@ -38,13 +38,13 @@ M.find_files = function(args)
 end
 
 M.file_exists = function(filename)
-    local file = vim.fn.getcwd() .. "/" .. filename
+    local file = vim.uv.cwd() .. "/" .. filename
     local stat = vim.uv.fs_stat(file)
     return stat and stat.type == "file"
 end
 
 M.directory_exists = function(directory)
-    local file = vim.fn.getcwd() .. directory
+    local file = vim.uv.cwd() .. directory
     local stat = vim.uv.fs_stat(file)
     return stat and stat.type == "directory"
 end
