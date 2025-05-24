@@ -44,6 +44,9 @@ leader_group('r', 'Run')
 ln('rr', run.run_current, 'Run Current')
 ln('rd', run.debug_current, 'Debug Current')
 
+leader_group('d', 'Debug')
+ln('dd', run.debug_current, 'Debug Current')
+
 leader_group('b', 'Build')
 ln('bb', 'lua vim.notify("Build Current (Release)")', 'Build Current (Release)')
 ln('bB', 'lua vim.notify("Build Current Clean (Release)")', 'Build Current Clean (Release)')

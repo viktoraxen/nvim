@@ -3,7 +3,7 @@ return {
     lazy = true,
     keys = {
         { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Breakpoint" },
-        { "<leader>dd", "<cmd>DapContinue<cr>",         desc = "Continue" },
+        { "<leader>dD", "<cmd>DapContinue<cr>",         desc = "Continue" },
         { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step Into" },
         { "<leader>do", "<cmd>DapStepOut<cr>",          desc = "Step Out" },
         { "<leader>ds", "<cmd>DapStepOver<cr>",         desc = "Step Over" },
@@ -34,5 +34,26 @@ return {
                 stopOnEntry = false,
             },
         }
+
+        vim.fn.sign_define("DapBreakpoint", {
+            text = "",
+            texthl = "DapBreakpoint",
+            linehl = "",
+            numhl = ""
+        })
+
+        vim.fn.sign_define("DapStopped", {
+            text = "",
+            texthl = "DapStopped",
+            linehl = "Visual",
+            numhl = ""
+        })
+
+        vim.fn.sign_define("DapBreakpointRejected", {
+            text = "",
+            texthl = "ErrorMsg",
+            linehl = "",
+            numhl = ""
+        })
     end,
 }
