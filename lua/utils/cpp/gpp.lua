@@ -5,6 +5,10 @@ local job = require("utils.job")
 
 local target = ".out"
 
+local notification_id = "cpp_cmake_build"
+local notification_title = "C++ Project"
+local notification_timeout = 2000
+
 local build_task = function(args)
     args = args or {}
     local debug = args.debug or false
@@ -31,7 +35,31 @@ local build_task = function(args)
 
     return {
         name = "G++",
-        command = command
+        command = command,
+        on_start = function()
+            Snacks.notify("Building binary...", {
+                id = notification_id,
+                title = notification_title,
+                icon = "🔨",
+                timeout = false,
+            })
+        end,
+        on_success = function()
+            Snacks.notify("Build finished!", {
+                id = notification_id,
+                title = notification_title,
+                icon = "✅",
+                timeout = notification_timeout,
+            })
+        end,
+        on_failure = function(code, stderr)
+            Snacks.notify("Build failed! Exit code " .. code .. "\n" .. stderr, {
+                id = notification_id,
+                title = notification_title,
+                icon = "❌",
+                timeout = false,
+            })
+        end,
     }
 end
 
@@ -71,7 +99,6 @@ M.start_sequence = function(args)
         local debug = run_mode == "debug" or (args.debug or false)
 
         if build then
-            vim.notify("Building project...", vim.log.levels.INFO)
             job.start(build_task({ debug = debug }), co)
 
             coroutine.yield()
