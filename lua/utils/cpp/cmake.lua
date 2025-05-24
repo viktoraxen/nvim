@@ -2,9 +2,10 @@ local M = {}
 
 local files = require("utils.files")
 local job = require("utils.job")
+local build_dir = "build"
 
 M.is_cmake_project = function()
-    return files.file_exists("CMakeLists.txt")
+    return files.file_exists(vim.uv.cwd() .. "/CMakeLists.txt")
 end
 
 
@@ -14,7 +15,7 @@ local target_file = function()
     local lines = {}
     local target_name = nil
 
-    local cmake_path = vim.loop.cwd() .. "/CMakeLists.txt"
+    local cmake_path = vim.uv.cwd() .. "/CMakeLists.txt"
 
     local file = io.open(cmake_path, "r")
 
@@ -44,166 +45,220 @@ local target_file = function()
 end
 
 
-local clean_job = function(args)
-    args = args or {}
-    local build_dir = args.build_dir or "build"
-
-    local clean_job = job.notifying({
+local clean_task = function(args)
+    return {
         name = "Clean",
-        command = "rm",
-        args = {
-            "-rf", build_dir
+        command = {
+            "rm", "-rf", build_dir
         },
-    })
-
-    return clean_job
+    }
 end
 
 
-local generate_job = function(args)
+local generate_task = function(args)
     args = args or {}
     local debug = args.debug or false
-    local build_dir = args.build_dir or "build"
     local ninja = vim.fn.executable("ninja")
 
     local generator = ninja and "Ninja" or "Unix Makefiles"
     local build_type = debug and "Debug" or "Release"
 
-    local cmake_job = job.notifying({
-        name = "Generate",
-        command = "cmake",
-        args = {
+    return {
+        name = "CMake",
+        command = {
+            "cmake",
             "-S", ".",
             "-B", build_dir,
             "-G", generator,
             "-DCMAKE_BUILD_TYPE=" .. build_type
         },
-    })
-
-    return cmake_job
+    }
 end
 
 
-local build_job = function(args)
+local build_task = function(args)
     args = args or {}
-    local build_dir = args.build_dir or "build"
     local ninja = vim.fn.executable("ninja")
+    local command = ninja and "ninja" or "make"
+    local name = ninja and "Ninja" or "Make"
 
-    local make_job = job.notifying({
-        name = "Build",
-        command = ninja and "ninja" or "make",
-        args = {
-            "-C", build_dir
+    return {
+        name = name,
+        command = {
+            command, "-C", build_dir
         },
-    })
-
-    return make_job
+    }
 end
 
 
-M.debug_target = function(args)
-    args = args or {}
-    local build_dir = args.build_dir or "build"
-
+M.run_debugger = function(args)
     local target = target_file()
 
-    vim.schedule(function()
-        if not target then
-            vim.notify("Could not find target file", vim.log.levels.ERROR)
-            return
+    if not target then
+        vim.notify("Could not find target file", vim.log.levels.ERROR)
+        return
+    end
+
+    local target_path = vim.uv.cwd() .. "/" .. build_dir .. "/" .. target
+
+    if not files.file_exists(target_path) then
+        vim.notify("Could not find target file \'" .. target_path .. "\'", vim.log.levels.ERROR)
+        return
+    end
+
+    require("dap").run({
+        type = "codelldb",
+        request = "launch",
+        program = target_path,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    })
+end
+
+
+M.run_float = function()
+    local target = target_file()
+
+    if not target then
+        vim.notify("Could not find target file", vim.log.levels.ERROR)
+        return
+    end
+
+    local target_path = vim.uv.cwd() .. "/" .. build_dir .. "/" .. target
+
+    require("snacks").terminal(target_path, { auto_close = false })
+end
+
+
+M.start_sequence = function(args)
+    local co = coroutine.create(function(args)
+        args = args or {}
+        local co = args.co or nil
+        local clean = args.clean or false
+        local generate = args.generate or false
+        local build = args.build or false
+        local run_mode = args.run or "none"
+        local debug = run_mode == "debug" or (args.debug or false)
+
+        local tasks = {}
+
+        if clean then
+            table.insert(tasks, clean_task())
         end
 
-        local target_path = build_dir .. "/" .. target
-
-        if not files.file_exists(target_path) then
-            vim.notify("Could not find target file \'" .. target_path .. "\'", vim.log.levels.ERROR)
-            return
+        if generate then
+            table.insert(tasks, generate_task({
+                debug = debug,
+            }))
         end
 
-        vim.notify("Debugging target: " .. target_path, vim.log.levels.INFO)
+        if build then
+            table.insert(tasks, build_task())
+        end
 
-        require("dap").run({
-            type = "codelldb",
-            request = "launch",
-            program = target_path,
-            cwd = "${workspaceFolder}",
-            stopOnEntry = false,
-        })
+        for _, task in ipairs(tasks) do
+            job.start(task, co)
+
+            coroutine.yield()
+        end
+
+        if run_mode == "float" then
+            M.run_float()
+        elseif run_mode == "debug" then
+            M.run_debugger()
+        end
     end)
+
+    args.co = co
+
+    coroutine.resume(co, args)
 end
 
 
 M.clean = function()
-    local result_job = clean_job()
-    result_job:start()
+    M.start_sequence({
+        clean = true,
+    })
 end
 
 
 M.generate = function()
-    local result_job = generate_job({ debug = false })
-    result_job:start()
-end
-
-
-M.generate_debug = function()
-    local result_job = generate_job({ debug = true })
-    result_job:start()
+    M.start_sequence({
+        generate = true,
+    })
 end
 
 
 M.build = function()
-    local result_job = build_job()
-    result_job:start()
+    M.start_sequence({
+        build = true,
+    })
 end
 
 
-M.debug = M.debug_target
-
-
-M.clean_generate = function()
-    local result_job = clean_job()
-    result_job:and_then_on_success(generate_job())
-    result_job:start()
+M.clean_build = function(debug)
+    M.start_sequence({
+        clean = true,
+        generate = true,
+        build = true,
+        debug = debug or false,
+    })
 end
 
 
-M.generate_build = function()
-    local result_job = generate_job()
-    result_job:and_then_on_success(build_job())
-    result_job:start()
+M.generate_and_run_float = function(debug)
+    M.start_sequence({
+        generate = true,
+        build = true,
+        debug = debug or false,
+        run = "float",
+    })
 end
 
 
-M.build_debug = function()
-    local result_job = build_job()
-    result_job:after_success(M.debug_target)
-    result_job:start()
+M.generate_and_run_debug = function()
+    M.start_sequence({
+        generate = true,
+        build = true,
+        run = "debug",
+    })
 end
 
 
-M.clean_generate_build = function()
-    local result_job = clean_job()
-    result_job:and_then_on_success(generate_job())
-    result_job:and_then_on_success(build_job())
-    result_job:start()
+M.build_and_run_float = function()
+    M.start_sequence({
+        build = true,
+        run = "float",
+    })
 end
 
 
-M.generate_build_debug = function()
-    local result_job = generate_job({ debug = true })
-    result_job:and_then_on_success(build_job())
-    result_job:after_success(M.debug_target)
-    result_job:start()
+M.build_and_run_debug = function()
+    M.start_sequence({
+        build = true,
+        run = "debug",
+    })
 end
 
 
-M.clean_generate_build_debug = function()
-    local result_job = clean_job()
-    result_job:and_then_on_success(generate_job({ debug = true }))
-    result_job:and_then_on_success(build_job())
-    result_job:after_success(M.debug_target)
-    result_job:start()
+M.clean_run_float = function(debug)
+    M.start_sequence({
+        clean = true,
+        generate = true,
+        build = true,
+        debug = debug or false,
+        run = "float",
+    })
 end
 
+
+M.clean_run_debugger = function()
+    M.start_sequence({
+        clean = true,
+        generate = true,
+        build = true,
+        run = "debug",
+    })
+end
 
 return M

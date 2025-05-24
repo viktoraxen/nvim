@@ -38,10 +38,17 @@ end
 vim.opt.hlsearch = true
 mn('<Esc>', '<cmd>nohlsearch<CR>')
 
-local debug = require('utils.debug')
+local run = require('utils.run')
 
 leader_group('r', 'Run')
-ln('rd', debug.current, 'Debug Current')
+ln('rr', run.run_current, 'Run Current')
+ln('rd', run.debug_current, 'Debug Current')
+
+leader_group('b', 'Build')
+ln('bb', 'lua vim.notify("Build Current (Release)")', 'Build Current (Release)')
+ln('bB', 'lua vim.notify("Build Current Clean (Release)")', 'Build Current Clean (Release)')
+ln('bd', 'lua vim.notify("Build Current (Debug)")', 'Build Current (Debug)')
+ln('bD', 'lua vim.notify("Build Current Clean (Debug)")', 'Build Current Clean (Debug)')
 
 ln('A', '<cmd>Alpha<cr>', 'Alpha')
 
@@ -168,15 +175,12 @@ mv('p', '"_dP', 'Paste without yanking')
 
 -- Terminal
 
-mn('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mi('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mv('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-mt('<M-2>', '<cmd>ToggleTerm direction=vertical<cr>', 'Toggle terminal')
-
 mn('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
 mi('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
 mv('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
 mt('<M-3>', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
+
+ln('t', '<cmd>lua Snacks.terminal()<cr>', 'Toggle terminal')
 
 mt('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 

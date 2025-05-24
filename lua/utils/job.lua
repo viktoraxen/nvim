@@ -1,40 +1,33 @@
 local M = {}
 
-local job = require("plenary.job")
-
-M.notifying = function(args)
-    local command = args.command
-    local cmd_args = args.args
-    local name = args.name
+M.start = function(args, co)
+    local command = args.command or ""
+    local name = args.name or "Async Task"
 
     local stderr = {}
 
-    local notifying_job = job:new({
-        command = command,
-        args = cmd_args,
+    vim.fn.jobstart(command, {
         on_stderr = function(_, data)
             if data then
-                table.insert(stderr, data)
+                for _, line in ipairs(data) do
+                    if line ~= "" then table.insert(stderr, line) end
+                end
             end
         end,
-        on_exit = function(_, code, _)
+        on_exit = vim.schedule_wrap(function(_, code, _)
             if code ~= 0 then
-                vim.schedule(function()
-                    vim.notify(name .. " failed! Exit code " .. code, vim.log.levels.ERROR)
+                vim.notify(name .. " failed! exit code " .. code, vim.log.levels.error)
 
-                    if #stderr ~= 0 then
-                        vim.notify(name .. " output: \n" .. table.concat(stderr, "\n"))
-                    end
-                end)
-            else
-                vim.schedule(function()
-                    vim.notify(name .. " completed successfully!", vim.log.levels.INFO)
-                end)
+                if #stderr ~= 0 then
+                    vim.notify(name .. " output: \n" .. table.concat(stderr, "\n"))
+                end
             end
-        end
-    })
 
-    return notifying_job
+            if co then
+                coroutine.resume(co, code)
+            end
+        end)
+    })
 end
 
 return M

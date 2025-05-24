@@ -3,79 +3,106 @@ local M = {}
 local files = require("utils.files")
 local job = require("utils.job")
 
-local build_job = function(args)
+local target = ".out"
+
+local build_task = function(args)
     args = args or {}
     local debug = args.debug or false
-    local output_name = args.output_name or ".out"
-    local include_dir = files.directory_exists("include") and "include" or "."
+    local include_dir = files.directory_exists(vim.uv.cwd() .. "/include") and "include" or "."
 
     local source_files = files.find_files({
         include = { "*.cpp", "*.c" },
         exclude = { "*/build/*", "*/test/*", "*/tests/*", "*/.git/*" },
     })
 
-    args = {
+    local command = {
+        "g++",
         "-I", include_dir,
-        "-o", output_name,
+        "-o", target,
     }
 
     if debug then
-        table.insert(args, "-g")
+        table.insert(command, "-g")
     end
 
     for _, file in ipairs(source_files) do
-        table.insert(args, file)
+        table.insert(command, file)
     end
 
-    local gpp_job = job.notifying({
+    return {
         name = "G++",
-        command = "g++",
-        args = args,
-    })
-
-    return gpp_job
+        command = command
+    }
 end
 
 
-M.debug = function(args)
-    args = args or {}
-    local target = args.build_dir or ".out"
+M.run_debugger = function()
+    if not files.file_exists(vim.uv.cwd() .. "/" .. target) then
+        vim.notify("Could not find target file \'" .. target .. "\'", vim.log.levels.ERROR)
+        return
+    end
 
-    vim.schedule(function()
-        if not files.file_exists(target) then
-            vim.notify("Could not find target file \'" .. target .. "\'", vim.log.levels.ERROR)
-            return
+    require("dap").run({
+        type = "codelldb",
+        request = "launch",
+        program = target,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    })
+end
+
+
+M.run_float = function()
+    if not files.file_exists(vim.uv.cwd() .. "/" .. target) then
+        vim.notify("Could not find target file \'" .. target .. "\'", vim.log.levels.ERROR)
+        return
+    end
+
+    require("snacks").terminal("./" .. target, { auto_close = false })
+end
+
+
+M.start_sequence = function(args)
+    local co = coroutine.create(function(args)
+        args = args or {}
+        local co = args.co or nil
+        local build = args.build or false
+        local run_mode = args.run or "none"
+        local debug = run_mode == "debug" or (args.debug or false)
+
+        if build then
+            vim.notify("Building project...", vim.log.levels.INFO)
+            job.start(build_task({ debug = debug }), co)
+
+            coroutine.yield()
         end
 
-        vim.notify("Debugging target: " .. target, vim.log.levels.INFO)
-
-        require("dap").run({
-            type = "codelldb",
-            request = "launch",
-            program = target,
-            cwd = "${workspaceFolder}",
-            stopOnEntry = false,
-        })
+        if run_mode == "float" then
+            M.run_float()
+        elseif run_mode == "debug" then
+            M.run_debugger()
+        end
     end)
+
+    args.co = co
+
+    coroutine.resume(co, args)
 end
 
 
-M.build = function()
-    local result_job = build_job({ debug = false })
-    result_job:start()
+M.build_and_run_debug = function()
+    M.start_sequence({
+        build = true,
+        run = "debug",
+    })
 end
 
 
-M.build_debug = function()
-    local result_job = build_job({ debug = true })
-    result_job:start()
-end
-
-
-M.build_and_debug = function()
-    local result_job = build_job({ debug = true })
-    result_job:after_success(M.debug)
-    result_job:start()
+M.build_and_run_float = function()
+    M.start_sequence({
+        build = true,
+        run = "float",
+    })
 end
 
 

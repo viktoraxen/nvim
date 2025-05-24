@@ -1,1 +1,3 @@
 Make code action selection UI nicer
+
+grr uses quickfix list, use snacks.picker instead
