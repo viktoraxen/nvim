@@ -36,7 +36,11 @@ end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-mn('<Esc>', '<cmd>nohlsearch<CR>')
+local clear_hl_and_notifications = function()
+    vim.cmd('nohlsearch')
+    Snacks.notifier.hide()
+end
+mn('<Esc>', clear_hl_and_notifications, 'Clear search highlight and notifications')
 
 local run = require('utils.run')
 
@@ -47,11 +51,32 @@ ln('rd', run.debug_current, 'Debug Current')
 leader_group('d', 'Debug')
 ln('dd', run.debug_current, 'Debug Current')
 
-leader_group('b', 'Build')
-ln('bb', 'lua vim.notify("Build Current (Release)")', 'Build Current (Release)')
-ln('bB', 'lua vim.notify("Build Current Clean (Release)")', 'Build Current Clean (Release)')
-ln('bd', 'lua vim.notify("Build Current (Debug)")', 'Build Current (Debug)')
-ln('bD', 'lua vim.notify("Build Current Clean (Debug)")', 'Build Current Clean (Debug)')
+local cmake = require('utils.cpp.cmake')
+
+local cmake_generate_debug = function() cmake.generate(true) end
+local cmake_clean_generate_debug = function() cmake.clean_generate(true) end
+local cmake_clean_build_debug = function() cmake.clean_build(true) end
+
+leader_group('c', 'CMake')
+ln('cC', cmake.clean, 'Clean')
+
+leader_group('cg', 'Generate')
+ln('cgg', cmake.generate, 'Generate CMake files (Release)')
+ln('cgG', cmake.clean_generate, 'Clean and generate CMake files (Release)')
+ln('cgd', cmake_generate_debug, 'Generate CMake files (Debug)')
+ln('cgD', cmake_clean_generate_debug, 'Clean and generate CMake files (Debug)')
+
+leader_group('cb', 'Build')
+ln('cbb', cmake.build, 'Build CMake project')
+ln('cbB', cmake.clean_build, 'Clean and build CMake project (Release)')
+ln('cbD', cmake_clean_build_debug, 'Clean and build CMake project (Debug)')
+
+leader_group('cr', 'Run')
+ln('crr', cmake.build_and_run_float, 'Run CMake project')
+ln('crR', cmake.clean_run_float, 'Clean and run CMake project (Release)')
+ln('crd', cmake.build_and_run_debug, 'Run CMake project (Debug)')
+ln('crD', cmake.clean_run_debugger, 'Clean and debug CMake project')
+
 
 ln('A', '<cmd>Alpha<cr>', 'Alpha')
 

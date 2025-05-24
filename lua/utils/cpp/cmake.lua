@@ -2,8 +2,12 @@ local M = {}
 
 local files = require("utils.files")
 local job = require("utils.job")
-local build_dir = "build"
 local add_if = require("utils.tables").add_if
+
+local build_dir = "build"
+local notification_id = "cpp_cmake_build"
+local notification_title = "C++ Project"
+local notification_timeout = 2000
 
 M.is_cmake_project = function()
     return files.file_exists(vim.uv.cwd() .. "/CMakeLists.txt")
@@ -52,6 +56,30 @@ local clean_task = function(args)
         command = {
             "rm", "-rf", build_dir
         },
+        on_start = function()
+            Snacks.notify("Cleaning build directory...", {
+                id = notification_id,
+                title = notification_title,
+                icon = "🧹",
+                timeout = false,
+            })
+        end,
+        on_success = function()
+            Snacks.notify("Cleaning finished!", {
+                id = notification_id,
+                title = notification_title,
+                icon = "✅",
+                timeout = notification_timeout,
+            })
+        end,
+        on_failure = function(code, stderr)
+            Snacks.notify("Cleaning failed! Exit code " .. code .. "\n" .. stderr, {
+                id = notification_id,
+                title = notification_title,
+                icon = "❌",
+                timeout = false,
+            })
+        end,
     }
 end
 
@@ -73,6 +101,30 @@ local generate_task = function(args)
             "-G", generator,
             "-DCMAKE_BUILD_TYPE=" .. build_type
         },
+        on_start = function()
+            Snacks.notify("Generating CMake files...", {
+                id = notification_id,
+                title = notification_title,
+                icon = "⚙️",
+                timeout = false,
+            })
+        end,
+        on_success = function()
+            Snacks.notify("CMake generation finished!", {
+                id = notification_id,
+                title = notification_title,
+                icon = "✅",
+                timeout = notification_timeout,
+            })
+        end,
+        on_failure = function(code, stderr)
+            Snacks.notify("CMake generation failed! Exit code " .. code .. "\n" .. stderr, {
+                id = notification_id,
+                title = notification_title,
+                icon = "❌",
+                timeout = false,
+            })
+        end,
     }
 end
 
@@ -88,6 +140,30 @@ local build_task = function(args)
         command = {
             command, "-C", build_dir
         },
+        on_start = function()
+            Snacks.notify("Building project...", {
+                id = notification_id,
+                title = notification_title,
+                icon = "🔨",
+                timeout = false,
+            })
+        end,
+        on_success = function()
+            Snacks.notify("Build finished!", {
+                id = notification_id,
+                title = notification_title,
+                icon = "✅",
+                timeout = notification_timeout,
+            })
+        end,
+        on_failure = function(code, stderr)
+            Snacks.notify("Build failed! Exit code " .. code .. "\n" .. stderr, {
+                id = notification_id,
+                title = notification_title,
+                icon = "❌",
+                timeout = false,
+            })
+        end,
     }
 end
 
@@ -152,7 +228,9 @@ M.start_sequence = function(args)
         for _, task in ipairs(tasks) do
             job.start(task, co)
 
-            coroutine.yield()
+            if coroutine.yield() ~= 0 then
+                return
+            end
         end
 
         if run_mode == "float" then
@@ -185,6 +263,15 @@ end
 M.build = function()
     M.start_sequence({
         build = true,
+    })
+end
+
+
+M.clean_generate = function(debug)
+    M.start_sequence({
+        clean = true,
+        generate = true,
+        debug = debug or false,
     })
 end
 
