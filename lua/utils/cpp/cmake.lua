@@ -3,6 +3,7 @@ local M = {}
 local files = require("utils.files")
 local job = require("utils.job")
 local build_dir = "build"
+local add_if = require("utils.tables").add_if
 
 M.is_cmake_project = function()
     return files.file_exists(vim.uv.cwd() .. "/CMakeLists.txt")
@@ -142,19 +143,11 @@ M.start_sequence = function(args)
 
         local tasks = {}
 
-        if clean then
-            table.insert(tasks, clean_task())
-        end
-
-        if generate then
-            table.insert(tasks, generate_task({
-                debug = debug,
-            }))
-        end
-
-        if build then
-            table.insert(tasks, build_task())
-        end
+        add_if(clean, tasks, clean_task())
+        add_if(generate, tasks, generate_task({
+            debug = debug,
+        }))
+        add_if(build, tasks, build_task())
 
         for _, task in ipairs(tasks) do
             job.start(task, co)
