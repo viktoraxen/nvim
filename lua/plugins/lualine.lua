@@ -1,8 +1,7 @@
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = {
-        'ray-x/lsp_signature.nvim',
-    },
+    lazy = false,
+    -- event = "VeryLazy",
     config = function()
         local theme = require('lualine.themes.catppuccin')
 
@@ -28,18 +27,16 @@ return {
                 },
             },
             sections = {
-                lualine_a = { 'mode' },
-                lualine_b = {
+                lualine_a = {
                     {
-                        'b:gitsigns_head',
-                        icon = '',
-                    },
-                    'diff',
+                        "mode", separator = { left = "", right = "" },
+                        right_padding = 2
+                    }
                 },
                 lualine_c = {
                     {
                         'filename',
-                        path = 0,
+                        path = 1,
                         symbols = {
                             modified = '~',
                             readonly = '-',
@@ -49,7 +46,13 @@ return {
                 },
                 lualine_x = { 'copilot' },
                 lualine_y = { 'filetype' },
-                lualine_z = { 'progress', 'location' },
+                lualine_z = {
+                    {
+                        'progress', 'location',
+                        separator = { left = "", right = "" },
+                        left_padding = 2,
+                    }
+                },
             },
             inactive_sections = {
                 lualine_a = {},

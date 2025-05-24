@@ -7,6 +7,14 @@ return {
         'MunifTanjim/nui.nvim',
         's1n7ax/nvim-window-picker',
     },
+    command = {
+        'Neotree',
+        'NeotreeFloat',
+        'NeotreeReveal',
+        'NeotreeRevealToggle',
+        'NeotreeFocus',
+        'NeotreeClose',
+    },
     config = function()
         -- If you want icons for diagnostic errors, you'll need to define them somewhere:
         vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })

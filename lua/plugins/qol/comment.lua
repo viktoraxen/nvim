@@ -1,4 +1,9 @@
 return {
     'numToStr/Comment.nvim',
-    opts = {},
+    keys = {
+        { "gcc", mode = "n" },
+        { "gc",  mode = "o" },
+        { "gc",  mode = "x" },
+    },
+    opts = {}
 }

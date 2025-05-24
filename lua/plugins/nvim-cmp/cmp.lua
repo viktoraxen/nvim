@@ -125,6 +125,10 @@ return {
             },
         }
 
+        cmp.setup.filetype({ 'snacks_picker_input' }, {
+            sources = {},
+        })
+
         local lspkind = require 'lspkind'
         cmp.setup {
             formatting = {

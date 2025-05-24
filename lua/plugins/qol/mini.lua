@@ -1,5 +1,6 @@
 return {
     { -- Collection of various small independent plugins/modules
+        event = 'VeryLazy',
         'echasnovski/mini.nvim',
         version = '*',
         config = function()
