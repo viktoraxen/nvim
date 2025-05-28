@@ -1,5 +1,4 @@
 local M = {}
-
 local files = require("utils.files")
 local job = require("utils.job")
 local add_if = require("utils.tables").add_if
@@ -50,7 +49,7 @@ local target_file = function()
 end
 
 
-local clean_task = function(args)
+local clean_task = function()
     return {
         name = "Clean",
         command = {
@@ -168,7 +167,7 @@ local build_task = function(args)
 end
 
 
-M.run_debugger = function(args)
+M.run_debugger = function()
     local target = target_file()
 
     if not target then
@@ -184,6 +183,7 @@ M.run_debugger = function(args)
     end
 
     require("dap").run({
+        name = "Run " .. target,
         type = "codelldb",
         request = "launch",
         program = target_path,

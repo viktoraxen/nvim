@@ -22,6 +22,12 @@ return {
             },
         }
 
+        dap.adapters.python = {
+            type = 'executable',
+            command = 'python3',
+            args = { '-m', 'debugpy.adapter' },
+        }
+
         dap.configurations.cpp = {
             {
                 name = "Launch file",

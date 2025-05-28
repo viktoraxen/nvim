@@ -51,6 +51,10 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
+vim.ui.open = function(url)
+    vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
+end
+
 vim.diagnostic.config {
     underline = true,
     signs = false,

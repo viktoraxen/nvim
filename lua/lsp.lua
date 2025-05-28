@@ -7,7 +7,10 @@ vim.lsp.config['luals'] = {
             runtime = { version = 'LuaJIT' },
             diagnostics = {
                 enable = true,
-                globals = { 'vim' },
+                globals = { 'vim', 'Snacks' },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
             },
         },
     },

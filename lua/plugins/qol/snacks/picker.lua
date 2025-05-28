@@ -3,15 +3,17 @@ return {
     sources = {},
     focus = 'input',
     layout = {
-        cycle = true,
-        --- Use the default layout or vertical if the window is too narrow
+        -- Make the picker larger and centered
+        width = 0.8,
+        height = 0.8,
+        border = "rounded", -- Use a rounded border
+        backdrop = false,
         preset = function()
             return vim.o.columns >= 120 and 'default' or 'ivy_split'
         end,
         layout = {
-            backdrop = false,
-            border = 'none',
-        },
+            backdrop = false, -- no backdrop
+        }
     },
     ---@class snacks.picker.matcher.Config
     matcher = {
@@ -100,7 +102,7 @@ return {
                 ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
                 ['<Up>'] = { 'list_up', mode = { 'i', 'n' } },
                 ['<Down>'] = { 'list_down', mode = { 'i', 'n' } },
-                ['<Esc>'] = 'cancel',
+                -- ['<Esc>'] = 'cancel',
                 ['<S-CR>'] = { { 'pick_win', 'jump' }, mode = { 'n', 'i' } },
                 ['<S-Tab>'] = { 'select_and_prev', mode = { 'i', 'n' } },
                 ['<Tab>'] = { 'select_and_next', mode = { 'i', 'n' } },
