@@ -16,8 +16,6 @@ vim.lsp.config['luals'] = {
     },
 }
 
-vim.lsp.enable 'luals'
-
 vim.lsp.config['clangd'] = {
     cmd = {
         'clangd',
@@ -29,4 +27,22 @@ vim.lsp.config['clangd'] = {
     root_markers = { 'build.sh' },
 }
 
+vim.lsp.config['pyright'] = {
+    cmd = { 'pyright-langserver', '--stdio' },
+    filetypes = { 'python' },
+    root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                typeCheckingMode = 'basic',
+                diagnosticMode = 'openFilesOnly',
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
+}
+
+vim.lsp.enable 'luals'
 vim.lsp.enable 'clangd'
+vim.lsp.enable 'pyright'

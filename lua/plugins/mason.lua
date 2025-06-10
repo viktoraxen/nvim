@@ -4,7 +4,9 @@ return {
     opts = {
         ensure_installed = {
             "stylua",
-            "clangd"
+            "lua-language-server",
+            "clangd",
+            "pyright",
         },
         ui = {
             check_outdated_packages_on_open = true,
