@@ -15,6 +15,7 @@ return {
         'NeotreeFocus',
         'NeotreeClose',
     },
+    event = 'VeryLazy',
     config = function()
         -- If you want icons for diagnostic errors, you'll need to define them somewhere:
         vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })

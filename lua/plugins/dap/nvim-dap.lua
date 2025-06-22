@@ -1,6 +1,7 @@
 return {
     "mfussenegger/nvim-dap",
     lazy = true,
+    event = "VeryLazy",
     keys = {
         { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Breakpoint" },
         { "<leader>dD", "<cmd>DapContinue<cr>",         desc = "Continue" },

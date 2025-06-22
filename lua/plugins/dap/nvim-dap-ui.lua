@@ -1,7 +1,8 @@
+---@diagnostic disable: missing-fields
 return {
     'rcarriga/nvim-dap-ui',
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-
+    event = "VeryLazy",
     config = function(_, opts)
         local dap, dapui = require("dap"), require("dapui")
         -- require('lazydev').setup({
