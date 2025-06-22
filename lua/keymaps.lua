@@ -141,12 +141,17 @@ ln('lw', '<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>', 'Workspace Symbol
 -- Search
 leader_group('s', 'Search')
 
-ln('f', require('utils.pickers').open_files_vscode, 'Search files')
-ln('ss', '<cmd>lua Snacks.picker.grep()<cr>', 'Grep')
-ln('sg', '<cmd>lua Snacks.picker.git_files()<cr>', 'Grep string')
+local pickers = require('utils.pickers')
+
+ln('f', pickers.files_vscode, 'Search files')
+ln('F', pickers.all_files_vscode, 'Search files (include ignored)')
+ln('ss', pickers.grep_string, 'Grep')
+ln('sS', pickers.all_grep_string, 'Grep (include ignored)')
+ln('sg', pickers.git_files, 'Git files')
+ln('sG', pickers.all_git_files, 'Git files (include ignored)')
 ln('sd', '<cmd>lua Snacks.picker.diagnostics()<cr>', 'Diagnostics')
-ln('sf', '<cmd>lua Snacks.picker.files()<cr>', 'Files')
-ln('sF', '<cmd>lua Snacks.picker.files({hidden = true, ignored = true, follow = true})<cr>', 'Files')
+ln('sf', pickers.files, 'Search files')
+ln('sF', pickers.all_files, 'Search files (include ignored)')
 ln('si', '<cmd>lua Snacks.picker.icons()<cr>', 'Icons')
 ln('sp', '<cmd>lua Snacks.picker.projects()<cr>', 'Projects')
 ln('sP', '<cmd>lua Snacks.picker.pickers()<cr>', 'Pickers')
