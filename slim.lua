@@ -3,11 +3,87 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 vim.opt.termguicolors = true
+
+-- require('catppuccin').setup({ flavour = 'mocha' })
+
 vim.cmd.colorscheme 'catppuccin-mocha'
 
-require 'autocommands'
+vim.api.nvim_create_autocmd('WinLeave', {
+    desc = 'Deactivate cursorline highight when leaving a window',
+    pattern = '*',
+    callback = function()
+        vim.wo.cursorline = false
+    end,
+})
 
-require 'options'
+vim.api.nvim_create_autocmd('WinEnter', {
+    desc = 'Activate cursorline highight when entering a window',
+    pattern = '*',
+    callback = function()
+        vim.wo.cursorline = true
+    end,
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+vim.opt.number = false
+vim.opt.showmode = false
+
+-- Sync clipboard between OS and Neovim.
+vim.opt.clipboard = 'unnamedplus'
+
+vim.opt.breakindent = true
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.updatetime = 250
+
+vim.opt.timeoutlen = 1000
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'split'
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10
+
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.wrap = false
+
+vim.opt.winblend = 15
+vim.opt.pumblend = 15
+vim.opt.pumheight = 10
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.ui.open = function(url)
+    vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
+end
+
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "DiagnosticInfo" })
+vim.api.nvim_set_hl(0, "StatusLine", { link = "Normal" })
 
 local map = function(mode, key, action, desc)
     vim.keymap.set(mode, key, action, { desc = desc })
