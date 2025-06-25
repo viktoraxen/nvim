@@ -1,7 +1,6 @@
 return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
-    event = 'VeryLazy',
     config = function()
         require('copilot').setup {
             -- panel = { enabled = false },

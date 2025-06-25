@@ -36,6 +36,24 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
+local NeotreeExplorer = vim.api.nvim_create_augroup('NeotreeExplorer', { clear = true })
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    group = NeotreeExplorer,
+    pattern = '*',
+    command = 'silent! autocmd! FileExplorer',
+})
+
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+    group = NeotreeExplorer,
+    callback = function(args)
+        if vim.fn.argc() > 0 and vim.fn.isdirectory(vim.fn.argv(0)) then
+            vim.cmd('enew')
+            vim.cmd('Neotree right')
+        end
+    end,
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
     callback = function(event)

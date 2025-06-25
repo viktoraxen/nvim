@@ -1,3 +1,26 @@
+local solid_open = false
+
+local function neo_tree_float()
+    if vim.bo.filetype == 'neo-tree' then
+        vim.cmd('Neotree close')
+        solid_open = false
+    elseif solid_open then
+        vim.cmd('Neotree focus')
+    else
+        vim.cmd('Neotree float')
+    end
+end
+
+local function neo_tree_solid()
+    if vim.bo.filetype == 'neo-tree' then
+        vim.cmd('Neotree close')
+        solid_open = false
+    else
+        vim.cmd('Neotree right')
+        solid_open = true
+    end
+end
+
 return {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -6,16 +29,15 @@ return {
         'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
         'MunifTanjim/nui.nvim',
         's1n7ax/nvim-window-picker',
+        'mrbjarksen/neo-tree-diagnostics.nvim',
     },
-    command = {
+    cmd = {
         'Neotree',
-        'NeotreeFloat',
-        'NeotreeReveal',
-        'NeotreeRevealToggle',
-        'NeotreeFocus',
-        'NeotreeClose',
     },
-    event = 'VeryLazy',
+    keys = {
+        { '<leader>e', neo_tree_float, desc = 'Neotree Float' },
+        { '<leader>E', neo_tree_solid, desc = 'Neotree' },
+    },
     config = function()
         vim.api.nvim_create_autocmd('FileType', {
             desc = 'Disable fillchars for NeoTree',
@@ -25,16 +47,12 @@ return {
             end,
         })
 
-        local map = require('utils.keymap')
-
-        map.ln('e', '<cmd>Neotree toggle<cr>', 'Open Neotree')
-
         require('neo-tree').setup {
             filesystem = {
                 use_trash = true,
             },
             window = {
-                position = 'float',
+                width = 43,
                 popup = {
                     relative = 'editor',
                     position = {
@@ -50,9 +68,14 @@ return {
                     },
                     border = {
                         style = {
-                            top_left = "│", top = "", top_right = "",
-                            left = "│", right = "",
-                            bottom_left = "│", bottom = "", bottom_right = "",
+                            top_left = "│",
+                            top = "",
+                            top_right = "",
+                            left = "│",
+                            right = "",
+                            bottom_left = "│",
+                            bottom = "",
+                            bottom_right = "",
                         },
                     },
                 },
@@ -71,51 +94,24 @@ return {
                     ['z'] = 'close_all_nodes',
                     --["Z"] = "expand_all_nodes",
                     ['a'] = { 'add', config = { show_path = 'none' } },
-                    ['A'] = 'add_directory', -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
+                    ['A'] = 'add_directory',
                     ['d'] = 'delete',
                     ['r'] = 'rename',
                     ['y'] = 'copy_to_clipboard',
                     ['x'] = 'cut_to_clipboard',
                     ['p'] = 'paste_from_clipboard',
-                    ['c'] = 'copy_to_clipboard', -- takes text input for destination, also accepts the optional config.show_path option like "add":
-                    ['m'] = 'move',              -- takes text input for destination, also accepts the optional config.show_path option like "add".
+                    ['c'] = 'copy_to_clipboard',
+                    ['m'] = 'move',
                     ['q'] = 'close_window',
                     ['R'] = 'refresh',
                     ['?'] = 'show_help',
-                    ['<'] = 'prev_source',
-                    ['>'] = 'next_source',
                     ['K'] = 'show_file_details',
-                    ['i'] = 'show_file_details',
                 },
             },
-            git_status = {
-                window = {
-                    mappings = {
-                        ['g'] = { 'show_help', nowait = false, config = { title = 'Git', prefix_key = 'g' } },
-                        ['gA'] = 'git_add_all',
-                        ['gu'] = 'git_unstage_file',
-                        ['ga'] = 'git_add_file',
-                        ['gr'] = 'git_revert_file',
-                        ['gc'] = 'git_commit',
-                        ['gp'] = 'git_push',
-                        ['gg'] = 'git_commit_and_push',
-                        ['i'] = 'show_file_details',
-                        ['o'] = { 'show_help', nowait = false, config = { title = 'Order by', prefix_key = 'o' } },
-                        ['oc'] = { 'order_by_created', nowait = false },
-                        ['od'] = { 'order_by_diagnostics', nowait = false },
-                        ['om'] = { 'order_by_modified', nowait = false },
-                        ['on'] = { 'order_by_name', nowait = false },
-                        ['os'] = { 'order_by_size', nowait = false },
-                        ['ot'] = { 'order_by_type', nowait = false },
-                    },
-                },
-            },
+            popup_border_style = 'rounded',
             sources = {
-                'document_symbols',
                 'filesystem',
-                'diagnostics',
             },
-            popup_border_style = 'single',
             default_component_configs = {
                 diagnostics = {
                     symbols = {
@@ -139,19 +135,11 @@ return {
                         {
                             'container',
                             content = {
-                                { 'name',          zindex = 10 },
-                                {
-                                    'symlink_target',
-                                    zindex = 10,
-                                    highlight = 'NeoTreeSymbolicLinkTarget',
-                                },
-                                { 'clipboard',     zindex = 10 },
-                                { 'diagnostics',   errors_only = true, zindex = 20,     align = 'right',          hide_when_expanded = true },
-                                { 'git_status',    zindex = 10,        align = 'right', hide_when_expanded = true },
-                                { 'file_size',     zindex = 10,        align = 'right' },
-                                { 'type',          zindex = 10,        align = 'right' },
-                                { 'last_modified', zindex = 10,        align = 'right' },
-                                { 'created',       zindex = 10,        align = 'right' },
+                                { 'name',           zindex = 10 },
+                                { 'symlink_target', zindex = 10, highlight = 'NeoTreeSymbolicLinkTarget', },
+                                { 'clipboard',      zindex = 10 },
+                                -- { 'diagnostics',    errors_only = true, zindex = 20,                             align = 'right',          hide_when_expanded = true },
+                                { 'git_status',     zindex = 10, align = 'right',                         hide_when_expanded = true },
                             },
                         },
                     },
@@ -161,36 +149,13 @@ return {
                         {
                             'container',
                             content = {
-                                {
-                                    'name',
-                                    zindex = 10,
-                                },
-                                {
-                                    'symlink_target',
-                                    zindex = 10,
-                                    highlight = 'NeoTreeSymbolicLinkTarget',
-                                },
-                                { 'clipboard',   zindex = 10 },
-                                { 'bufnr',       zindex = 10 },
-                                { 'modified',    zindex = 20, align = 'left' },
-                                { 'diagnostics', zindex = 20, align = 'left' },
-                                { 'git_status',  zindex = 10, align = 'right' },
-                                -- { 'file_size', zindex = 10, align = 'right' },
-                                -- { 'type', zindex = 10, align = 'right' },
-                                -- { 'last_modified', zindex = 10, align = 'right' },
-                                -- { 'created', zindex = 10, align = 'right' },
+                                { 'name',           zindex = 10, },
+                                { 'symlink_target', zindex = 10, highlight = 'NeoTreeSymbolicLinkTarget', },
+                                { 'clipboard',      zindex = 10 },
+                                { 'diagnostics',    zindex = 20, align = 'left' },
+                                { 'git_status',     zindex = 10, align = 'right' },
                             },
                         },
-                    },
-                    message = {
-                        { 'indent', with_markers = false },
-                        { 'name',   highlight = 'NeoTreeMessage' },
-                    },
-                    terminal = {
-                        { 'indent' },
-                        { 'icon' },
-                        { 'name' },
-                        { 'bufnr' },
                     },
                 },
                 indent = {
@@ -209,6 +174,7 @@ return {
                 },
                 modified = {
                     symbol = '󰜥',
+                    highlight = 'Comment',
                 },
                 name = {
                     use_git_status_colors = false,
@@ -241,7 +207,7 @@ return {
                     enabled = false,
                 },
                 symlink_target = {
-                    enabled = false,
+                    enabled = true,
                 },
             },
         }

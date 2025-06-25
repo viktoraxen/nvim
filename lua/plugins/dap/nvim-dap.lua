@@ -1,16 +1,6 @@
 return {
     "mfussenegger/nvim-dap",
     lazy = true,
-    event = "VeryLazy",
-    keys = {
-        { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Breakpoint" },
-        { "<leader>dD", "<cmd>DapContinue<cr>",         desc = "Continue" },
-        { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step Into" },
-        { "<leader>do", "<cmd>DapStepOut<cr>",          desc = "Step Out" },
-        { "<leader>ds", "<cmd>DapStepOver<cr>",         desc = "Step Over" },
-        { "<leader>dt", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
-        { "<leader>dq", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
-    },
     config = function()
         local map = require('utils.keymap')
         local dap = require('dap')

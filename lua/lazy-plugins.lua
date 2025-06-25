@@ -3,7 +3,6 @@ require('lazy').setup({
     { import = 'plugins.colorschemes' },
     { import = 'plugins.copilot' },
     { import = 'plugins.dap' },
-    { import = 'plugins.neotree' },
     { import = 'plugins.nvim-cmp' },
     { import = 'plugins.qol' },
     { import = 'plugins.treesitter' },
@@ -17,3 +16,7 @@ require('lazy').setup({
         size = { width = 0.89, height = 0.85 },
     },
 })
+
+local map = require('utils.keymap')
+
+map.n('<leader>il', '<cmd>Lazy<cr>', 'Lazy')

@@ -51,6 +51,9 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
 end
@@ -113,5 +116,6 @@ vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#9399B2', italic = false })
 vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#9399B2', italic = false })
 vim.api.nvim_set_hl(0, 'NeoTreeGitAdded', { fg = '#9399B2', italic = false })
 vim.api.nvim_set_hl(0, 'NeoTreeGitDeleted', { fg = '#9399B2', italic = false })
+vim.api.nvim_set_hl(0, 'NeoTreeGitUntracked', { fg = '#9399B2', italic = false })
 
 vim.api.nvim_set_hl(0, "SnacksPickerInputCursorLine", { link = "Normal" })

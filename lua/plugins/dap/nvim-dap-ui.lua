@@ -2,12 +2,17 @@
 return {
     'rcarriga/nvim-dap-ui',
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    event = "VeryLazy",
+    keys = {
+        { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Breakpoint" },
+        { "<leader>dD", "<cmd>DapContinue<cr>",         desc = "Continue" },
+        { "<leader>di", "<cmd>DapStepInto<cr>",         desc = "Step Into" },
+        { "<leader>do", "<cmd>DapStepOut<cr>",          desc = "Step Out" },
+        { "<leader>ds", "<cmd>DapStepOver<cr>",         desc = "Step Over" },
+        { "<leader>dt", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+        { "<leader>dq", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
+    },
     config = function(_, opts)
         local dap, dapui = require("dap"), require("dapui")
-        -- require('lazydev').setup({
-        --     library = { plugins = { "nvim-dap-ui" }, types = true },
-        -- })
 
         dapui.setup({
             expand_lines = true,

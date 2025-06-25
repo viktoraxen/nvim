@@ -13,9 +13,9 @@ local vscode = {
 
 return {
     'folke/snacks.nvim',
-    -- priority = 1000,
-    -- lazy = false,
-    event = 'VeryLazy',
+    priority = 1000,
+    lazy = false,
+    -- event = 'VeryLazy',
     ---@type snacks.Config
     opts = {
         bigfile = { enabled = true },
@@ -48,21 +48,21 @@ return {
         { "<leader>lw", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
 
         { "<leader>f",  function() Snacks.picker.files(vscode) end,           desc = "Search files" },
-        { "<leader>F",  function() Snacks.picker.files(all) end,              desc = "Search files (include ignored)" },
+        { "<leader>F",  function() Snacks.picker.files(all) end,              desc = "Search files" },
         { "<leader>ss", function() Snacks.picker.grep() end,                  desc = "String" },
-        { "<leader>sS", function() Snacks.picker.grep(all) end,               desc = "String (include ignored)" },
+        { "<leader>sS", function() Snacks.picker.grep(all) end,               desc = "String" },
         { "<leader>sg", function() Snacks.picker.git_files() end,             desc = "Git files" },
-        { "<leader>sG", function() Snacks.picker.git_files(all) end,          desc = "Git files (include ignored)" },
+        { "<leader>sG", function() Snacks.picker.git_files(all) end,          desc = "Git files" },
         { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
         { "<leader>sf", function() Snacks.picker.files() end,                 desc = "Files" },
-        { "<leader>sh", function() Snacks.picker.highlights() end,            desc = "Icons" },
+        { "<leader>sh", function() Snacks.picker.highlights() end,            desc = "Highlights" },
         { "<leader>si", function() Snacks.picker.icons() end,                 desc = "Icons" },
         { "<leader>sp", function() Snacks.picker.projects() end,              desc = "Projects" },
         { "<leader>sP", function() Snacks.picker.pickers() end,               desc = "Pickers" },
         { "<leader>sr", function() Snacks.picker.resume() end,                desc = "Resume previous" },
 
-        { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",               mode = { "n", "i", "v", "t" } },
-        { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",               mode = { "n" } },
+        { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n" } },
 
         { "<leader>gg", function() Snacks.lazygit() end,                      desc = "Lazygit" },
     },

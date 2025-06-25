@@ -9,6 +9,14 @@ end
 
 map.n('<Esc>', clear_hl_and_notifications, 'Clear search highlight and notifications')
 
+-- Groups
+map.l_group('g', 'Git')
+map.l_group('d', 'Debug')
+map.l_group('l', 'Language Server')
+map.l_group('p', 'Peek')
+map.l_group('s', 'Search')
+map.l_group('i', 'Info')
+
 -- Visual editing
 map.v('=', '=gv', 'Auto-indent selection')
 map.v('>', '>gv', 'Indent selection')
@@ -19,8 +27,6 @@ map.ln('q', '<cmd>q<cr>', 'Close buffer')
 map.ln('Q', '<cmd>qa<cr>', 'Close all')
 map.ln('w', '<cmd>w<cr>', 'Save buffer')
 
--- Git
-map.l_group('g', 'Git')
 
 map.n('gh', vim.diagnostic.open_float, 'Show line diagnostics')
 map.n('gj', vim.diagnostic.goto_next, 'Next diagnostic')
@@ -29,17 +35,12 @@ map.n('gk', vim.diagnostic.goto_prev, 'Previous diagnostic')
 -- LSP keymaps
 map.n('K', vim.lsp.buf.hover, 'Hover')
 
-map.l_group('l', 'Language Server')
-map.l_group('p', 'Peek')
-
 map.group('g', 'Go to')
 map.group('gr', 'LSP Buffer')
 
 map.n('gra', vim.lsp.buf.code_action, 'Code action')
 map.n('grf', vim.lsp.buf.format, 'Format buffer')
 map.n('grn', vim.lsp.buf.rename, 'Rename symbol')
-
-map.l_group('s', 'Search')
 
 -- Copy
 map.n('yA', 'ggVGy', 'Copy all')
