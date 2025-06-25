@@ -12,7 +12,10 @@ return {
         { "<leader>dq", "<cmd>DapTerminate<cr>",        desc = "Terminate" },
     },
     config = function()
+        local map = require('utils.keymap')
         local dap = require('dap')
+
+        map.l_group('d', 'Debug')
 
         dap.adapters.codelldb = {
             type = 'server',

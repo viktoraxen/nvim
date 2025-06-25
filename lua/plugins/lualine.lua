@@ -1,7 +1,7 @@
 return {
     'nvim-lualine/lualine.nvim',
     lazy = false,
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     config = function()
         local theme = require('lualine.themes.catppuccin')
 

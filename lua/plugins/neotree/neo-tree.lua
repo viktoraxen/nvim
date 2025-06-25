@@ -17,15 +17,6 @@ return {
     },
     event = 'VeryLazy',
     config = function()
-        -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-        vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-        vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-        vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-        vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
-
-        vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#404040', italic = false })
-        vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#404040', italic = false })
-
         vim.api.nvim_create_autocmd('FileType', {
             desc = 'Disable fillchars for NeoTree',
             pattern = 'neo-tree',
@@ -34,7 +25,9 @@ return {
             end,
         })
 
-        -- Highlight linking is done in autocommands.lua to make sure the autocommands are loaded before the colorschemes
+        local map = require('utils.keymap')
+
+        map.ln('e', '<cmd>Neotree toggle<cr>', 'Open Neotree')
 
         require('neo-tree').setup {
             filesystem = {
@@ -120,7 +113,6 @@ return {
             sources = {
                 'document_symbols',
                 'filesystem',
-                'git_status',
                 'diagnostics',
             },
             popup_border_style = 'single',

@@ -55,11 +55,22 @@ vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
 end
 
+local diagnostic_icons = {
+    error = "",
+    warn = "",
+    info = "",
+    hint = "",
+}
+vim.fn.sign_define('DiagnosticSignError', { text = diagnostic_icons.error, texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = diagnostic_icons.warn, texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint', { text = diagnostic_icons.hint, texthl = 'DiagnosticSignHint' })
+
 vim.diagnostic.config {
     underline = true,
     signs = false,
     update_in_insert = false,
-    virtual_lines = { current_line = true },
+    -- virtual_lines = { current_line = true },
     -- virtual_text = { current_line = true },
     severity_sort = true,
     float = {
@@ -67,10 +78,28 @@ vim.diagnostic.config {
         source = 'if_many',
         header = '',
         scope = 'line',
-        prefix = require('utils.diagnostics').diagnostic_prefix,
+        prefix = function(diagnostic, i, total)
+            local icons_hls = {
+                [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
+                [vim.diagnostic.severity.WARN]  = { diagnostic_icons.warn, "DiagnosticWarn" },
+                [vim.diagnostic.severity.INFO]  = { diagnostic_icons.info, "DiagnosticInfo" },
+                [vim.diagnostic.severity.HINT]  = { diagnostic_icons.hint, "DiagnosticHint" },
+            }
+            local icon, hl = unpack(icons_hls[diagnostic.severity] or { " ", "" })
+            return icon .. " ", hl
+        end,
         suffix = ''
     }
 }
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = "rounded" -- Or any other border
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "DiagnosticInfo" })
@@ -79,5 +108,10 @@ vim.api.nvim_set_hl(0, "ToggleTerm1FloatBorder", { link = "FloatBorder" })
 vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
 vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
 vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Comment" })
+
+vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#9399B2', italic = false })
+vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#9399B2', italic = false })
+vim.api.nvim_set_hl(0, 'NeoTreeGitAdded', { fg = '#9399B2', italic = false })
+vim.api.nvim_set_hl(0, 'NeoTreeGitDeleted', { fg = '#9399B2', italic = false })
 
 vim.api.nvim_set_hl(0, "SnacksPickerInputCursorLine", { link = "Normal" })

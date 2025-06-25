@@ -3,5 +3,5 @@ return {
         style = "float",
         backdrop = false,
         border = 'rounded'
-    }
+    },
 }

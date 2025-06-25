@@ -22,5 +22,13 @@ return {
                 },
             },
         }
+
+        local map = require('utils.keymap')
+
+        map.l_group('p', 'CoPilot')
+
+        map.ln('pc', '<cmd>Copilot toggle<cr>', 'Toggle')
+        map.ln('pd', '<cmd>Copilot disable<cr>', 'Disable')
+        map.ln('pe', '<cmd>Copilot enable<cr>', 'Enable')
     end,
 }
