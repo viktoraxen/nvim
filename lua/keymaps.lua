@@ -15,12 +15,13 @@ map.l_group('d', 'Debug')
 map.l_group('l', 'Language Server')
 map.l_group('p', 'Peek')
 map.l_group('s', 'Search')
-map.l_group('i', 'Info')
 
 -- Visual editing
 map.v('=', '=gv', 'Auto-indent selection')
 map.v('>', '>gv', 'Indent selection')
 map.v('<', '<gv', 'De-indent selection')
+
+map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Replace word under cursor')
 
 -- Basic
 map.ln('q', '<cmd>q<cr>', 'Close buffer')

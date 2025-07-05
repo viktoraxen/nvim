@@ -28,6 +28,7 @@ return {
             dashboard.button('e', '  Explorer', ':Neotree position=current<cr>'),
             dashboard.button('p', '  Projects', ':lua Snacks.picker.projects()<CR>'),
             dashboard.button('i', '  Plugins', ':Lazy<CR>'),
+            dashboard.button('m', '󰯠  Mason', ':Mason<CR>'),
             dashboard.button('c', '󰢻  Configuration', open_config),
             dashboard.button('q', '󱎘  Quit', ':qa<CR>'),
         }
@@ -35,7 +36,7 @@ return {
         dashboard.config.opts.noautocmd = true
 
         dashboard.config.layout = {
-            { type = 'padding', val = 8 },
+            { type = 'padding', val = 10 },
             dashboard.section.header,
             { type = 'padding', val = 7 },
             dashboard.section.buttons,

@@ -22,4 +22,4 @@ require('lazy').setup({
 
 local map = require('utils.keymap')
 
-map.n('<leader>il', '<cmd>Lazy<cr>', 'Lazy')
+map.n('<leader>L', '<cmd>Lazy<cr>', 'Lazy')

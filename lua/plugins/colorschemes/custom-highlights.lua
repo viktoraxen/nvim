@@ -1,7 +1,5 @@
 return {
-    "custom-highlights-nvim",
-    dev = true,
-    event = "VimEnter",
+    "viktoraxen/custom-highlights-nvim",
     opts = {
         customizations = {
             catppuccin = {
@@ -12,14 +10,21 @@ return {
                 { 'NeoTreeGitAdded',     { fg = "subtext0" } },
                 { 'NeoTreeGitDeleted',   { fg = "subtext0" } },
                 { 'NeoTreeGitUntracked', { fg = "subtext0" } },
+                { "SlimlineNormal",      { fg = "blue" } },
+                { "SlimlineInsert",      { fg = "green" } },
+                { "SlimlineVisual",      { fg = "maroon" } },
+                { "SlimlineReplace",     { fg = "red" } },
+                { "SlimlineCommand",     { fg = "peach" } },
+                { "SlimlineOther",       { fg = "green" } },
             },
         },
         links = {
-            { src = "NeoTreeFloatNormal",          dst = "Normal" },
             { src = "NormalFloat",                 dst = "Normal" },
+            { src = "FloatBorder",                 dst = "Normal" },
             { src = "ToggleTerm1FloatBorder",      dst = "FloatBorder" },
             { src = "NeoTreeNormal",               dst = "Normal" },
             { src = "NeoTreeNormalNC",             dst = "Normal" },
+            { src = "NeoTreeFloatNormal",          dst = "Normal" },
             { src = "SnacksPickerInputCursorLine", dst = "Normal" },
         }
     }

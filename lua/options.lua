@@ -1,5 +1,8 @@
 vim.cmd("colorscheme catppuccin")
 
+-- Global statusline
+vim.opt.laststatus = 3
+
 -- Make line numbers default
 vim.opt.number = false
 
@@ -54,8 +57,8 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
