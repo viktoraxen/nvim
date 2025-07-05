@@ -15,6 +15,9 @@ require('lazy').setup({
         backdrop = 100,
         size = { width = 0.89, height = 0.85 },
     },
+    dev = {
+        path = "~/dev"
+    }
 })
 
 local map = require('utils.keymap')

@@ -1,3 +1,5 @@
+vim.cmd("colorscheme catppuccin")
+
 -- Make line numbers default
 vim.opt.number = false
 
@@ -32,6 +34,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = { eob = " " }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -103,19 +106,3 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts.border = "rounded" -- Or any other border
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
-
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
-vim.api.nvim_set_hl(0, "FloatBorder", { link = "DiagnosticInfo" })
-vim.api.nvim_set_hl(0, "ToggleTerm1FloatBorder", { link = "FloatBorder" })
-
-vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
-vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
-vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Comment" })
-
-vim.api.nvim_set_hl(0, 'NeoTreeGitUnstaged', { fg = '#9399B2', italic = false })
-vim.api.nvim_set_hl(0, 'NeoTreeGitModified', { fg = '#9399B2', italic = false })
-vim.api.nvim_set_hl(0, 'NeoTreeGitAdded', { fg = '#9399B2', italic = false })
-vim.api.nvim_set_hl(0, 'NeoTreeGitDeleted', { fg = '#9399B2', italic = false })
-vim.api.nvim_set_hl(0, 'NeoTreeGitUntracked', { fg = '#9399B2', italic = false })
-
-vim.api.nvim_set_hl(0, "SnacksPickerInputCursorLine", { link = "Normal" })

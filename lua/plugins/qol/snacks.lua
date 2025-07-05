@@ -35,17 +35,15 @@ return {
     keys = {
         { "grc",        function() Snacks.picker.lsp_declarations() end,      desc = "Go to declaration" },
         { "grd",        function() Snacks.picker.lsp_definitions() end,       desc = "Go to definition" },
-        { "gri",        function() Snacks.picker.lsp_implementation() end,    desc = "Implementation" },
+        { "gri",        function() Snacks.picker.lsp_implementations() end,   desc = "Implementation" },
         { "grr",        function() Snacks.picker.lsp_references() end,        desc = "References" },
         { "grt",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Go to type definition" },
 
         { "<leader>lc", function() Snacks.picker.lsp_declarations() end,      desc = "Declarations" },
         { "<leader>ld", function() Snacks.picker.lsp_definitions() end,       desc = "Definitions" },
-        { "<leader>li", function() Snacks.picker.lsp_implementation() end,    desc = "Implementation" },
+        { "<leader>li", function() Snacks.picker.lsp_implementations() end,   desc = "Implementation" },
         { "<leader>lr", function() Snacks.picker.lsp_references() end,        desc = "References" },
-        { "<leader>ls", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },
         { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,  desc = "Type definitions" },
-        { "<leader>lw", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
 
         { "<leader>f",  function() Snacks.picker.files(vscode) end,           desc = "Search files" },
         { "<leader>F",  function() Snacks.picker.files(all) end,              desc = "Search files" },
@@ -60,6 +58,8 @@ return {
         { "<leader>sp", function() Snacks.picker.projects() end,              desc = "Projects" },
         { "<leader>sP", function() Snacks.picker.pickers() end,               desc = "Pickers" },
         { "<leader>sr", function() Snacks.picker.resume() end,                desc = "Resume previous" },
+        { "<leader>sl", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },
+        { "<leader>sw", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
 
         { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
         { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n" } },

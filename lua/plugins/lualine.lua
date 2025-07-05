@@ -4,8 +4,6 @@ return {
     config = function()
         local theme = require('lualine.themes.catppuccin')
 
-        theme.normal.c.bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
-
         require('lualine').setup {
             options = {
                 icons_enabled = true,
