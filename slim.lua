@@ -4,9 +4,7 @@ vim.g.have_nerd_font = true
 
 vim.opt.termguicolors = true
 
--- require('catppuccin').setup({ flavour = 'mocha' })
-
-vim.cmd.colorscheme 'catppuccin-mocha'
+vim.cmd.colorscheme 'catppuccin'
 
 vim.api.nvim_create_autocmd('WinLeave', {
     desc = 'Deactivate cursorline highight when leaving a window',
@@ -74,16 +72,9 @@ vim.opt.winblend = 15
 vim.opt.pumblend = 15
 vim.opt.pumheight = 10
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
 end
-
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
-vim.api.nvim_set_hl(0, "FloatBorder", { link = "DiagnosticInfo" })
-vim.api.nvim_set_hl(0, "StatusLine", { link = "Normal" })
 
 local map = function(mode, key, action, desc)
     vim.keymap.set(mode, key, action, { desc = desc })

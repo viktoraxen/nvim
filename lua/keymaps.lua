@@ -44,10 +44,10 @@ map.n('grf', vim.lsp.buf.format, 'Format buffer')
 map.n('grn', vim.lsp.buf.rename, 'Rename symbol')
 
 -- Copy
-map.n('yA', 'ggVGy', 'Copy all')
+map.n('yA', 'ggyG', 'Copy all')
 map.n('vA', 'ggVG', 'Select all')
-map.n('dA', 'ggVGd', 'Delete all')
-map.n('cA', 'ggVGc', 'Change all')
+map.n('dA', 'ggdG', 'Delete all')
+map.n('cA', 'ggcG', 'Change all')
 
 -- Insert mode
 map.i('jj', '<Esc>', 'Exit insert mode')

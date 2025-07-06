@@ -18,8 +18,9 @@ return {
 
         local open_config = function()
             vim.cmd 'cd ~/.config/nvim'
-            vim.cmd 'e init.lua'
-            vim.cmd 'lua Snacks.picker.files()'
+            require("persistence").load()
+            -- vim.cmd 'e init.lua'
+            -- vim.cmd 'lua Snacks.picker.files()'
         end
 
         dashboard.section.buttons.val = {

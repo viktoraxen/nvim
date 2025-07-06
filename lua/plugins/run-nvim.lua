@@ -1,5 +1,6 @@
 return {
-    'viktoraxen/run-nvim',
+    'run-nvim',
+    dev = true,
     cmd = {
         'Run',
         'Debug',

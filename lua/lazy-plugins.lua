@@ -1,11 +1,6 @@
 require('lazy').setup({
     { import = 'plugins' },
     { import = 'plugins.colorschemes' },
-    { import = 'plugins.copilot' },
-    { import = 'plugins.dap' },
-    { import = 'plugins.nvim-cmp' },
-    { import = 'plugins.qol' },
-    { import = 'plugins.treesitter' },
 }, {
     install = {
         colorscheme = { 'catppuccin' },

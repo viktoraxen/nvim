@@ -22,6 +22,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
+vim.api.nvim_create_autocmd("CursorMoved", {
+    desc = "Clear status on cursor move.",
+    callback = function()
+        vim.cmd("echo ''")
+    end,
+})
+
 vim.api.nvim_create_autocmd('BufWritePre', {
     desc = 'Format on save',
     callback = function(args)

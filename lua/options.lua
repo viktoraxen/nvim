@@ -6,6 +6,9 @@ vim.opt.laststatus = 3
 -- Make line numbers default
 vim.opt.number = false
 
+-- Don't show the previous keystroke in bottom right corner
+vim.opt.showcmd = false
+
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
