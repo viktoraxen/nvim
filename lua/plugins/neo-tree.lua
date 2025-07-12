@@ -115,7 +115,7 @@ return {
             default_component_configs = {
                 diagnostics = {
                     symbols = {
-                        hint = '',
+                        hint = '',
                         info = '',
                         warn = '',
                         error = '',

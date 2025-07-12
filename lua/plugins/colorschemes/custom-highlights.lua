@@ -3,8 +3,7 @@ return {
     opts = {
         customizations = {
             catppuccin = {
-                { 'FloatBorder',         { fg = "sky" } },
-                { 'NeoTreeFloatBorder',  { fg = "sky" } },
+                { 'FloatBorder',         { fg = "overlay1" } },
                 { 'NeoTreeGitUnstaged',  { fg = "subtext0" } },
                 { 'NeoTreeGitModified',  { fg = "subtext0" } },
                 { 'NeoTreeGitAdded',     { fg = "subtext0" } },
@@ -21,6 +20,7 @@ return {
         links = {
             { src = "NormalFloat",                 dst = "Normal" },
             { src = "FloatBorder",                 dst = "Normal" },
+            { src = 'NeoTreeFloatBorder',          dst = "FloatBorder" },
             { src = "ToggleTerm1FloatBorder",      dst = "FloatBorder" },
             { src = "NeoTreeNormal",               dst = "Normal" },
             { src = "NeoTreeNormalNC",             dst = "Normal" },

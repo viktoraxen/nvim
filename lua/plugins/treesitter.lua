@@ -1,7 +1,7 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "VimEnter" },
     opts = {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript' },
         auto_install = true,
