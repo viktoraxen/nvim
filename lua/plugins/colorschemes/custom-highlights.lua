@@ -20,6 +20,7 @@ return {
         links = {
             { src = "NormalFloat",                 dst = "Normal" },
             { src = "FloatBorder",                 dst = "Normal" },
+            { src = "FloatTitle",                  dst = "Normal" },
             { src = 'NeoTreeFloatBorder',          dst = "FloatBorder" },
             { src = "ToggleTerm1FloatBorder",      dst = "FloatBorder" },
             { src = "NeoTreeNormal",               dst = "Normal" },
