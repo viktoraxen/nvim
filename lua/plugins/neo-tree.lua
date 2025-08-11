@@ -55,29 +55,34 @@ return {
                 width = 43,
                 popup = {
                     relative = 'editor',
+                    -- position = {
+                    --     col = '100%',
+                    --     row = 0,
+                    -- },
                     position = {
-                        col = '100%',
-                        row = 0,
+                        col = '50%',
+                        row = '50%',
                     },
                     win_options = {
                         concealcursor = true
                     },
-                    size = {
-                        width = 43,
-                        height = vim.o.lines - 2
-                    },
-                    border = {
-                        style = {
-                            top_left = "│",
-                            top = "",
-                            top_right = "",
-                            left = "│",
-                            right = "",
-                            bottom_left = "│",
-                            bottom = "",
-                            bottom_right = "",
-                        },
-                    },
+                    -- size = {
+                    --     width = 43,
+                    --     height = vim.o.lines - 2
+                    -- },
+                    border = 'rounded',
+                    -- border = {
+                    --     style = {
+                    --         top_left = "│",
+                    --         top = "",
+                    --         top_right = "",
+                    --         left = "│",
+                    --         right = "",
+                    --         bottom_left = "│",
+                    --         bottom = "",
+                    --         bottom_right = "",
+                    --     },
+                    -- },
                 },
                 mappings = {
                     ['<space>'] = { 'toggle_node', nowait = false },
