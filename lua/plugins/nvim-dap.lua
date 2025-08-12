@@ -22,6 +22,18 @@ return {
             args = { '-m', 'debugpy.adapter' },
         }
 
+        dap.configurations.python = {
+            {
+                type = 'python',
+                request = 'launch',
+                name = 'Launch file',
+                program = '${file}', -- This will debug the current file
+                pythonPath = function()
+                    return 'python3'
+                end,
+            },
+        }
+
         dap.configurations.cpp = {
             {
                 name = "Launch file",
