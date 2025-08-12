@@ -50,6 +50,10 @@ return {
         require('neo-tree').setup {
             filesystem = {
                 use_trash = true,
+                filtered_items = {
+                    show_hidden_count = false,
+                    hide_dotfiles = false
+                }
             },
             window = {
                 width = 43,
