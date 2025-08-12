@@ -11,6 +11,15 @@ local vscode = {
     }
 }
 
+local vscodeall = {
+    layout = {
+        preset = "vscode",
+    },
+    hidden = true,
+    ignored = true,
+    follow = true,
+}
+
 return {
     'folke/snacks.nvim',
     priority = 1000,
@@ -46,7 +55,7 @@ return {
         { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,  desc = "Type definitions" },
 
         { "<leader>f",  function() Snacks.picker.files(vscode) end,           desc = "Search files" },
-        { "<leader>F",  function() Snacks.picker.files(all) end,              desc = "Search files (All)" },
+        { "<leader>F",  function() Snacks.picker.files(vscodeall) end,        desc = "Search files (All)" },
         { "<leader>ss", function() Snacks.picker.grep() end,                  desc = "Grep" },
         { "<leader>sS", function() Snacks.picker.grep(all) end,               desc = "Grep (All)" },
         { "<leader>sc", function() Snacks.picker.git_diff() end,              desc = "Git diff" },
