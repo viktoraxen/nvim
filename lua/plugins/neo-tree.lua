@@ -3,7 +3,6 @@ local solid_open = false
 local function neo_tree_float()
     if vim.bo.filetype == 'neo-tree' then
         vim.cmd('Neotree close')
-        solid_open = false
     elseif solid_open then
         vim.cmd('Neotree focus')
     else
@@ -14,7 +13,6 @@ end
 local function neo_tree_solid()
     if vim.bo.filetype == 'neo-tree' then
         vim.cmd('Neotree close')
-        solid_open = false
     else
         vim.cmd('Neotree right')
         solid_open = true
@@ -48,6 +46,14 @@ return {
         })
 
         require('neo-tree').setup {
+            event_handlers = {
+                {
+                    event = "neo_tree_window_after_close",
+                    handler = function(_)
+                        solid_open = false
+                    end
+                }
+            },
             filesystem = {
                 use_trash = true,
                 filtered_items = {
@@ -59,10 +65,6 @@ return {
                 width = 43,
                 popup = {
                     relative = 'editor',
-                    -- position = {
-                    --     col = '100%',
-                    --     row = 0,
-                    -- },
                     position = {
                         col = '50%',
                         row = '50%',
@@ -70,23 +72,7 @@ return {
                     win_options = {
                         concealcursor = true
                     },
-                    -- size = {
-                    --     width = 43,
-                    --     height = vim.o.lines - 2
-                    -- },
                     border = 'rounded',
-                    -- border = {
-                    --     style = {
-                    --         top_left = "│",
-                    --         top = "",
-                    --         top_right = "",
-                    --         left = "│",
-                    --         right = "",
-                    --         bottom_left = "│",
-                    --         bottom = "",
-                    --         bottom_right = "",
-                    --     },
-                    -- },
                 },
                 mappings = {
                     ['<space>'] = { 'toggle_node', nowait = false },
@@ -99,9 +85,7 @@ return {
                     ['s'] = 'split_with_window_picker',
                     ['v'] = 'vsplit_with_window_picker',
                     ['C'] = 'close_node',
-                    -- ['C'] = 'close_all_subnodes',
                     ['z'] = 'close_all_nodes',
-                    --["Z"] = "expand_all_nodes",
                     ['a'] = { 'add', config = { show_path = 'none' } },
                     ['A'] = 'add_directory',
                     ['d'] = 'delete',
