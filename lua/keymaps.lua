@@ -28,7 +28,6 @@ map.ln('q', '<cmd>q<cr>', 'Close buffer')
 map.ln('Q', '<cmd>qa<cr>', 'Close all')
 map.ln('w', '<cmd>w<cr>', 'Save buffer')
 
-
 map.n('gh', vim.diagnostic.open_float, 'Show line diagnostics')
 map.n('gj', vim.diagnostic.goto_next, 'Next diagnostic')
 map.n('gk', vim.diagnostic.goto_prev, 'Previous diagnostic')
@@ -49,6 +48,9 @@ map.n('vA', 'ggVG', 'Select all')
 map.n('dA', 'ggdG', 'Delete all')
 map.n('cA', 'ggcG', 'Change all')
 
+-- Substitute
+map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Substitude word under cursor')
+
 -- Insert mode
 map.i('jj', '<Esc>', 'Exit insert mode')
 map.i('<C-h>', '<C-w>', 'Remove word before')
@@ -65,6 +67,7 @@ map.v('p', '"_dP', 'Paste without yanking')
 
 map.t('<C-x>', '<C-\\><C-n>', 'Exit terminal mode')
 
+-- Window
 map.n('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
 map.n('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
 map.n('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
