@@ -3,7 +3,7 @@ return {
     opts = {
         customizations = {
             catppuccin = {
-                { 'FloatBorder',         { fg = "overlay1" } },
+                { 'NormalFloat',         { bg = "mantle" } },
                 { 'NeoTreeGitUnstaged',  { fg = "subtext0" } },
                 { 'NeoTreeGitModified',  { fg = "subtext0" } },
                 { 'NeoTreeGitAdded',     { fg = "subtext0" } },
@@ -19,13 +19,13 @@ return {
         },
         links = {
             { src = "NormalFloat",                 dst = "Normal" },
-            { src = "FloatBorder",                 dst = "Normal" },
-            { src = "FloatTitle",                  dst = "Normal" },
+            { src = "FloatBorder",                 dst = "NormalFloat" },
+            { src = "FloatTitle",                  dst = "NormalFloat" },
             { src = 'NeoTreeFloatBorder',          dst = "FloatBorder" },
+            { src = "NeoTreeFloatNormal",          dst = "NormalFloat" },
             { src = "ToggleTerm1FloatBorder",      dst = "FloatBorder" },
             { src = "NeoTreeNormal",               dst = "Normal" },
             { src = "NeoTreeNormalNC",             dst = "Normal" },
-            { src = "NeoTreeFloatNormal",          dst = "Normal" },
             { src = "SnacksPickerInputCursorLine", dst = "Normal" },
         }
     }
