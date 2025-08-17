@@ -3,7 +3,7 @@ return {
     opts = {
         customizations = {
             catppuccin = {
-                { 'NormalFloat',         { bg = "mantle" } },
+                -- { 'NormalFloat',         { bg = "mantle" } },
                 { 'NeoTreeGitUnstaged',  { fg = "subtext0" } },
                 { 'NeoTreeGitModified',  { fg = "subtext0" } },
                 { 'NeoTreeGitAdded',     { fg = "subtext0" } },
