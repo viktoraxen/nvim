@@ -1,5 +1,8 @@
 vim.cmd("colorscheme catppuccin")
 
+-- Don't use swapfile
+vim.opt.swapfile = false
+
 -- Global statusline
 vim.opt.laststatus = 3
 
