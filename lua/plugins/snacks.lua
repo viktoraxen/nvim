@@ -12,12 +12,12 @@ local vscode = {
 }
 
 local vscodeall = {
-    layout = {
-        preset = "vscode",
-    },
     hidden = true,
     ignored = true,
     follow = true,
+    layout = {
+        preset = "vscode",
+    }
 }
 
 return {
@@ -36,7 +36,6 @@ return {
         quickfile = { enabled = true },
         scope = { enabled = true },
         scroll = require 'plugins.snacks.scroll',
-        -- statuscolumn = { enabled = true },
         terminal = require 'plugins.snacks.terminal',
         words = { enabled = true },
         styles = require 'plugins.snacks.styles',
