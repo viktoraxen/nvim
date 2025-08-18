@@ -15,11 +15,11 @@ return {
         },
         ui = {
             check_outdated_packages_on_open = true,
-            border = 'rounded',
+            border = 'solid',
             backdrop = 100,
 
-            width = 0.89,
-            height = 0.88,
+            width = 0.85,
+            height = 0.85,
         }
     }
 }

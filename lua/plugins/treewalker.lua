@@ -3,7 +3,7 @@ return {
     dependencies = {
         'nvim-treesitter/nvim-treesitter',
     },
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
         local map = require('utils.keymap')
 

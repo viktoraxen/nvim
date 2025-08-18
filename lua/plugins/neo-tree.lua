@@ -1,12 +1,12 @@
 local solid_open = false
 
-local function neo_tree_float()
+local function neo_tree()
     if vim.bo.filetype == 'neo-tree' then
         vim.cmd('Neotree close')
     elseif solid_open then
         vim.cmd('Neotree focus')
     else
-        vim.cmd('Neotree float')
+        vim.cmd('Neotree right')
     end
 end
 
@@ -33,7 +33,7 @@ return {
         'Neotree',
     },
     keys = {
-        { '<leader>e', neo_tree_float, desc = 'Neotree Float' },
+        { '<leader>e', neo_tree,       desc = 'Neotree Float' },
         { '<leader>E', neo_tree_solid, desc = 'Neotree' },
     },
     config = function()
@@ -52,6 +52,22 @@ return {
                     handler = function(_)
                         solid_open = false
                     end
+                },
+                {
+                    event = "file_open_requested",
+                    handler = function(_)
+                        if not solid_open then
+                            require("neo-tree.command").execute({ action = "close" })
+                        end
+                    end
+                },
+                {
+                    event = "neo_tree_buffer_leave",
+                    handler = function(_)
+                        if not solid_open then
+                            require("neo-tree.command").execute({ action = "close" })
+                        end
+                    end
                 }
             },
             filesystem = {
@@ -63,17 +79,6 @@ return {
             },
             window = {
                 width = 43,
-                popup = {
-                    relative = 'editor',
-                    position = {
-                        col = '50%',
-                        row = '50%',
-                    },
-                    win_options = {
-                        concealcursor = true
-                    },
-                    border = 'rounded',
-                },
                 mappings = {
                     ['<space>'] = { 'toggle_node', nowait = false },
                     ['<cr>'] = 'open_with_window_picker',
@@ -101,7 +106,6 @@ return {
                     ['K'] = 'show_file_details',
                 },
             },
-            popup_border_style = 'rounded',
             sources = {
                 'filesystem',
             },

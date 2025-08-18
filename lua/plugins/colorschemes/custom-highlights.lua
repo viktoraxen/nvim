@@ -1,32 +1,71 @@
 return {
-    "viktoraxen/custom-highlights-nvim",
-    opts = {
-        customizations = {
-            catppuccin = {
-                -- { 'NormalFloat',         { bg = "mantle" } },
-                { 'NeoTreeGitUnstaged',  { fg = "subtext0" } },
-                { 'NeoTreeGitModified',  { fg = "subtext0" } },
-                { 'NeoTreeGitAdded',     { fg = "subtext0" } },
-                { 'NeoTreeGitDeleted',   { fg = "subtext0" } },
-                { 'NeoTreeGitUntracked', { fg = "subtext0" } },
-                { "SlimlineNormal",      { fg = "blue" } },
-                { "SlimlineInsert",      { fg = "green" } },
-                { "SlimlineVisual",      { fg = "maroon" } },
-                { "SlimlineReplace",     { fg = "red" } },
-                { "SlimlineCommand",     { fg = "peach" } },
-                { "SlimlineOther",       { fg = "green" } },
+    -- "viktoraxen/custom-highlights-nvim",
+    "custom-highlights-nvim",
+    dev = true,
+    -- event = "VeryLazy",
+    config = function()
+        print("Loading highlight")
+        require("custom-highlights-nvim").setup({
+            customizations = {
+                catppuccin = {
+                    { 'SnacksPickerPreview',         { bg = "mantle" } },
+                    { 'SnacksPickerPreviewBorder',   { bg = "mantle" } },
+                    { 'SnacksPickerPreviewFooter',   { bg = "mantle" } },
+                    { 'SnacksPickerPreviewNormal',   { bg = "mantle" } },
+                    { 'SnacksPickerPreviewTitle',    { bg = "mantle", fg = "sky" } },
+
+                    { 'SnacksPickerInput',           { bg = "surface1" } },
+                    { 'SnacksPickerInputBorder',     { bg = "surface1" } },
+                    { 'SnacksPickerInputCursorLine', { bg = "surface1" } },
+                    { 'SnacksPickerInputFooter',     { bg = "surface1", fg = "red" } },
+                    { 'SnacksPickerInputSearch',     { bg = "surface1" } },
+                    { 'SnacksPickerInputTitle',      { bg = "surface1", fg = "sky" } },
+
+                    { 'SnacksPickerList',            { bg = "surface0" } },
+                    { 'SnacksPickerListBorder',      { bg = "surface0" } },
+                    { 'SnacksPickerListFooter',      { bg = "surface0" } },
+                    { 'SnacksPickerListTitle',       { bg = "surface0" } },
+
+                    { 'NormalFloat',                 { bg = "surface0", } },
+                    { 'FloatBorder',                 { bg = "surface0", fg = "surface0" } },
+                    { 'FloatTitle',                  { bg = "surface0", fg = "sky" } },
+
+                    { 'NeoTreeGitUnstaged',          { fg = "subtext0" } },
+                    { 'NeoTreeGitModified',          { fg = "subtext0" } },
+                    { 'NeoTreeGitAdded',             { fg = "subtext0" } },
+                    { 'NeoTreeGitDeleted',           { fg = "subtext0" } },
+                    { 'NeoTreeGitUntracked',         { fg = "subtext0" } },
+
+                    { 'SnacksNotifierTitleTrace',    { bg = "surface0", italic = true } },
+                    { 'SnacksNotifierTitleDebug',    { bg = "surface0", fg = "sky", italic = true } },
+                    { 'SnacksNotifierTitleInfo',     { bg = "surface0", fg = "sky", italic = true } },
+                    { 'SnacksNotifierTitleWarn',     { bg = "surface0", fg = "yellow", italic = true } },
+                    { 'SnacksNotifierTitleError',    { bg = "surface0", fg = "red", italic = true } },
+                },
             },
-        },
-        links = {
-            { src = "NormalFloat",                 dst = "Normal" },
-            { src = "FloatBorder",                 dst = "NormalFloat" },
-            { src = "FloatTitle",                  dst = "NormalFloat" },
-            { src = 'NeoTreeFloatBorder',          dst = "FloatBorder" },
-            { src = "NeoTreeFloatNormal",          dst = "NormalFloat" },
-            { src = "ToggleTerm1FloatBorder",      dst = "FloatBorder" },
-            { src = "NeoTreeNormal",               dst = "Normal" },
-            { src = "NeoTreeNormalNC",             dst = "Normal" },
-            { src = "SnacksPickerInputCursorLine", dst = "Normal" },
-        }
-    }
+            links = {
+                { src = "NeoTreeFloatNormal",          dst = "NormalFloat" },
+                { src = 'NeoTreeFloatBorder',          dst = "FloatBorder" },
+
+                { src = "NeoTreeNormal",               dst = "Normal" },
+                { src = "NeoTreeNormalNC",             dst = "NeoTreeNormal" },
+
+                { src = "SnacksPickerBoxBorder",       dst = "FloatBorder" },
+                { src = "SnacksPickerPrompt",          dst = "NormalFloat" },
+                { src = "SnacksPickerInputCursorLine", dst = "NormalFloat" },
+
+                { src = 'SnacksNotifierBorderTrace',   dst = "NormalFloat" },
+                { src = 'SnacksNotifierBorderDebug',   dst = "NormalFloat" },
+                { src = 'SnacksNotifierBorderInfo',    dst = "NormalFloat" },
+                { src = 'SnacksNotifierBorderWarn',    dst = "NormalFloat" },
+                { src = 'SnacksNotifierBorderError',   dst = "NormalFloat" },
+
+                { src = 'SnacksNotifierTrace',         dst = "NormalFloat" },
+                { src = 'SnacksNotifierDebug',         dst = "NormalFloat" },
+                { src = 'SnacksNotifierInfo',          dst = "NormalFloat" },
+                { src = 'SnacksNotifierWarn',          dst = "NormalFloat" },
+                { src = 'SnacksNotifierError',         dst = "NormalFloat" },
+            },
+        })
+    end
 }

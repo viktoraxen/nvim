@@ -5,7 +5,7 @@ return {
         local dashboard = require 'alpha.themes.dashboard'
         local map = require('utils.keymap')
 
-        map.ln('A', '<cmd>Alpha<cr>', 'Alpha')
+        map.ln('A', '<cmd>bd % | Alpha<cr>', 'Alpha')
 
         dashboard.section.header.val = {
             [[                               __                ]],
@@ -19,15 +19,13 @@ return {
         local open_config = function()
             vim.cmd 'cd ~/.config/nvim'
             require("persistence").load()
-            -- vim.cmd 'e init.lua'
-            -- vim.cmd 'lua Snacks.picker.files()'
         end
 
         dashboard.section.buttons.val = {
-            dashboard.button('n', '  New file', ':ene <BAR> startinsert <CR>'),
-            dashboard.button('f', '  Find files', ':lua Snacks.picker.files()<CR>'),
-            dashboard.button('e', '  Explorer', ':Neotree position=current<cr>'),
-            dashboard.button('p', '  Projects', ':lua Snacks.picker.projects()<CR>'),
+            dashboard.button('n', '  New file', ':ene<CR>'),
+            dashboard.button('f', '  Find files', Snacks.picker.files),
+            dashboard.button('e', '  Explorer', ':Neotree position=current<CR>'),
+            dashboard.button('p', '  Projects', Snacks.picker.projects),
             dashboard.button('i', '  Plugins', ':Lazy<CR>'),
             dashboard.button('m', '󰯠  Mason', ':Mason<CR>'),
             dashboard.button('c', '󰢻  Configuration', open_config),

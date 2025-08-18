@@ -7,18 +7,31 @@ local all = {
 
 local vscode = {
     layout = {
-        preset = "vscode",
+        preview = false,
+        layout = {
+            box = "vertical",
+            row = 1,
+            width = 0.5,
+            height = 0.4,
+            backdrop = false,
+            {
+                box = "vertical",
+                {
+                    win = "input",
+                    height = 1,
+                    border = "solid",
+                    title = "{title} {live} {flags}",
+                },
+                {
+                    win = "list",
+                    border = "solid",
+                },
+            },
+        }
     }
 }
 
-local vscodeall = {
-    hidden = true,
-    ignored = true,
-    follow = true,
-    layout = {
-        preset = "vscode",
-    }
-}
+local vscodeall = vim.tbl_deep_extend("force", all, vscode)
 
 return {
     'folke/snacks.nvim',
@@ -63,6 +76,7 @@ return {
         { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
         { "<leader>sD", function() Snacks.picker.diagnostics(all) end,        desc = "Diagnostics (All)" },
         { "<leader>sf", function() Snacks.picker.files() end,                 desc = "Files" },
+        { "<leader>sF", function() Snacks.picker.files(all) end,              desc = "Files (All)" },
         { "<leader>sH", function() Snacks.picker.highlights() end,            desc = "Highlights" },
         { "<leader>sh", function() Snacks.picker.help() end,                  desc = "Help" },
         { "<leader>si", function() Snacks.picker.icons(vscode) end,           desc = "Icons" },
@@ -77,7 +91,6 @@ return {
 
         { "<leader>gg", function() Snacks.lazygit() end,                      desc = "Lazygit" },
     },
-
     init = require 'plugins.snacks.initsnacks',
 
 }

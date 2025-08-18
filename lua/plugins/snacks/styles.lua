@@ -1,5 +1,9 @@
 return {
     notification = {
-        wo = { wrap = true } -- Wrap notifications
+        border = "solid",
+        wo = {
+            wrap = true,
+            winblend = 0,
+        }
     }
 }

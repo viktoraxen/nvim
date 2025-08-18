@@ -6,7 +6,7 @@ require('lazy').setup({
         colorscheme = { 'catppuccin' },
     },
     ui = {
-        border = 'rounded',
+        border = 'solid',
         backdrop = 100,
         size = { width = 0.89, height = 0.85 },
     },

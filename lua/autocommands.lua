@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 callback = vim.lsp.buf.document_highlight,
             })
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            vim.api.nvim_create_autocmd({ 'WinLeave', 'CursorMoved', 'CursorMovedI' }, {
                 desc = 'Clear highlight word under cursor on move',
                 buffer = event.buf,
                 group = highlight_augroup,

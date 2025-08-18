@@ -1,18 +1,69 @@
+local wide_layout = {
+    layout = {
+        box = "horizontal",
+        min_width = 120,
+        width = 0.85,
+        height = 0.85,
+        backdrop = false,
+        {
+            box = "vertical",
+            {
+                win = "input",
+                height = 1,
+                border = "solid",
+                title = "{title} {live} {flags}",
+            },
+            {
+                win = "list",
+                border = "solid"
+            },
+        },
+        {
+            win = "preview",
+            title = "{preview}",
+            border = "solid",
+            width = 0.5
+        },
+    }
+}
+
+local narrow_layout = {
+    layout = {
+        box = "vertical",
+        width = 0.9,
+        height = 0.9,
+        backdrop = false,
+        {
+            win = "preview",
+            title = "{preview}",
+            height = 0.65,
+            border = "solid",
+        },
+        {
+            box = "vertical",
+            {
+                win = "input",
+                height = 1,
+                border = "solid",
+                title = "{title} {live} {flags}",
+            },
+            {
+                win = "list",
+                border = "solid",
+            },
+        },
+    }
+}
+
 return {
     prompt = ' ',
     sources = {},
     focus = 'input',
-    layout = {
-        width = 0.8,
-        height = 0.8,
-        border = "rounded",
-        backdrop = false,
-        preset = function()
-            return vim.o.columns >= 120 and 'default' or 'ivy_split'
-        end,
-        layout = {
-            backdrop = false,
-        }
+    layout = function(_)
+        return vim.o.columns >= 120 and wide_layout or narrow_layout
+    end,
+    matcher = {
+        frecency = true,
     },
     picker = {
         sources = {

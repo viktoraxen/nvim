@@ -56,8 +56,8 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.wrap = false
 
-vim.opt.winblend = 15
-vim.opt.pumblend = 15
+vim.opt.winblend = 0
+vim.opt.pumblend = 0
 vim.opt.pumheight = 10
 
 -- vim.g.loaded_netrw = 1
@@ -83,7 +83,7 @@ vim.diagnostic.config {
     signs = false,
     update_in_insert = false,
     -- virtual_lines = { current_line = true },
-    -- virtual_text = { current_line = true },
+    virtual_text = true, -- { current_line = true },
     severity_sort = true,
     float = {
         border = 'rounded',
