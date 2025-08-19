@@ -1,7 +1,7 @@
 return {
-    -- "viktoraxen/custom-highlights-nvim",
-    "custom-highlights-nvim",
-    dev = true,
+    "viktoraxen/custom-highlights-nvim",
+    -- "custom-highlights-nvim",
+    -- dev = true,
     -- event = "VeryLazy",
     config = function()
         print("Loading highlight")
@@ -27,7 +27,7 @@ return {
                     { 'SnacksPickerListTitle',       { bg = "surface0" } },
 
                     { 'NormalFloat',                 { bg = "surface0", } },
-                    { 'FloatBorder',                 { bg = "surface0", fg = "surface0" } },
+                    { 'FloatBorder',                 { bg = "surface0"} },
                     { 'FloatTitle',                  { bg = "surface0", fg = "sky" } },
 
                     { 'NeoTreeGitUnstaged',          { fg = "subtext0" } },
