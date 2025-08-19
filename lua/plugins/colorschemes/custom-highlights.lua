@@ -41,6 +41,8 @@ return {
                     { 'SnacksNotifierTitleInfo',     { bg = "surface0", fg = "sky", italic = true } },
                     { 'SnacksNotifierTitleWarn',     { bg = "surface0", fg = "yellow", italic = true } },
                     { 'SnacksNotifierTitleError',    { bg = "surface0", fg = "red", italic = true } },
+
+                    { 'SnacksIndentScope',           { fg = "rosewater" } },
                 },
             },
             links = {
