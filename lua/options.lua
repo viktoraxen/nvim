@@ -60,11 +60,10 @@ vim.opt.softtabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 0
+vim.opt.winborder = "solid"
 vim.opt.pumblend = 0
 vim.opt.pumheight = 10
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
 
 vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
@@ -76,6 +75,7 @@ local diagnostic_icons = {
     info = "",
     hint = "",
 }
+
 vim.fn.sign_define('DiagnosticSignError', { text = diagnostic_icons.error, texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = diagnostic_icons.warn, texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl = 'DiagnosticSignInfo' })
@@ -106,12 +106,3 @@ vim.diagnostic.config {
         suffix = ''
     }
 }
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-
----@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.border = "rounded" -- Or any other border
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end

@@ -46,6 +46,7 @@ return {
         })
 
         require('neo-tree').setup {
+            popup_border_style = "",
             event_handlers = {
                 {
                     event = "neo_tree_window_after_close",
