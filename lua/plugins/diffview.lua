@@ -1,13 +1,15 @@
 return {
     "sindrets/diffview.nvim",
     keys = {
-        { "<leader>gd", "<cmd>DiffViewOpen<cr>", desc = "DiffView" }
+        { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" }
     },
-    opts = {
-        file_panel = {
-            win_config = {
-                position = "right",
+    config = function()
+        require("diffview").setup({
+            file_panel = {
+                win_config = {
+                    position = "right",
+                },
             },
-        },
-    }
+        })
+    end
 }
