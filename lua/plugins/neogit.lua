@@ -13,12 +13,6 @@ return {
         require("neogit").setup({
             graph_style = "unicode",
             kind = "tab",
-            floating = {
-                width = 0.85,
-                height = 0.85,
-
-                border = "solid"
-            },
             signs = {
                 hunk = { "", "" },
                 item = { "", "" },
