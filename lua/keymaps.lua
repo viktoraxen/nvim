@@ -25,8 +25,17 @@ map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Replace word under cursor')
 
 -- Basic
 map.ln('q', '<cmd>q<cr>', 'Close buffer')
-map.ln('Q', '<cmd>qa<cr>', 'Close all')
 map.ln('w', '<cmd>w<cr>', 'Save buffer')
+
+local close_tab = function()
+    if vim.fn.tabpagenr('$') > 1 then
+        vim.cmd.tabclose()
+    else
+        vim.cmd.qa()
+    end
+end
+
+map.ln('Q', close_tab, 'Close tab')
 
 map.n('gh', vim.diagnostic.open_float, 'Show line diagnostics')
 map.n('gj', vim.diagnostic.goto_next, 'Next diagnostic')
