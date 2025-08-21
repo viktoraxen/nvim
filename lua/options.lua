@@ -64,7 +64,6 @@ vim.opt.winborder = "solid"
 vim.opt.pumblend = 0
 vim.opt.pumheight = 10
 
-
 vim.ui.open = function(url)
     vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
 end
@@ -76,6 +75,17 @@ local diagnostic_icons = {
     hint = "",
 }
 
+local get_diagnostic_icon = function(diagnostic, i, total)
+    local icons_hls = {
+        [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
+        [vim.diagnostic.severity.WARN]  = { diagnostic_icons.warn, "DiagnosticWarn" },
+        [vim.diagnostic.severity.INFO]  = { diagnostic_icons.info, "DiagnosticInfo" },
+        [vim.diagnostic.severity.HINT]  = { diagnostic_icons.hint, "DiagnosticHint" },
+    }
+    local icon, hl = unpack(icons_hls[diagnostic.severity] or { " ", "" })
+    return icon .. " ", hl
+end
+
 vim.fn.sign_define('DiagnosticSignError', { text = diagnostic_icons.error, texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = diagnostic_icons.warn, texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl = 'DiagnosticSignInfo' })
@@ -85,24 +95,15 @@ vim.diagnostic.config {
     underline = true,
     signs = false,
     update_in_insert = false,
-    -- virtual_lines = { current_line = true },
-    virtual_text = true, -- { current_line = true },
+    virtual_text = {
+        prefix = get_diagnostic_icon,
+    },
     severity_sort = true,
     float = {
-        border = 'rounded',
         source = 'if_many',
         header = '',
         scope = 'line',
-        prefix = function(diagnostic, i, total)
-            local icons_hls = {
-                [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
-                [vim.diagnostic.severity.WARN]  = { diagnostic_icons.warn, "DiagnosticWarn" },
-                [vim.diagnostic.severity.INFO]  = { diagnostic_icons.info, "DiagnosticInfo" },
-                [vim.diagnostic.severity.HINT]  = { diagnostic_icons.hint, "DiagnosticHint" },
-            }
-            local icon, hl = unpack(icons_hls[diagnostic.severity] or { " ", "" })
-            return icon .. " ", hl
-        end,
+        prefix = get_diagnostic_icon,
         suffix = ''
     }
 }
