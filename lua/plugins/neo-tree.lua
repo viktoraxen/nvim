@@ -55,7 +55,7 @@ return {
                     end
                 },
                 {
-                    event = "file_open_requested",
+                    event = "file_opened",
                     handler = function(_)
                         if not solid_open then
                             require("neo-tree.command").execute({ action = "close" })
