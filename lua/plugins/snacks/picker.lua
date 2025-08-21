@@ -57,36 +57,32 @@ local narrow_layout = {
 
 return {
     prompt = ' ',
-    sources = {},
-    focus = 'input',
     layout = function(_)
         return vim.o.columns >= 120 and wide_layout or narrow_layout
     end,
     matcher = {
         frecency = true,
     },
-    picker = {
-        sources = {
-            projects = {
-                confirm = require("persistence").load
-            }
+    sources = {
+        projects = {
+            confirm = require("persistence").load
+        },
+        git_status = {
+            -- layout = narrow_layout,
+            git_status = true,
+            git_untracked = true,
         }
     },
-    ui_select = true, -- replace `vim.ui.select` with the snacks picker
+    ui_select = true,
     win = {
         input = {
             keys = {
                 ['<Esc>'] = { 'close', mode = { 'n', 'i' } },
-                ['<C-c>'] = { 'cancel', mode = 'i' },
+                ['<C-c>'] = { 'cancel', mode = { 'i', 'n' } },
                 ['<C-w>'] = { '<c-s-w>', mode = { 'i' }, expr = true, desc = 'delete word' },
                 ['<CR>'] = { 'confirm', mode = { 'n', 'i' } },
-                ['<Up>'] = { 'history_up', mode = { 'i', 'n' } },
-                ['<Down>'] = { 'history_down', mode = { 'i', 'n' } },
                 ['j'] = { 'list_down', mode = { 'n' } },
                 ['k'] = { 'list_up', mode = { 'n' } },
-                ['<S-CR>'] = { { 'pick_win', 'jump' }, mode = { 'n', 'i' } },
-                ['<S-Tab>'] = { 'select_and_prev', mode = { 'i', 'n' } },
-                ['<Tab>'] = { 'select_and_next', mode = { 'i', 'n' } },
 
                 ['<c-d>'] = { 'preview_scroll_down', mode = { 'i', 'n' } },
                 ['<c-u>'] = { 'preview_scroll_up', mode = { 'i', 'n' } },
@@ -105,20 +101,22 @@ return {
                 ['i'] = 'focus_input',
                 ['j'] = 'list_down',
                 ['k'] = 'list_up',
+                ['l'] = 'focus_preview',
                 ['q'] = 'close',
+                ['<C-c>'] = 'close',
             },
         },
         preview = {
             keys = {
                 ['<Esc>'] = 'cancel',
                 ['q'] = 'close',
+                ['<C-c>'] = 'close',
                 ['i'] = 'focus_input',
                 ['<c-h>'] = 'focus_input',
                 ['<c-l>'] = 'confirm',
             },
         },
     },
-    ---@class snacks.picker.icons
     icons = {
         git = {
             enabled = true,
