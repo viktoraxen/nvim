@@ -63,16 +63,6 @@ return {
     matcher = {
         frecency = true,
     },
-    sources = {
-        projects = {
-            confirm = require("persistence").load
-        },
-        git_status = {
-            -- layout = narrow_layout,
-            git_status = true,
-            git_untracked = true,
-        }
-    },
     ui_select = true,
     win = {
         input = {

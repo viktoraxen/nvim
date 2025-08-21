@@ -10,7 +10,7 @@ local vscode = {
         preview = false,
         layout = {
             box = "vertical",
-            row = 1,
+            row = 0.25,
             width = 0.5,
             height = 0.4,
             backdrop = false,
@@ -66,8 +66,8 @@ return {
         { "<leader>lr", function() Snacks.picker.lsp_references() end,        desc = "References" },
         { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,  desc = "Type definitions" },
 
-        { "<leader>f",  function() Snacks.picker.smart(vscode) end,           desc = "Search files" },
-        { "<leader>F",  function() Snacks.picker.smart(vscodeall) end,        desc = "Search files (All)" },
+        { "<leader>f",  function() Snacks.picker.files(vscode) end,           desc = "Search files" },
+        { "<leader>F",  function() Snacks.picker.files(vscodeall) end,        desc = "Search files (All)" },
         { "<leader>ss", function() Snacks.picker.grep() end,                  desc = "Grep" },
         { "<leader>sS", function() Snacks.picker.grep(all) end,               desc = "Grep (All)" },
         { "<leader>sc", function() Snacks.picker.git_diff() end,              desc = "Git diff" },
