@@ -33,8 +33,8 @@ return {
         'Neotree',
     },
     keys = {
-        { '<leader>e', neo_tree,       desc = 'Neotree Float' },
-        { '<leader>E', neo_tree_solid, desc = 'Neotree' },
+        { '<leader>e', neo_tree,       desc = 'Neotree' },
+        { '<leader>E', neo_tree_solid, desc = 'Neotree (Persistent)' },
     },
     config = function()
         vim.api.nvim_create_autocmd('FileType', {
