@@ -12,6 +12,7 @@ local vscode = {
             box = "vertical",
             row = 0.25,
             width = 0.5,
+            min_width = 75,
             height = 0.4,
             backdrop = false,
             {
