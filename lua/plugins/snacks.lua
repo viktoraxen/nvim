@@ -38,16 +38,17 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    -- event = 'VeryLazy',
     ---@type snacks.Config
     opts = {
         bigfile = { enabled = true },
+        bufdelete = { enabled = true },
         indent = require 'plugins.snacks.indent',
-        input = { enabled = true },
+        input = require 'plugins.snacks.input',
         lazygit = require 'plugins.snacks.lazygit',
         notifier = require 'plugins.snacks.notifier',
         picker = require 'plugins.snacks.picker',
         quickfile = { enabled = true },
+        rename = { enabled = true },
         scope = { enabled = true },
         scroll = require 'plugins.snacks.scroll',
         terminal = require 'plugins.snacks.terminal',
@@ -89,8 +90,6 @@ return {
 
         { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
         { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n" } },
-
-        -- { "<leader>gg", function() Snacks.lazygit() end,                      desc = "Lazygit" },
     },
     init = require 'plugins.snacks.initsnacks',
 

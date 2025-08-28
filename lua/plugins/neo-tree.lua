@@ -45,9 +45,16 @@ return {
             end,
         })
 
+        local function on_move(data)
+            Snacks.rename.on_rename_file(data.source, data.destination)
+        end
+        local events = require("neo-tree.events")
+
         require('neo-tree').setup {
             popup_border_style = "",
             event_handlers = {
+                { event = events.FILE_MOVED,   handler = on_move },
+                { event = events.FILE_RENAMED, handler = on_move },
                 {
                     event = "neo_tree_window_after_close",
                     handler = function(_)

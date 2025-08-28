@@ -53,13 +53,13 @@ return {
                 completion = {
                     side_padding = 0,
                     border = 'none',
-                    winblend = 15,
+                    winblend = 0,
                     col_offset = 1,
                 },
                 documentation = {
-                    border = 'none',
+                    border = 'solid',
                     max_height = 40,
-                    winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+                    winblend = 5,
                 },
             },
 
@@ -116,11 +116,8 @@ return {
             },
             sources = {
                 -- { name = 'copilot' },
-                { name = 'nvim_lsp' },
-                {
-                    name = 'luasnip',
-                    priority = 10000,
-                },
+                { name = 'nvim_lsp', priority = 1000, },
+                { name = 'luasnip', },
                 { name = 'path' },
             },
         }
