@@ -26,7 +26,7 @@ return {
             dashboard.button('f', '  Find files', Snacks.picker.files),
             dashboard.button('e', '  Explorer', ':Neotree position=current<CR>'),
             dashboard.button('p', '  Projects', Snacks.picker.projects),
-            dashboard.button('i', '  Plugins', ':Lazy<CR>'),
+            dashboard.button('l', '  Plugins', ':Lazy<CR>'),
             dashboard.button('m', '󰯠  Mason', ':Mason<CR>'),
             dashboard.button('c', '󰢻  Configuration', open_config),
             dashboard.button('q', '󱎘  Quit', ':qa<CR>'),

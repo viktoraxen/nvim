@@ -1,6 +1,7 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = "VeryLazy",
     config = function()
         local catppuccin_theme = require('lualine.themes.catppuccin-mocha')
         local catppuccin_palette = require("catppuccin.palettes").get_palette()
