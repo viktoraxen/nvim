@@ -54,7 +54,7 @@ return {
                 completion = {
                     side_padding = 0,
                     border = 'none',
-                    winblend = 0,
+                    winblend = 5,
                     col_offset = 1,
                 },
                 documentation = {
