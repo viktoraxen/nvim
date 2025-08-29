@@ -59,9 +59,9 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.wrap = false
 
-vim.opt.winblend = 0
+vim.opt.winblend = 5
 vim.opt.winborder = "solid"
-vim.opt.pumblend = 0
+vim.opt.pumblend = 5
 vim.opt.pumheight = 10
 
 vim.ui.open = function(url)

@@ -5,5 +5,10 @@ return {
             wrap = true,
             winblend = 0,
         }
+    },
+    float = {
+        wo = {
+            winblend = 5
+        }
     }
 }
