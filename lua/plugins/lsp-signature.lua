@@ -14,7 +14,15 @@ return {
             border = "solid"
         },
 
-        transparency = nil, -- disabled by default, allow floating win transparent value 1~100
-        toggle_key = nil,   -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
-    }
+        transparency = 5,
+        toggle_key = "<c-s>",
+        select_signature_key = "<m-j>",
+    },
+    config = function(_, opts)
+        local color = require('utils.colors').get_color
+
+        vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = color("catppuccin", "surface2") })
+
+        require('lsp_signature').setup(opts)
+    end
 }

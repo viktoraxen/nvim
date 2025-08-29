@@ -1,15 +1,16 @@
 return {
     'SmiteshP/nvim-navic',
     event = "VeryLazy",
-    config = function()
+    opts = {
+        lsp = {
+            auto_attach = true,
+        },
+        highlight = true,
+    },
+    config = function(_, opts)
         local navic = require('nvim-navic')
 
-        navic.setup({
-            lsp = {
-                auto_attach = true,
-            },
-            highlight = true,
-        })
+        navic.setup(opts)
 
         vim.api.nvim_set_hl(0, "NavicIconsFile", { link = "@text.reference" })
         vim.api.nvim_set_hl(0, "NavicIconsModule", { link = "@lsp.type.namespace" })
@@ -47,7 +48,7 @@ return {
             pattern = "*",
             callback = function()
                 if navic.is_available() then
-                    vim.opt_local.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+                    vim.opt_local.winbar = navic.get_location()
                 else
                     vim.opt_local.winbar = ""
                 end
