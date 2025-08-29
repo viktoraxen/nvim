@@ -12,7 +12,8 @@ return {
             "insert",
             "command",
             "terminal",
-            "replace"
+            "replace",
+            "inactive",
         }
 
         local sections = {
@@ -33,6 +34,7 @@ return {
         end
 
         catppuccin_theme.normal.c.fg = catppuccin_palette["overlay0"]
+        catppuccin_theme.inactive.c.fg = catppuccin_palette["overlay0"]
 
         local disabled_fts = {
             "neo%-tree",
@@ -103,9 +105,7 @@ return {
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
-                    statusline = {
-                        "alpha",
-                    },
+                    statusline = { "alpha", },
                     winbar = {},
                 },
                 ignore_focus = {},
@@ -162,45 +162,31 @@ return {
                         update_in_insert = true
                     }
                 },
-                lualine_c = {
-                    {
-                        filepath
-                    }
-                },
+                lualine_c = { { filepath } },
                 lualine_x = {
-                    {
-                        'branch',
-                        icon = ''
-                    },
-                    {
-                        venv,
-                        icon = '󰹩'
-                    }
+                    { 'branch', icon = '' },
+                    { venv, icon = '󰹩' }
                 },
                 lualine_y = {
-                    {
-                        'filetype',
-                        cond = actual_filetypes
-                    },
+                    { 'filetype', cond = actual_filetypes },
                     'searchcount',
                 },
                 lualine_z = {
-                    {
-                        'progress',
-                        padding = { left = 1, right = 0 }
-                    },
-                    {
-                        'location',
-                        padding = { left = 1, right = 1 }
-                    }
+                    { 'progress', padding = { left = 1, right = 0 } },
+                    { 'location', padding = { left = 1, right = 1 } }
                 }
             },
             inactive_sections = {
                 lualine_a = {},
-                lualine_b = {},
-                lualine_c = {},
+                lualine_b = { {
+                    'filename',
+                    file_status = false,
+                    icon = '󰧮',
+                    cond = actual_filetypes
+                } },
+                lualine_c = { { filepath } },
                 lualine_x = {},
-                lualine_y = {},
+                lualine_y = {}, -- { { 'filetype', cond = actual_filetypes } },
                 lualine_z = {}
             },
         })

@@ -43,16 +43,48 @@ return {
 
         local navic_group = vim.api.nvim_create_augroup("NavicOnWinbar", { clear = true })
 
+        local filebar = function()
+            local filename = vim.fn.expand("%:t")
+            local filepath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h"):gsub("[.]/?", "")
+
+            if filename == '' then
+                vim.opt_local.winbar = ""
+                return
+            end
+
+            local filename_hl = "lualine_b_normal"
+            local filepath_hl = "lualine_c_normal"
+
+            local filename_string = "%#" .. filename_hl .. "#󰧮 " .. filename .. "%##"
+            local filepath_string = "%#" .. filepath_hl .. "#" .. filepath .. "%##"
+
+            return filename_string .. " " .. filepath_string
+        end
+
         vim.api.nvim_create_autocmd({ "LspAttach", "CursorHold" }, {
             group = navic_group,
             pattern = "*",
             callback = function()
                 if navic.is_available() then
-                    vim.opt_local.winbar = navic.get_location()
+                    local location = navic.get_location()
+
+                    if location == "" then
+                        location = " "
+                    end
+
+                    vim.opt_local.winbar = location
                 else
-                    vim.opt_local.winbar = ""
+                    vim.opt_local.winbar = filebar()
                 end
             end
+        })
+
+        vim.api.nvim_create_autocmd('WinLeave', {
+            desc = 'Set winbar to filename when leaving window.',
+            pattern = '*',
+            callback = function()
+                vim.opt_local.winbar = filebar()
+            end,
         })
     end
 }

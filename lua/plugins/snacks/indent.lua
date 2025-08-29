@@ -1,11 +1,23 @@
 return {
     animate = {
-        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
+        enabled = true,
         style = "out",
         easing = "linear",
         duration = {
-            step = 20,
-            total = 250,
+            step = 10,
+
+            total = 100,
         },
+    },
+    indent = {
+        enabled = true,
+        only_current = false,
+        char = "│",
+        only_scope = false,
+    },
+    scope = {
+        enabled = true,
+        char = "│",
+        only_current = true,
     },
 }
