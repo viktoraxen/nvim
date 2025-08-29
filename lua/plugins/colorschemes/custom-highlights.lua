@@ -27,7 +27,9 @@ return {
                     { 'SnacksPickerListTitle',       { bg = "surface0" } },
 
                     { 'NormalFloat',                 { bg = "surface0", } },
-                    { 'FloatBorder',                 { bg = "surface0"} },
+                    { 'PMenu',                       { bg = "surface0", } },
+                    { 'PMenuSel',                    { bg = "surface1", } },
+                    { 'FloatBorder',                 { bg = "surface0" } },
                     { 'FloatTitle',                  { bg = "surface0", fg = "sky" } },
 
                     { 'NeoTreeGitUnstaged',          { fg = "subtext0" } },
@@ -67,6 +69,10 @@ return {
                 { src = 'SnacksNotifierInfo',          dst = "NormalFloat" },
                 { src = 'SnacksNotifierWarn',          dst = "NormalFloat" },
                 { src = 'SnacksNotifierError',         dst = "NormalFloat" },
+
+                { src = 'SnacksInputNormal',           dst = "NormalFloat" },
+                { src = 'SnacksInputBorder',           dst = "FloatBorder" },
+                { src = 'SnacksInputTitle',            dst = "FloatTitle" },
             },
         })
     end
