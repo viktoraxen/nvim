@@ -48,8 +48,6 @@ return {
                     },
                 },
 
-                signature = { window = { border = 'none' } },
-
                 sources = {
                     default = { 'lsp', 'path', 'snippets', 'buffer' },
                 },

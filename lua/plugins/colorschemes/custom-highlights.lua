@@ -45,6 +45,8 @@ return {
                     { 'SnacksNotifierTitleError',    { bg = "surface0", fg = "red", italic = true } },
 
                     { 'SnacksIndentScope',           { fg = "rosewater" } },
+
+                    { 'LspSignatureActiveParameter', { bg = "overlay0" } },
                 },
             },
             links = {
