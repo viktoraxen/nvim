@@ -43,7 +43,16 @@ return {
 
         local navic_group = vim.api.nvim_create_augroup("NavicOnWinbar", { clear = true })
 
+        local exclude_ft = {
+            "neo-tree",
+            "alpha",
+        }
+
         local filebar = function()
+            if vim.tbl_contains(exclude_ft, vim.bo.ft) then
+                return ""
+            end
+
             local filename = vim.fn.expand("%:t")
             local filepath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h"):gsub("[.]/?", "")
 

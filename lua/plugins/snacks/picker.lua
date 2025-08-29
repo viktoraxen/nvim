@@ -13,10 +13,7 @@ local wide_layout = {
                 border = "solid",
                 title = "{title} {live} {flags}",
             },
-            {
-                win = "list",
-                border = "solid"
-            },
+            { win = "list", border = "solid" },
         },
         {
             win = "preview",
