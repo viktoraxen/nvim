@@ -32,9 +32,7 @@ vim.lsp.config['pyright'] = {
     filetypes = { 'python' },
     root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
     settings = {
-        pyright = {
-            disableOrganizeImports = true
-        },
+        pyright = { disableOrganizeImports = true },
         python = {
             analysis = {
                 ignore = { "*" },
@@ -53,15 +51,11 @@ vim.lsp.config['ruff_lsp'] = {
     root_markers = { "pyproject.toml", "ruff.toml", ".git" },
     init_options = {
         settings = {
-            -- These settings ensure the server's code actions and linting
-            -- are fully enabled, which can impact formatting behavior.
             codeAction = {
                 disableRuleComment = { enable = true },
                 showDocumentation = { enable = true }
             },
-            lint = {
-                enable = true
-            }
+            lint = { enable = true }
         }
     }
 }

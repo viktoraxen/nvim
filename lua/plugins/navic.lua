@@ -46,6 +46,7 @@ return {
         local exclude_ft = {
             "neo-tree",
             "alpha",
+            "snacks_terminal",
         }
 
         local filebar = function()
