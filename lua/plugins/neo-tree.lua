@@ -216,5 +216,24 @@ return {
                 },
             },
         }
+
+        require('custom-highlights-nvim').add({
+            customizations = {
+                cappuccin = {
+                    NeoTreeGitUnstaged = { fg = "subtext0" },
+                    NeoTreeGitModified = { fg = "subtext0" },
+                    NeoTreeGitAdded = { fg = "subtext0" },
+                    NeoTreeGitDeleted = { fg = "subtext0" },
+                    NeoTreeGitUntracked = { fg = "subtext0" },
+                }
+            },
+            links = {
+                NeoTreeFloatNormal = "NormalFloat",
+                NeoTreeFloatBorder = "FloatBorder",
+
+                NeoTreeNormal = "Normal",
+                NeoTreeNormalNC = "NeoTreeNormal",
+            }
+        })
     end,
 }

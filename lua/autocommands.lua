@@ -43,32 +43,20 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
-local NeotreeExplorer = vim.api.nvim_create_augroup('NeotreeExplorer', { clear = true })
+local wrap_group = vim.api.nvim_create_augroup('PythonAutoformat', { clear = true })
 
-vim.api.nvim_create_autocmd('VimEnter', {
-    group = NeotreeExplorer,
-    pattern = '*',
-    command = 'silent! autocmd! FileExplorer',
-})
-
--- Create an augroup to hold our autocommands
-local wrap_group = vim.api.nvim_create_augroup('HardWrapComments', { clear = true })
-
--- Create an autocommand that runs when a Python file is opened
 vim.api.nvim_create_autocmd('FileType', {
     group = wrap_group,
-    pattern = 'python', -- Apply to Python files
+    pattern = 'python',
     callback = function()
-        -- Set the maximum width of text to 88 columns
         vim.bo.textwidth = 100
 
         -- Configure HOW text is formatted
-        -- t: auto-wrap text using textwidth
         -- c: auto-wrap comments using textwidth, inserting the comment leader
         -- q: allow formatting of comments with 'gq'
         -- r: continue comments when pressing <Enter> in Insert mode
         -- o: continue comments when pressing 'o' or 'O' in Normal mode
-        vim.bo.formatoptions = 'tcqro'
+        vim.bo.formatoptions = 'cqro'
     end,
 })
 

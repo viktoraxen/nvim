@@ -93,6 +93,82 @@ return {
         { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
         { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n" } },
     },
-    init = require 'plugins.snacks.initsnacks',
+    init = function()
+        require('custom-highlights-nvim').add({
+            customizations = {
+                catppuccin = {
+                    SnacksNotifierTitleTrace = { italic = true },
+                    SnacksNotifierTitleDebug = { fg = "sky", italic = true },
+                    SnacksNotifierTitleInfo = { fg = "sky", italic = true },
+                    SnacksNotifierTitleWarn = { fg = "yellow", italic = true },
+                    SnacksNotifierTitleError = { fg = "red", italic = true },
+
+                    SnacksIndentScope = { fg = "rosewater" },
+                }
+            },
+            links = {
+
+                SnacksNotifierBorderTrace = "NormalFloat",
+                SnacksNotifierBorderDebug = "NormalFloat",
+                SnacksNotifierBorderInfo = "NormalFloat",
+                SnacksNotifierBorderWarn = "NormalFloat",
+                SnacksNotifierBorderError = "NormalFloat",
+
+                SnacksNotifierTrace = "NormalFloat",
+                SnacksNotifierDebug = "NormalFloat",
+                SnacksNotifierInfo = "NormalFloat",
+                SnacksNotifierWarn = "NormalFloat",
+                SnacksNotifierError = "NormalFloat",
+
+                SnacksPickerInput = "LightFloat",
+                SnacksPickerInputBorder = "SnacksPickerInput",
+                SnacksPickerInputLine = "SnacksPickerInput",
+                SnacksPickerInputFooter = "SnacksPickerInput",
+                SnacksPickerInputSearch = "SnacksPickerInput",
+                SnacksPickerInputCursorLine = "SnacksPickerInput",
+                SnacksPickerInputTitle = "LightFloatTitle",
+
+                SnacksPickerPrompt = "NormalFloat",
+
+                SnacksPickerPreview = "DarkFloat",
+                SnacksPickerPreviewBorder = "SnacksPickerPreview",
+                SnacksPickerPreviewFooter = "SnacksPickerPreview",
+                SnacksPickerPreviewNormal = "SnacksPickerPreview",
+                SnacksPickerPreviewTitle = "DarkFloatTitle",
+
+                SnacksPickerListBorder = "SnacksPickerList",
+                SnacksPickerListCursorLine = "LightFloat",
+
+                SnacksInputNormal = "LightFloat",
+                SnacksInputBorder = "SnacksInputNormal",
+                SnacksInputTitle = "SnacksInputNormal",
+                SnacksInputCursorLine = "SnacksInputNormal",
+            }
+        })
+
+        local original_notify = vim.notify
+
+        vim.notify = function(msg, level, opts)
+            if msg and msg:match("Config Change") then
+                return
+            end
+
+            original_notify(msg, level, opts)
+        end
+
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "VeryLazy",
+            callback = function()
+                -- Setup some globals for debugging (lazy-loaded)
+                _G.dd = function(...)
+                    Snacks.debug.inspect(...)
+                end
+                _G.bt = function()
+                    Snacks.debug.backtrace()
+                end
+                vim.print = _G.dd -- Override print to use snacks for `:=` command
+            end,
+        })
+    end
 
 }
