@@ -4,6 +4,7 @@ return {
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
     opts_extend = { "sources.default" },
+    event = "InsertEnter",
     config = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "BlinkCmpMenuOpen",
