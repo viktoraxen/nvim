@@ -9,15 +9,13 @@ return {
 
         "folke/snacks.nvim",
     },
-    config = function()
-        require("neogit").setup({
-            graph_style = "unicode",
-            kind = "tab",
-            signs = {
-                hunk = { "", "" },
-                item = { "", "" },
-                section = { "", "" },
-            },
-        })
-    end
+    opts = {
+        graph_style = "unicode",
+        kind = "tab",
+        signs = {
+            hunk = { "", "" },
+            item = { "", "" },
+            section = { "", "" },
+        },
+    },
 }

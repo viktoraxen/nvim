@@ -19,9 +19,11 @@ return {
         select_signature_key = "<m-j>",
     },
     config = function(_, opts)
-        local color = require('utils.colors').get_color
-
-        vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { bg = color("catppuccin", "surface2") })
+        require("custom-highlights-nvim").add({
+            customizations = {
+                catppuccin = { LspSignatureActiveParameter = { bg = "surface2" } }
+            }
+        })
 
         require('lsp_signature').setup(opts)
     end
