@@ -34,6 +34,14 @@ local vscode = {
 
 local vscodeall = vim.tbl_deep_extend("force", all, vscode)
 
+local toggle_terminal = function(id)
+    Snacks.terminal.toggle("zsh", { env = { id = id, } })
+end
+
+local toggle_gemini = function()
+    Snacks.terminal.toggle("gemini -a")
+end
+
 return {
     'folke/snacks.nvim',
     priority = 1000,
@@ -90,8 +98,15 @@ return {
         { "<leader>sw", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },
         { "<leader>sW", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
 
-        { "<M-3>",      function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<leader>t",  function() Snacks.terminal() end,                     desc = "Toggle terminal",      mode = { "n" } },
+        { "<M-1>",      function() toggle_gemini() end,                       desc = "Toggle Gemini",        mode = { "n", "i", "v", "t" } },
+        { "<M-2>",      function() toggle_terminal(2) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-3>",      function() toggle_terminal(3) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-4>",      function() toggle_terminal(4) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-5>",      function() toggle_terminal(5) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-6>",      function() toggle_terminal(6) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-7>",      function() toggle_terminal(7) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-8>",      function() toggle_terminal(8) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-9>",      function() toggle_terminal(9) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
     },
     init = function()
         require('custom-highlights-nvim').add({
