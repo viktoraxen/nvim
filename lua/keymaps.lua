@@ -103,10 +103,16 @@ map.ln('vs', '<C-w>s', 'Split window horizontally')
 map.ln('vh', '<C-w>H', 'Move window to left')
 map.ln('ve', '<C-w>=', 'Equalize window size')
 
-map.ln('vl', '<C-w>L', 'Move window to right')
-map.ln('vj', '<C-w>J', 'Move window to bottom')
-map.ln('vk', '<C-w>K', 'Move window to top')
-map.ln('vh', '<C-w>H', 'Move window to left')
+local move_window = function(direction)
+    vim.cmd('wincmd ' .. direction)
+    vim.wo.winhl = ''
+    vim.wo.winblend = 0
+end
+
+map.ln('vl', function() move_window('L') end, 'Move window to right')
+map.ln('vh', function() move_window('H') end, 'Move window to left')
+map.ln('vj', function() move_window('J') end, 'Move window to bottom')
+map.ln('vk', function() move_window('K') end, 'Move window to top')
 
 -- Line numbers
 map.l_group('n', 'Line Numbers')
