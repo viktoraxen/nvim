@@ -82,7 +82,10 @@ return {
                 use_trash = true,
                 filtered_items = {
                     show_hidden_count = false,
-                    hide_dotfiles = false
+                    hide_dotfiles = false,
+                    never_show = {
+                        '.git'
+                    }
                 }
             },
             window = {
