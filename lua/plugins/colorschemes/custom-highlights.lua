@@ -10,11 +10,11 @@ return {
             customizations = {
                 catppuccin = {
                     NormalFloat = { bg = "#282938", },
-                    FloatTitle = { bg = "#282938", fg = "sky" },
+                    FloatTitle = { fg = "#282938", bg = "sky" },
                     LightFloat = { bg = "surface0" },
-                    LightFloatTitle = { bg = "surface0", fg = "sky" },
+                    LightFloatTitle = { fg = "surface0", bg = "sky" },
                     DarkFloat = { bg = "mantle" },
-                    DarkFloatTitle = { bg = "mantle", fg = "sky" },
+                    DarkFloatTitle = { fg = "mantle", bg = "sky" },
                 },
             },
             links = {
