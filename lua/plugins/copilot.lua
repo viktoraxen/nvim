@@ -3,8 +3,6 @@ return {
     cmd = 'Copilot',
     config = function()
         require('copilot').setup {
-            -- panel = { enabled = false },
-            -- suggestion = { enabled = false },
             panel = {
                 auto_refresh = true,
                 keymap = {
@@ -21,13 +19,10 @@ return {
                 },
             },
         }
-
-        local map = require('utils.keymap')
-
-        map.l_group('p', 'CoPilot')
-
-        map.ln('pc', '<cmd>Copilot toggle<cr>', 'Toggle')
-        map.ln('pd', '<cmd>Copilot disable<cr>', 'Disable')
-        map.ln('pe', '<cmd>Copilot enable<cr>', 'Enable')
     end,
+    keys = {
+        { "<leader>pe", ":Copilot enable<cr>",  desc = "Enable CoPilot", },
+        { "<leader>pd", ":Copilot disable<cr>", desc = "Disable CoPilot", },
+        { "<leader>pp", ":Copilot toggle<cr>",  desc = "Toggle CoPilot", },
+    }
 }

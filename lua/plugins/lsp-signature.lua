@@ -15,7 +15,7 @@ return {
         },
 
         transparency = 5,
-        toggle_key = "<c-s>",
+        toggle_key = "<c-c>",
         select_signature_key = "<m-j>",
     },
     config = function(_, opts)
