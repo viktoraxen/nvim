@@ -10,8 +10,9 @@ end
 map.n('<Esc>', clear_hl_and_notifications, 'Clear search highlight and notifications')
 
 -- Groups
-map.l_group('g', 'Git')
+map.l_group('a', 'Sidekick')
 map.l_group('d', 'Debug')
+map.l_group('g', 'Git')
 map.l_group('l', 'Language Server')
 map.l_group('p', 'Peek')
 map.l_group('s', 'Search')
@@ -62,14 +63,8 @@ map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Substitude word under cursor')
 
 -- Insert mode
 map.i('jj', '<Esc>', 'Exit insert mode')
-map.i('<C-h>', '<C-w>', 'Remove word before')
-map.i('<C-l>', '<C-o>dw', 'Remove word after')
-map.i('<C-k>', '<esc>vklc', 'Remove above')
-map.i('<C-j>', '<C-o>vjhc', 'Remove below')
 map.i('<C-Del>', '<C-o>dw', 'Remove word after')
-map.i('<C-d>', '<esc>yypi', 'Duplicate line')
-map.i('<C-x>', '<C-o>dd', 'Cut line')
-map.i('<C-c>', '<C-o>yy', 'Copy line')
+map.i('', '<esc>jdb', 'Remove word before')
 
 -- Pasting
 map.v('p', '"_dP', 'Paste without yanking')
