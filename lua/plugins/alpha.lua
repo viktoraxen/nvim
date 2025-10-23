@@ -35,7 +35,7 @@ return {
         dashboard.config.opts.noautocmd = true
 
         dashboard.config.layout = {
-            { type = 'padding', val = 10 },
+            { type = 'padding', val = 5 },
             dashboard.section.header,
             { type = 'padding', val = 7 },
             dashboard.section.buttons,
