@@ -1,45 +1,8 @@
--- A collection of small QoL plugins for Neovim.
-local all = {
-    hidden = true,
-    ignored = true,
-    follow = true,
-}
-
-local vscode = {
-    layout = {
-        preview = false,
-        layout = {
-            box = "vertical",
-            row = 0.25,
-            width = 0.5,
-            min_width = 75,
-            height = 0.4,
-            backdrop = false,
-            {
-                box = "vertical",
-                {
-                    win = "input",
-                    height = 1,
-                    border = "solid",
-                    title = "{title} {live} {flags}",
-                },
-                {
-                    win = "list",
-                    border = "solid",
-                },
-            },
-        }
-    }
-}
-
-local vscodeall = vim.tbl_deep_extend("force", all, vscode)
+local layouts = require('plugins.snacks.layouts')
+local configs = require('plugins.snacks.configs')
 
 local toggle_terminal = function(id)
     Snacks.terminal.toggle("zsh", { env = { id = id, } })
-end
-
-local toggle_gemini = function()
-    Snacks.terminal.toggle("gemini -a")
 end
 
 return {
@@ -64,49 +27,49 @@ return {
         styles = require 'plugins.snacks.styles',
     },
     keys = {
-        { "grc",        function() Snacks.picker.lsp_declarations() end,      desc = "Go to declaration" },
-        { "grd",        function() Snacks.picker.lsp_definitions() end,       desc = "Go to definition" },
-        { "gri",        function() Snacks.picker.lsp_implementations() end,   desc = "Implementation" },
-        { "grr",        function() Snacks.picker.lsp_references() end,        desc = "References" },
-        { "grt",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Go to type definition" },
+        { "grc",        function() Snacks.picker.lsp_declarations() end,             desc = "Go to declaration" },
+        { "grd",        function() Snacks.picker.lsp_definitions() end,              desc = "Go to definition" },
+        { "gri",        function() Snacks.picker.lsp_implementations() end,          desc = "Implementation" },
+        { "grr",        function() Snacks.picker.lsp_references() end,               desc = "References" },
+        { "grt",        function() Snacks.picker.lsp_type_definitions() end,         desc = "Go to type definition" },
 
-        { "<leader>lc", function() Snacks.picker.lsp_declarations() end,      desc = "Declarations" },
-        { "<leader>ld", function() Snacks.picker.lsp_definitions() end,       desc = "Definitions" },
-        { "<leader>li", function() Snacks.picker.lsp_implementations() end,   desc = "Implementation" },
-        { "<leader>lr", function() Snacks.picker.lsp_references() end,        desc = "References" },
-        { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,  desc = "Type definitions" },
+        { "<leader>lc", function() Snacks.picker.lsp_declarations() end,             desc = "Declarations" },
+        { "<leader>ld", function() Snacks.picker.lsp_definitions() end,              desc = "Definitions" },
+        { "<leader>li", function() Snacks.picker.lsp_implementations() end,          desc = "Implementation" },
+        { "<leader>lr", function() Snacks.picker.lsp_references() end,               desc = "References" },
+        { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,         desc = "Type definitions" },
 
-        { "<leader>f",  function() Snacks.picker.files(vscode) end,           desc = "Search files" },
-        { "<leader>F",  function() Snacks.picker.files(vscodeall) end,        desc = "Search files (All)" },
-        { "<leader>b",  function() Snacks.picker.buffers(vscode) end,         desc = "Search buffers" },
-        { "<leader>sb", function() Snacks.picker.buffers() end,               desc = "Buffers" },
-        { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
-        { "<leader>sD", function() Snacks.picker.diagnostics(all) end,        desc = "Diagnostics (All)" },
-        { "<leader>sf", function() Snacks.picker.files() end,                 desc = "Files" },
-        { "<leader>sF", function() Snacks.picker.files(all) end,              desc = "Files (All)" },
-        { "<leader>sg", function() Snacks.picker.git_files() end,             desc = "Git files" },
-        { "<leader>sG", function() Snacks.picker.git_files(all) end,          desc = "Git files (All)" },
-        { "<leader>sh", function() Snacks.picker.help() end,                  desc = "Help" },
-        { "<leader>sH", function() Snacks.picker.highlights() end,            desc = "Highlights" },
-        { "<leader>si", function() Snacks.picker.icons(vscode) end,           desc = "Icons" },
-        { "<leader>sl", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },
-        { "<leader>sp", function() Snacks.picker.projects() end,              desc = "Projects" },
-        { "<leader>sP", function() Snacks.picker.pickers(vscode) end,         desc = "Pickers" },
-        { "<leader>sr", function() Snacks.picker.resume() end,                desc = "Resume" },
-        { "<leader>ss", function() Snacks.picker.grep() end,                  desc = "Grep" },
-        { "<leader>sS", function() Snacks.picker.grep(all) end,               desc = "Grep (All)" },
-        { "<leader>sw", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },
-        { "<leader>sW", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
+        { "<leader>f",  function() Snacks.picker.files(layouts.vscode) end,          desc = "Search files" },
+        { "<leader>F",  function() Snacks.picker.files(layouts.vscode_all) end,      desc = "Search files (All)" },
+        { "<leader>b",  function() Snacks.picker.buffers(layouts.vscode) end,        desc = "Search buffers" },
+        { "<leader>sb", function() Snacks.picker.buffers() end,                      desc = "Buffers" },
+        { "<leader>sd", function() Snacks.picker.diagnostics() end,                  desc = "Diagnostics" },
+        { "<leader>sD", function() Snacks.picker.diagnostics(layouts.all) end,       desc = "Diagnostics (All)" },
+        { "<leader>sf", function() Snacks.picker.files() end,                        desc = "Files" },
+        { "<leader>sF", function() Snacks.picker.files(layouts.all) end,             desc = "Files (All)" },
+        { "<leader>sg", function() Snacks.picker.git_status(configs.git_status) end, desc = "Git files" },
+        { "<leader>sG", function() Snacks.picker.git_diff(configs.git_status) end,   desc = "Git files (All)" },
+        { "<leader>sh", function() Snacks.picker.help() end,                         desc = "Help" },
+        { "<leader>sH", function() Snacks.picker.highlights() end,                   desc = "Highlights" },
+        { "<leader>si", function() Snacks.picker.icons(layouts.vscode) end,          desc = "Icons" },
+        { "<leader>sl", function() Snacks.picker.lsp_symbols() end,                  desc = "Symbols" },
+        { "<leader>sp", function() Snacks.picker.projects() end,                     desc = "Projects" },
+        { "<leader>sP", function() Snacks.picker.pickers(layouts.vscode) end,        desc = "Pickers" },
+        { "<leader>sr", function() Snacks.picker.resume() end,                       desc = "Resume" },
+        { "<leader>ss", function() Snacks.picker.grep() end,                         desc = "Grep" },
+        { "<leader>sS", function() Snacks.picker.grep(layouts.all) end,              desc = "Grep (All)" },
+        { "<leader>sw", function() Snacks.picker.lsp_symbols() end,                  desc = "Symbols" },
+        { "<leader>sW", function() Snacks.picker.lsp_workspace_symbols() end,        desc = "Workspace symbols" },
 
-        { "<M-1>",      function() toggle_gemini() end,                       desc = "Toggle Gemini",        mode = { "n", "i", "v", "t" } },
-        { "<M-2>",      function() toggle_terminal(2) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-3>",      function() toggle_terminal(3) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-4>",      function() toggle_terminal(4) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-5>",      function() toggle_terminal(5) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-6>",      function() toggle_terminal(6) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-7>",      function() toggle_terminal(7) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-8>",      function() toggle_terminal(8) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
-        { "<M-9>",      function() toggle_terminal(9) end,                    desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-1>",      function() toggle_terminal(1) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-2>",      function() toggle_terminal(2) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-3>",      function() toggle_terminal(3) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-4>",      function() toggle_terminal(4) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-5>",      function() toggle_terminal(5) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-6>",      function() toggle_terminal(6) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-7>",      function() toggle_terminal(7) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-8>",      function() toggle_terminal(8) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
+        { "<M-9>",      function() toggle_terminal(9) end,                           desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
     },
     init = function()
         require('custom-highlights-nvim').add({
@@ -117,6 +80,8 @@ return {
                     SnacksNotifierTitleInfo = { fg = "sky", italic = true },
                     SnacksNotifierTitleWarn = { fg = "yellow", italic = true },
                     SnacksNotifierTitleError = { fg = "red", italic = true },
+
+                    SnacksPickerToggle = { fg = "surface0", bg = "sky" },
 
                     SnacksIndentScope = { fg = "rosewater" },
                 }
@@ -185,5 +150,4 @@ return {
             end,
         })
     end
-
 }
