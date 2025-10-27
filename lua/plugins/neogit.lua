@@ -1,7 +1,10 @@
 return {
     "NeogitOrg/neogit",
     keys = {
-        { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" }
+        { "<leader>gG", "<cmd>Neogit<cr>",                               desc = "Neogit" },
+        { "<leader>gp", "<cmd>lua require('neogit').open({'pull'})<cr>", desc = "Pull" },
+        { "<leader>gP", "<cmd>lua require('neogit').open({'push'})<cr>", desc = "Push" },
+        { "<leader>gl", "<cmd>lua require('neogit').open({'log'})<cr>",  desc = "Log" },
     },
     dependencies = {
         "nvim-lua/plenary.nvim",

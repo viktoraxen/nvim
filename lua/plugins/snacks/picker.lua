@@ -58,10 +58,11 @@ return {
         },
         list = {
             keys = {
-                ['i'] = 'focus_input',
-                ['j'] = 'list_down',
-                ['k'] = 'list_up',
-                ['l'] = 'focus_preview',
+                -- ['i'] = 'focus_input',
+                ['<c-k>'] = 'focus_input',
+                -- ['j'] = 'list_down',
+                -- ['k'] = 'list_up',
+                ['<c-l>'] = 'focus_preview',
                 ['q'] = 'close',
                 ['<c-c>'] = 'close',
             },

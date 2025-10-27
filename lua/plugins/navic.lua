@@ -47,6 +47,7 @@ return {
             "neo-tree",
             "alpha",
             "snacks_terminal",
+            "NeogitStatus",
         }
 
         local filebar = function()

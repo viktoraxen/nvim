@@ -127,7 +127,7 @@ M.git_wide = {
             win = "preview",
             title = "{preview}",
             border = "solid",
-            width = 0.6
+            width = 0.65
         },
     }
 }

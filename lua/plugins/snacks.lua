@@ -49,10 +49,9 @@ return {
         { "<leader>sD", function() Snacks.picker.diagnostics(layouts.all) end,     desc = "Diagnostics (All)" },
         { "<leader>sf", function() Snacks.picker.files() end,                      desc = "Files" },
         { "<leader>sF", function() Snacks.picker.files(layouts.all) end,           desc = "Files (All)" },
+        { "<leader>sg", function() Snacks.picker.git_diff(configs.git_status) end, desc = "Git files (All)" },
         { "<leader>ss", function() Snacks.picker.grep() end,                       desc = "Grep" },
         { "<leader>sS", function() Snacks.picker.grep(layouts.all) end,            desc = "Grep (All)" },
-        { "<leader>sg", function() pickers.gitter() end,                           desc = "Git status" },
-        { "<leader>sG", function() Snacks.picker.git_diff(configs.git_status) end, desc = "Git files (All)" },
         { "<leader>sh", function() Snacks.picker.help() end,                       desc = "Help" },
         { "<leader>sH", function() Snacks.picker.highlights() end,                 desc = "Highlights" },
         { "<leader>si", function() Snacks.picker.icons(layouts.vscode) end,        desc = "Icons" },
@@ -61,6 +60,8 @@ return {
         { "<leader>sp", function() Snacks.picker.projects() end,                   desc = "Projects" },
         { "<leader>sP", function() Snacks.picker.pickers(layouts.vscode) end,      desc = "Pickers" },
         { "<leader>sr", function() Snacks.picker.resume() end,                     desc = "Resume" },
+
+        { "<leader>gg", function() pickers.gitter() end,                           desc = "Git" },
 
         { "<M-1>",      function() toggle_terminal(1) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
         { "<M-2>",      function() toggle_terminal(2) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },

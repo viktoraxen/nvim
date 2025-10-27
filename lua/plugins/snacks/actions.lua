@@ -48,6 +48,7 @@ M.commit = function(picker)
             local on_exit = function(_, code)
                 local output_str = table.concat(output, "")
 
+                -- TODO: don't show commit failed on <c-c>
                 if code ~= 0 then
                     if output_str:match("^.*no changes added to commit.*$") then
                         Snacks.notify.warn("No changes added to commit!")
