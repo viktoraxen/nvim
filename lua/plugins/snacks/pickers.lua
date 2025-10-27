@@ -106,7 +106,7 @@ M.gitter = function()
                         prompt = "Commit message",
                         win = {
                             relative = "editor",
-                            width = 0.5,
+                            width = math.floor(vim.o.columns * 0.5),
                             row = 0.4,
                             col = 0.25,
                         }
