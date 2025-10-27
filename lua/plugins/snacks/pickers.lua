@@ -100,12 +100,46 @@ M.gitter = function()
                     end
                 )
             end,
+            commit = function(picker)
+                Snacks.input.input(
+                    {
+                        prompt = "Commit message",
+                        win = {
+                            relative = "editor",
+                            width = 0.5,
+                            row = 0.4,
+                            col = 0.25,
+                        }
+                    },
+
+                    function(input)
+                        local cmd = { "git", "commit", "-m", ("\"%s\""):format(input) }
+
+                        Snacks.picker.util.cmd(
+                            cmd,
+                            function(output, code)
+                                if code ~= 0 then
+                                    Snacks.notify.error(
+                                        ("Commit failed! \n%s"):format(
+                                            vim.trim(table.concat(output, ""))
+                                        )
+                                    )
+                                else
+                                    Snacks.notify.info("Commited!")
+                                end
+                            end,
+                            { cwd = picker:cwd() }
+                        )
+                    end
+                )
+            end,
         },
         win = {
             input = {
                 keys = {
-                    ["<c- >"] = { "git_stage", mode = { "n", "i" } },
+                    ["<c-l>"] = { "git_stage", mode = { "n", "i" } },
                     ["<c-x>"] = { "restore", mode = { "n", "i" } },
+                    ["<c- >"] = { "commit", mode = { "n", "i" } },
                 }
             },
             preview = {
