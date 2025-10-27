@@ -131,7 +131,7 @@ M.gitter = function()
                             { cwd = picker:cwd() }
                         )
 
-                        picker:update()
+                        picker:find()
                     end
                 )
             end,
