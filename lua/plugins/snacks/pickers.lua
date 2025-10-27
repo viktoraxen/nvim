@@ -17,7 +17,7 @@ M.gitter = function()
         win = {
             input = {
                 keys = {
-                    ["<c-l>"] = { "git_stage", mode = { "n", "i" } },
+                    ["<c-s>"] = { "git_stage", mode = { "n", "i" } },
                     ["<c-x>"] = { "restore", mode = { "n", "i" } },
                     ["<c- >"] = { "commit", mode = { "n", "i" } },
                 }

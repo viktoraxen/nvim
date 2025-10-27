@@ -3,11 +3,9 @@ local M = {}
 M.restore = function(picker)
     local item = picker:selected({ fallback = true })[1]
 
-    local msg = ("Discard changes to %s?"):format(item.file)
-
     Snacks.input.input(
         {
-            prompt = msg,
+            prompt = ("Discard changes to %s?"):format(item.file),
             icon = "(y/n):",
             win = {
                 relative = "editor",
