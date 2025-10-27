@@ -66,7 +66,7 @@ return {
             local filepath_hl = "lualine_c_normal"
 
             local filename_string = "%#" .. filename_hl .. "#󰧮 " .. filename .. "%##"
-            local filepath_string = "%#" .. filepath_hl .. "# " .. filepath .. "%##"
+            local filepath_string = "%#" .. filepath_hl .. "# " .. filepath .. "%##"
 
             if filepath == '' then
                 filepath_string = ''
