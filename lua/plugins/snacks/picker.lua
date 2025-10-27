@@ -78,18 +78,6 @@ return {
         },
     },
     icons = {
-        git_status = {
-            enabled = true,
-            commit = '󰜘 ',
-            staged = '',
-            added = '',
-            deleted = '',
-            ignored = ' ',
-            modified = '',
-            renamed = '󰳞',
-            unmerged = ' ',
-            untracked = '',
-        },
         git = {
             enabled = true,
             commit = '󰜘 ',
