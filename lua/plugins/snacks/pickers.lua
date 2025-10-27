@@ -113,7 +113,7 @@ M.gitter = function()
                     },
 
                     function(input)
-                        local cmd = { "git", "commit", "-m", ("\"%s\""):format(input) }
+                        local cmd = { "git", "commit", "-m", input }
 
                         Snacks.picker.util.cmd(
                             cmd,
@@ -126,12 +126,18 @@ M.gitter = function()
                                     )
                                 else
                                     Snacks.notify.info("Commited!")
+
+                                    picker:find({
+                                        on_done = function()
+                                            if #picker:items() == 0 then
+                                                picker:close()
+                                            end
+                                        end
+                                    })
                                 end
                             end,
                             { cwd = picker:cwd() }
                         )
-
-                        picker:find()
                     end
                 )
             end,
