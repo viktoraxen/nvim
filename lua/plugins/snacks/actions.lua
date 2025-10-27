@@ -43,43 +43,40 @@ M.commit = function(picker)
                 col = 0.25,
             }
         },
-
         function(input)
             local cmd = { "git", "commit", "-m", input }
             local output = {}
+
+            local on_exit = function(_, code)
+                local output_str = table.concat(output, "")
+
+                if code ~= 0 then
+                    if output_str:match("^.*no changes added to commit.*$") then
+                        Snacks.notify.warn("No changes added to commit!")
+                    else
+                        local error_msg = ("Commit failed! \n%s"):format(vim.trim(output_str))
+                        Snacks.notify.error(error_msg)
+                    end
+                else
+                    Snacks.notify.info("Commited!")
+
+                    picker:find({
+                        on_done = function()
+                            if #picker:items() == 0 then
+                                picker:close()
+                            end
+                        end
+                    })
+                end
+            end
 
             vim.fn.jobstart(
                 cmd,
                 {
                     cwd = picker:cwd(),
+                    on_exit = on_exit,
                     on_stdout = function(_, data)
                         output[#output + 1] = table.concat(data, "\n")
-                    end,
-                    on_exit = function(_, code)
-                        local output_str = table.concat(output, "")
-
-                        if code ~= 0 then
-                            if output_str:match("^.*no changes added to commit.*$") then
-                                Snacks.notify.warn("No changes added to commit!")
-                            else
-                                Snacks.notify.error(
-                                    ("Commit failed! \n%s"):format(
-
-                                        vim.trim(output_str)
-                                    )
-                                )
-                            end
-                        else
-                            Snacks.notify.info("Commited!")
-
-                            picker:find({
-                                on_done = function()
-                                    if #picker:items() == 0 then
-                                        picker:close()
-                                    end
-                                end
-                            })
-                        end
                     end,
                 }
             )

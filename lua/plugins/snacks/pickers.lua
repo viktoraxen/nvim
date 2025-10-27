@@ -1,7 +1,6 @@
 local layouts = require("plugins.snacks.layouts")
 local formats = require("plugins.snacks.formats")
 local actions = require("plugins.snacks.actions")
-local uv = vim.uv or vim.loop
 
 local M = {}
 
@@ -26,4 +25,5 @@ M.gitter = function()
         },
     })
 end
+
 return M
