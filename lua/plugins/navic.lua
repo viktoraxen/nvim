@@ -48,6 +48,9 @@ return {
             "alpha",
             "snacks_terminal",
             "NeogitStatus",
+            "NeogitLogView",
+            "COMMIT_EDITMSG",
+            "NeogitPopup",
         }
 
         local filebar = function()
