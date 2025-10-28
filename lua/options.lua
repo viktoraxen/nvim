@@ -92,12 +92,10 @@ vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl 
 vim.fn.sign_define('DiagnosticSignHint', { text = diagnostic_icons.hint, texthl = 'DiagnosticSignHint' })
 
 vim.diagnostic.config {
-    underline = true,
+    underline = false,
     signs = false,
-    update_in_insert = false,
-    virtual_text = {
-        prefix = get_diagnostic_icon,
-    },
+    update_in_insert = true,
+    virtual_text = false,
     severity_sort = true,
     float = {
         source = 'if_many',
