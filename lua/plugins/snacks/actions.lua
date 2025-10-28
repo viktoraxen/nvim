@@ -83,4 +83,16 @@ M.commit = function(picker)
     )
 end
 
+M.stage = function(picker)
+    local item = picker:selected({ fallback = true })[1]
+
+    local cmd = item.status:sub(2) == " " and { "git", "restore", "--staged", item.file } or
+        { "git", "add", item.file }
+
+    Snacks.picker.util.cmd(cmd, function(_, _)
+        picker.list:set_target()
+        picker:find()
+    end, { cwd = item.cwd })
+end
+
 return M
