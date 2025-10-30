@@ -2,12 +2,13 @@ return {
     "NeogitOrg/neogit",
     keys = {
         { "<leader>gG", "<cmd>Neogit<cr>",        desc = "Neogit" },
-        { "<leader>gp", "<cmd>Neogit pull<cr>",   desc = "Pull" },
-        { "<leader>gP", "<cmd>Neogit push<cr>",   desc = "Push" },
-        { "<leader>gl", "<cmd>Neogit log<cr>",    desc = "Log" },
         { "<leader>gb", "<cmd>Neogit branch<cr>", desc = "Branch" },
         { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Commit" },
+        { "<leader>gf", "<cmd>Neogit fetch<cr>",  desc = "Fetch" },
+        { "<leader>gl", "<cmd>Neogit log<cr>",    desc = "Log" },
         { "<leader>gm", "<cmd>Neogit merge<cr>",  desc = "Merge" },
+        { "<leader>gp", "<cmd>Neogit pull<cr>",   desc = "Pull" },
+        { "<leader>gP", "<cmd>Neogit push<cr>",   desc = "Push" },
     },
     cmd = { "Neogit" },
     dependencies = {
