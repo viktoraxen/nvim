@@ -30,7 +30,7 @@ return {
                     code = {
                         left_pad = 0,
                         right_pad = 0,
-                        style = 'language',
+                        disable_background = true,
                         border = 'hide',
                         language = false,
                     },
