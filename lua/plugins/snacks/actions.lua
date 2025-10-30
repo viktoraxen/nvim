@@ -20,10 +20,8 @@ M.restore = function(picker)
 
             Snacks.picker.util.cmd(cmd, function(_, _)
                 vim.schedule(function()
-                    picker.list:set_selected()
                     picker.list:set_target()
                     picker:find()
-                    vim.cmd.startinsert()
                 end)
             end, { cwd = item.cwd })
         end

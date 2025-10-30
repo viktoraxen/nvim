@@ -85,6 +85,7 @@ return {
 
                     SnacksPickerToggle = { fg = "surface0", bg = "sky" },
                     SnacksPickerGitStatusStaged = { italic = false },
+                    SnacksPickerGitStatusModified = { italic = false },
 
                     SnacksIndentScope = { fg = "rosewater" },
                 }

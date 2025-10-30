@@ -8,6 +8,7 @@ M.gitter = function()
     Snacks.picker({
         source = "git_status",
         title = "Gitter",
+        sort = { fields = { "file", "text" } },
         layout = layouts.adaptive_width(layouts.git_wide, layouts.narrow),
         format = formats.gitter,
         actions = {
@@ -27,6 +28,7 @@ M.gitter = function()
             },
             list = {
                 keys = {
+                    ["<tab>"] = { "stage", mode = { "n" } },
                     ["<space>"] = { "stage", mode = { "n" } },
                     ["x"] = { "restore", mode = { "n" } },
                     ["C"] = { "commit", mode = { "n" } },
