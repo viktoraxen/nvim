@@ -1,6 +1,5 @@
 local layouts = require('plugins.snacks.layouts')
 local configs = require('plugins.snacks.configs')
-local pickers = require('plugins.snacks.pickers')
 
 local toggle_terminal = function(id)
     Snacks.terminal.toggle("zsh", { env = { id = id, } })
@@ -59,8 +58,6 @@ return {
         { "<leader>sp", function() Snacks.picker.projects() end,                   desc = "Projects" },
         { "<leader>sP", function() Snacks.picker.pickers(layouts.vscode) end,      desc = "Pickers" },
         { "<leader>sr", function() Snacks.picker.resume() end,                     desc = "Resume" },
-
-        { "<leader>gg", function() pickers.gitter() end,                           desc = "Git" },
 
         { "<M-1>",      function() toggle_terminal(1) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
         { "<M-2>",      function() toggle_terminal(2) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },

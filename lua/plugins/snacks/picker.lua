@@ -1,5 +1,6 @@
 local layouts = require('plugins.snacks.layouts')
 
+--- @type snacks.picker.Config
 return {
     prompt = ' ',
     layout = function(_)
@@ -76,26 +77,6 @@ return {
                 ['<c-h>'] = 'focus_input',
                 ['<c-l>'] = 'confirm',
             },
-        },
-    },
-    icons = {
-        git = {
-            enabled = true,
-            commit = '󰜘 ',
-            staged = '',
-            added = '',
-            deleted = '',
-            ignored = ' ',
-            modified = '',
-            renamed = '󰳞',
-            unmerged = ' ',
-            untracked = '',
-        },
-        diagnostics = {
-            error = ' ',
-            warn = ' ',
-            hint = ' ',
-            info = ' ',
         },
     },
 }
