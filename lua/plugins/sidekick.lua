@@ -12,22 +12,25 @@ return {
                 float = { width = 0.85, height = 0.85 }
             }
         },
+        nes = {
+            enabled = false,
+        }
     },
-    config = function(_, opts)
-        require("sidekick").setup(opts)
-
-        vim.api.nvim_create_autocmd("InsertEnter", {
-            callback = function()
-                require("sidekick.nes").disable()
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("InsertLeave", {
-            callback = function()
-                require("sidekick.nes").enable()
-            end,
-        })
-    end,
+    -- config = function(_, opts)
+    --     require("sidekick").setup(opts)
+    --
+    --     vim.api.nvim_create_autocmd("InsertEnter", {
+    --         callback = function()
+    --             require("sidekick.nes").disable()
+    --         end,
+    --     })
+    --
+    --     vim.api.nvim_create_autocmd("InsertLeave", {
+    --         callback = function()
+    --             require("sidekick.nes").enable()
+    --         end,
+    --     })
+    -- end,
     keys = {
         {
             "<Tab>",
