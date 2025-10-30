@@ -17,7 +17,6 @@ return {
         debug = { enabled = true },
         indent = require 'plugins.snacks.indent',
         input = require 'plugins.snacks.input',
-        lazygit = require 'plugins.snacks.lazygit',
         notifier = require 'plugins.snacks.notifier',
         picker = require 'plugins.snacks.picker',
         quickfile = { enabled = true },
@@ -129,16 +128,6 @@ return {
                 SnacksInputCursorLine = "SnacksInputNormal",
             }
         })
-
-        local original_notify = vim.notify
-
-        vim.notify = function(msg, level, opts)
-            if msg and msg:match("Config Change") then
-                return
-            end
-
-            original_notify(msg, level, opts)
-        end
 
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",

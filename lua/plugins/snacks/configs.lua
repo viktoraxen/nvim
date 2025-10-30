@@ -2,10 +2,6 @@ local layouts = require('plugins.snacks.layouts')
 
 local M = {}
 
-M.git_diff = {
-    layout = layouts.adaptive_width(layouts.git_wide, layouts.narrow),
-}
-
 M.git_status = {
     layout = layouts.adaptive_width(layouts.git_wide, layouts.narrow),
     win = {
