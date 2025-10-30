@@ -11,7 +11,7 @@ return {
                 -- show_source = { enabled = true, if_many = true },
                 multilines = { enabled = true },
                 show_all_diags_on_cursorline = true,
-                enable_on_insert = true,
+                enable_on_insert = false,
                 overflow = { padding = -8 },
                 use_icons_from_diagnostic = true,
                 override_open_float = true,
