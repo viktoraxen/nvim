@@ -38,7 +38,8 @@ return {
 
         local disabled_fts = {
             "neo%-tree",
-            "snacks"
+            "snacks",
+            "alpha",
         }
 
         local actual_filetypes = function()
@@ -105,8 +106,8 @@ return {
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
-                    statusline = { "alpha", },
-                    winbar = {},
+                    statusline = disabled_fts,
+                    winbar = disabled_fts,
                 },
                 ignore_focus = {},
                 always_divide_middle = true,
@@ -145,12 +146,6 @@ return {
                 },
                 lualine_b = {
                     {
-                        'filename',
-                        file_status = false,
-                        icon = '󰧮',
-                        cond = actual_filetypes
-                    },
-                    {
                         'diagnostics',
                         padding = { left = 0, right = 1 },
                         symbols = {
@@ -160,9 +155,9 @@ return {
                             hint = " ",
                         },
                         update_in_insert = true
-                    }
+                    },
                 },
-                lualine_c = { { filepath } },
+                lualine_c = {},
                 lualine_x = {
                     { 'branch', icon = '' },
                     { venv, icon = '󰹩' }
@@ -186,9 +181,35 @@ return {
                 } },
                 lualine_c = { { filepath } },
                 lualine_x = {},
-                lualine_y = {}, -- { { 'filetype', cond = actual_filetypes } },
+                lualine_y = {},
                 lualine_z = {}
             },
+            winbar = {
+                lualine_b = {
+                    {
+                        'filename',
+                        file_status = false,
+                        icon = '󰧮',
+                        cond = actual_filetypes
+                    },
+                },
+                lualine_c = { { filepath } },
+            },
+            inactive_winbar = {
+                lualine_b = {
+                    {
+                        'filename',
+                        file_status = false,
+                        icon = '󰧮',
+                        cond = actual_filetypes
+                    },
+                },
+                lualine_c = { { filepath } },
+            },
+        })
+
+        require('custom-highlights-nvim').add({
+            links = { lualine_b_inactive = "lualine_b_normal" }
         })
     end
 }

@@ -8,31 +8,11 @@ return {
     end,
     matcher = { frecency = true },
     ui_select = true,
-    -- layouts = {
-    --     -- does not work, layout seems to be hardcoded for select
-    --     select = {
-    --         -- reverse = true, -- this works, so the config is used, but not the layout
-    --         layout = layouts.vscode,
-    --         config = function(_)
-    --             return layouts.vscode
-    --         end,
-    --     },
-    -- },
     previewers = {
-        diff = {
-            builtin = false,
-            cmd = {
-                "delta",
-                "--line-numbers",
-                "--diff-so-fancy",
-                "--file-style='omit'",
-                "--hunk-header-style='omit'",
-            }
-        },
         git = {
             builtin = false,
             args = {
-                "-c", "core.pager=delta --line-numbers  --diff-so-fancy --file-style='omit' --hunk-header-style='omit'",
+                "-c", "core.pager=delta --line-numbers --diff-so-fancy --file-style='omit' --hunk-header-style='omit'",
             }
         },
     },

@@ -73,12 +73,6 @@ return {
         require('custom-highlights-nvim').add({
             customizations = {
                 catppuccin = {
-                    SnacksNotifierTitleTrace = { italic = true },
-                    SnacksNotifierTitleDebug = { fg = "sky", italic = true },
-                    SnacksNotifierTitleInfo = { fg = "sky", italic = true },
-                    SnacksNotifierTitleWarn = { fg = "yellow", italic = true },
-                    SnacksNotifierTitleError = { fg = "red", italic = true },
-
                     SnacksPickerToggle = { fg = "surface0", bg = "sky" },
                     SnacksPickerGitStatusStaged = { italic = false },
                     SnacksPickerGitStatusModified = { italic = false },
