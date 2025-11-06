@@ -3,9 +3,7 @@ return {
     event = 'VimEnter',
     config = function()
         require('which-key').setup {
-            icons = {
-                rules = false,
-            },
+            icons = { rules = false, },
             delay = 500,
         }
     end,

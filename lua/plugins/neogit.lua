@@ -9,6 +9,7 @@ return {
         { "<leader>gm", "<cmd>Neogit merge<cr>",  desc = "Merge" },
         { "<leader>gp", "<cmd>Neogit pull<cr>",   desc = "Pull" },
         { "<leader>gP", "<cmd>Neogit push<cr>",   desc = "Push" },
+        { "<leader>gs", "<cmd>Neogit stash<cr>",  desc = "Stash" },
     },
     cmd = { "Neogit" },
     dependencies = {
