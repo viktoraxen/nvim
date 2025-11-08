@@ -38,9 +38,17 @@ end
 
 map.ln('Q', close_tab, 'Close tab')
 
+local prev_diag = function()
+    vim.diagnostic.jump({ count = -1 })
+end
+
+local next_diag = function()
+    vim.diagnostic.jump({ count = 1 })
+end
+
 map.n('gh', vim.diagnostic.open_float, 'Show line diagnostics')
-map.n('gj', vim.diagnostic.goto_next, 'Next diagnostic')
-map.n('gk', vim.diagnostic.goto_prev, 'Previous diagnostic')
+map.n('gj', next_diag, 'Next diagnostic')
+map.n('gk', prev_diag, 'Previous diagnostic')
 
 -- LSP keymaps
 map.n('K', vim.lsp.buf.hover, 'Hover')
