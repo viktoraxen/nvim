@@ -1,11 +1,47 @@
 return {
     'saghen/blink.cmp',
-    enabled = true,
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = {
+        'rafamadriz/friendly-snippets',
+        { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    },
     version = '1.*',
     opts_extend = { "sources.default" },
+    opts = {
+        keymap = {
+            preset = 'default',
+            ['<c-h>'] = { 'cancel' },
+            ['<c-j>'] = { 'select_next' },
+            ['<c-k>'] = { 'select_prev' },
+            ['<c-l>'] = { 'select_and_accept' },
+            ['<c-o>'] = { 'show_documentation' },
+            ['<c-d>'] = { 'scroll_documentation_down' },
+            ['<c-u>'] = { 'scroll_documentation_up' },
+        },
+
+        snippets = { preset = 'luasnip' },
+
+        completion = {
+            documentation = {
+                auto_show = false,
+                window = {
+                    border = 'solid',
+                    winblend = 5,
+                }
+            },
+            menu = {
+                winblend = 5,
+                border = 'none'
+            },
+        },
+
+        sources = {
+            default = { 'lsp', 'path', 'snippets', 'buffer' },
+        },
+    },
     event = "InsertEnter",
-    config = function()
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    config = function(_, opts)
         vim.api.nvim_create_autocmd("User", {
             pattern = "BlinkCmpMenuOpen",
             callback = function()
@@ -20,38 +56,13 @@ return {
             end
         })
 
-        require('blink.cmp').setup(
-        ---@module 'blink.cmp'
-        ---@type blink.cmp.Config
-            {
-                keymap = {
-                    preset = 'default',
-                    ['<c-h>'] = { 'cancel' },
-                    ['<c-j>'] = { 'select_next' },
-                    ['<c-k>'] = { 'select_prev' },
-                    ['<c-l>'] = { 'select_and_accept' },
-                    ['<c-o>'] = { 'show_documentation' },
-                    ['<c-d>'] = { 'scroll_documentation_down' },
-                    ['<c-u>'] = { 'scroll_documentation_up' },
-                },
+        require("luasnip.loaders.from_vscode").lazy_load()
 
-                completion = {
-                    documentation = {
-                        auto_show = false,
-                        window = {
-                            border = 'solid',
-                            winblend = 5,
-                        }
-                    },
-                    menu = {
-                        winblend = 5,
-                        border = 'none'
-                    },
-                },
+        require("luasnip").filetype_extend("typescriptreact", { "html" })
+        require("luasnip").filetype_extend("typescript", { "html" })
+        require("luasnip").filetype_extend("javascriptreact", { "html" })
+        require("luasnip").filetype_extend("javascript", { "html" })
 
-                sources = {
-                    default = { 'lsp', 'path', 'snippets', 'buffer' },
-                },
-            })
+        require('blink.cmp').setup(opts)
     end
 }
