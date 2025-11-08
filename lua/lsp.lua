@@ -60,8 +60,30 @@ vim.lsp.config['ruff_lsp'] = {
     }
 }
 
+vim.lsp.config['typescript'] = {
+    cmd = { 'typescript-language-server', '--stdio' },
+    filetypes = { 'typescript', 'typescriptreact' },
+    root_markers = { 'tsconfig.json' },
+}
+
+vim.lsp.config['tailwind'] = {
+    cmd = { 'tailwindcss-language-server' },
+    filetypes = {
+        "html",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "react",
+    },
+    root_markers = {
+        'tsconfig.json'
+    },
+}
+
 vim.lsp.enable 'luals'
 vim.lsp.enable 'clangd'
 vim.lsp.enable 'pyright'
 vim.lsp.enable 'ruff_lsp'
-vim.lsp.enable 'jdtls'
+vim.lsp.enable 'typescript'
+vim.lsp.enable 'tailwind'
