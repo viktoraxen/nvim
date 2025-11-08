@@ -6,7 +6,7 @@ return {
         overwrite = {
             yank = {
                 enabled = true,
-                default_animation = "left_to_right",
+                default_animation = "fade",
             },
 
             search = {
