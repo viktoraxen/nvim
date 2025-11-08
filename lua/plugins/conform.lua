@@ -6,7 +6,9 @@ return {
             lsp_fallback = true,
         },
         formatters_by_ft = {
-            markdown = { 'prettier' },
+            html = { "prettier" },
+            javascriptreact = { "prettier" },
+            json = { "prettier" },
         }
     }
 }
