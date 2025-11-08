@@ -52,6 +52,19 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+        'html',
+        'typescript',
+        'typescriptreact'
+    },
+    callback = function()
+        vim.bo.shiftwidth = 2
+        vim.bo.tabstop = 2
+    end,
+    desc = "Indentation for html/typescript"
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
     callback = function(event)
