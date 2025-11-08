@@ -9,6 +9,17 @@ return {
     matcher = { frecency = true },
     ui_select = true,
     previewers = {
+        diff = {
+            style = "terminal", ---@type "fancy"|"syntax"|"terminal"
+            cmd = { "delta" }, -- example for using `delta` as the external diff command
+            ---@type vim.wo?|{} window options for the fancy diff preview window
+            wo = {
+                breakindent = false,
+                wrap = false,
+                linebreak = false,
+                showbreak = "",
+            },
+        },
         git = {
             builtin = false,
             args = {
