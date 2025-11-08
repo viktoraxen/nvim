@@ -24,11 +24,11 @@ return {
         dashboard.section.buttons.val = {
             dashboard.button('n', '  New file', ':ene<CR>'),
             dashboard.button('f', '  Find files', Snacks.picker.files),
-            dashboard.button('e', '  Explorer', ':Neotree position=current<CR>'),
             dashboard.button('p', '  Projects', Snacks.picker.projects),
             dashboard.button('l', '  Plugins', ':Lazy<CR>'),
             dashboard.button('m', '󰯠  Mason', ':Mason<CR>'),
             dashboard.button('c', '󰢻  Configuration', open_config),
+            dashboard.button('t', '󰬴  Typr', ':Typr<cr>'),
             dashboard.button('q', '󱎘  Quit', ':qa<CR>'),
         }
 
