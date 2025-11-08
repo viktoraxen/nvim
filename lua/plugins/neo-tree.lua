@@ -89,7 +89,7 @@ return {
                 }
             },
             window = {
-                width = 43,
+                width = 40,
                 mappings = {
                     ['<space>'] = { 'toggle_node', nowait = false },
                     ['<cr>'] = 'open_with_window_picker',
