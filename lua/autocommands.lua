@@ -106,6 +106,41 @@ vim.api.nvim_create_autocmd('BufRead', {
     end
 })
 
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "WinScrolled" }, {
+    desc = "Fix scrolloff when you are at the EOF",
+    group = vim.api.nvim_create_augroup("ScrollEOF", { clear = true }),
+    callback = function()
+        if vim.api.nvim_win_get_config(0).relative ~= "" then
+            return -- Ignore floating windows
+        end
+
+        local win_height = vim.fn.winheight(0)
+        local scrolloff = math.min(vim.o.scrolloff, math.floor(win_height / 2))
+        local visual_distance_to_eof = win_height - vim.fn.winline()
+
+        if visual_distance_to_eof < scrolloff then
+            local win_view = vim.fn.winsaveview()
+            vim.fn.winrestview({ topline = win_view.topline + scrolloff - visual_distance_to_eof })
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+    desc = "Corrects terminal background color according to colorscheme",
+    callback = function()
+        if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
+            io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("UILeave", {
+    desc = "Reset terminal backgroun",
+    callback = function()
+        io.write("\027]111\027\\")
+    end,
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
     callback = function(event)
