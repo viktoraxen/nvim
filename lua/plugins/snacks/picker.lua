@@ -8,6 +8,9 @@ return {
     end,
     matcher = { frecency = true },
     ui_select = true,
+    layouts = {
+        select = layouts.vscode,
+    },
     previewers = {
         diff = {
             style = "terminal", ---@type "fancy"|"syntax"|"terminal"

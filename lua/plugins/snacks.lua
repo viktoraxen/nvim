@@ -1,4 +1,3 @@
-local layouts = require('plugins.snacks.layouts')
 local configs = require('plugins.snacks.configs')
 
 local toggle_terminal = function(id)
@@ -39,24 +38,24 @@ return {
         { "<leader>lr", function() Snacks.picker.lsp_references() end,             desc = "References" },
         { "<leader>lt", function() Snacks.picker.lsp_type_definitions() end,       desc = "Type definitions" },
 
-        { "<leader>f",  function() Snacks.picker.files(layouts.vscode) end,        desc = "Search files" },
-        { "<leader>F",  function() Snacks.picker.files(layouts.vscode_all) end,    desc = "Search files (All)" },
-        { "<leader>b",  function() Snacks.picker.buffers(layouts.vscode) end,      desc = "Search buffers" },
+        { "<leader>f",  function() Snacks.picker.files(configs.vscode) end,        desc = "Search files" },
+        { "<leader>F",  function() Snacks.picker.files(configs.vscode_all) end,    desc = "Search files (All)" },
+        { "<leader>b",  function() Snacks.picker.buffers(configs.vscode) end,      desc = "Search buffers" },
         { "<leader>sb", function() Snacks.picker.buffers() end,                    desc = "Buffers" },
         { "<leader>sd", function() Snacks.picker.diagnostics() end,                desc = "Diagnostics" },
-        { "<leader>sD", function() Snacks.picker.diagnostics(layouts.all) end,     desc = "Diagnostics (All)" },
+        { "<leader>sD", function() Snacks.picker.diagnostics(configs.all) end,     desc = "Diagnostics (All)" },
         { "<leader>sf", function() Snacks.picker.files() end,                      desc = "Files" },
-        { "<leader>sF", function() Snacks.picker.files(layouts.all) end,           desc = "Files (All)" },
+        { "<leader>sF", function() Snacks.picker.files(configs.all) end,           desc = "Files (All)" },
         { "<leader>sg", function() Snacks.picker.git_diff(configs.git_status) end, desc = "Git files (All)" },
         { "<leader>ss", function() Snacks.picker.grep() end,                       desc = "Grep" },
-        { "<leader>sS", function() Snacks.picker.grep(layouts.all) end,            desc = "Grep (All)" },
+        { "<leader>sS", function() Snacks.picker.grep(configs.all) end,            desc = "Grep (All)" },
         { "<leader>sh", function() Snacks.picker.help() end,                       desc = "Help" },
         { "<leader>sH", function() Snacks.picker.highlights() end,                 desc = "Highlights" },
-        { "<leader>si", function() Snacks.picker.icons(layouts.vscode) end,        desc = "Icons" },
+        { "<leader>si", function() Snacks.picker.icons(configs.vscode) end,        desc = "Icons" },
         { "<leader>sw", function() Snacks.picker.lsp_symbols() end,                desc = "Symbols" },
         { "<leader>sW", function() Snacks.picker.lsp_workspace_symbols() end,      desc = "Workspace symbols" },
         { "<leader>sp", function() Snacks.picker.projects() end,                   desc = "Projects" },
-        { "<leader>sP", function() Snacks.picker.pickers(layouts.vscode) end,      desc = "Pickers" },
+        { "<leader>sP", function() Snacks.picker.pickers(configs.vscode) end,      desc = "Pickers" },
         { "<leader>sr", function() Snacks.picker.resume() end,                     desc = "Resume" },
 
         { "<M-1>",      function() toggle_terminal(1) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },

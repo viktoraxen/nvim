@@ -1,56 +1,46 @@
 local M = {}
 
 M.vscode = {
+    preview = false,
     layout = {
-        preview = false,
-        layout = {
+        box = "vertical",
+        row = 0.25,
+        width = 0.5,
+        min_width = 75,
+        height = 0.4,
+        backdrop = false,
+        {
+            win = "preview",
+            title = "{preview}",
+            height = 0.5,
+            border = "solid",
+        },
+        {
             box = "vertical",
-            row = 0.25,
-            width = 0.5,
-            min_width = 75,
-            height = 0.4,
-            backdrop = false,
             {
-                win = "preview",
-                title = "{preview}",
-                height = 0.5,
+                win = "input",
+                height = 1,
+                border = "solid",
+                title = "{title} {live} {flags}",
+            },
+            {
+                win = "list",
                 border = "solid",
             },
-            {
-                box = "vertical",
-                {
-                    win = "input",
-                    height = 1,
-                    border = "solid",
-                    title = "{title} {live} {flags}",
-                },
-                {
-                    win = "list",
-                    border = "solid",
-                },
-            },
         },
-    }
-}
-
-M.all = {
-    hidden = true,
-    ignored = true,
-    follow = true,
+    },
 }
 
 local preview = {
+    preview = true,
     layout = {
-        preview = true,
         height = 0.85,
         row = 0.05,
     }
 }
 
-M.vscode_preview = vim.tbl_deep_extend("force", M.vscode, preview)
-M.vscode_all = vim.tbl_deep_extend("force", M.vscode, M.all)
-
-M.vscode_preview_all = vim.tbl_deep_extend("force", M.vscode_preview, M.vscode_all)
+M.vscode_preview = vim.tbl_deep_extend("force", { layout = M.vscode }, preview)
+-- M.vscode_preview_all = vim.tbl_deep_extend("force", M.vscode_preview, M.vscode_all)
 
 M.wide = {
     layout = {
