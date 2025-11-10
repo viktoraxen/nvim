@@ -7,6 +7,8 @@ local clear_hl_and_notifications = function()
     Snacks.notifier.hide()
 end
 
+map.ln('R', ':so $MYVIMRC<cr>', 'Reload config')
+
 map.n('<Esc>', clear_hl_and_notifications, 'Clear search highlight and notifications')
 
 -- Groups
@@ -22,7 +24,6 @@ map.v('=', '=gv', 'Auto-indent selection')
 map.v('>', '>gv', 'Indent selection')
 map.v('<', '<gv', 'De-indent selection')
 
-map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Replace word under cursor')
 
 -- Basic
 map.ln('q', '<cmd>q<cr>', 'Close buffer')
@@ -66,8 +67,8 @@ map.n('vA', 'ggVG', 'Select all')
 map.n('dA', 'ggdG', 'Delete all')
 map.n('cA', 'ggcG', 'Change all')
 
--- Substitute
-map.ln('R', ':%s/<c-r><c-w>//g<left><left>', 'Substitude word under cursor')
+-- Replace
+map.ln('r', ':%s/<c-r><c-w>//g<left><left>', 'Replace word under cursor')
 
 -- Insert mode
 map.i('jj', '<Esc>', 'Exit insert mode')
