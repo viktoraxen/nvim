@@ -2,7 +2,7 @@ local layouts = require('plugins.snacks.layouts')
 
 --- @type snacks.picker.Config
 return {
-    prompt = ' ',
+    prompt = '  ',
     layout = function(_)
         return vim.o.columns >= 120 and layouts.wide or layouts.narrow
     end,
