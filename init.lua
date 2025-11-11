@@ -13,3 +13,13 @@ require 'options'
 require 'lsp'
 
 require 'keymaps'
+
+vim.api.nvim_create_autocmd("UIEnter", {
+    desc = "Launch Neovide configuration",
+    pattern = "*",
+    callback = function()
+        if vim.g.neovide then
+            require 'neovide'
+        end
+    end
+})
