@@ -7,7 +7,7 @@ local clear_hl_and_notifications = function()
     Snacks.notifier.hide()
 end
 
-map.ln('R', ':so $MYVIMRC<cr>', 'Reload config')
+map.ln('R', ':so<cr>', 'Reload config')
 
 map.n('<Esc>', clear_hl_and_notifications, 'Clear search highlight and notifications')
 
