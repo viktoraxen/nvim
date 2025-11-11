@@ -21,6 +21,16 @@ vim.api.nvim_create_autocmd("CursorMoved", {
     end,
 })
 
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+    desc = "Remove trailing whitespace on save",
+    pattern = { '*' },
+    callback = function()
+        local save_cursor = vim.fn.getpos('.')
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos('.', save_cursor)
+    end
+})
+
 vim.api.nvim_create_autocmd('BufWritePre', {
     desc = 'Format on save',
     callback = function(args)
