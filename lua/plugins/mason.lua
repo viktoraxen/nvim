@@ -1,17 +1,28 @@
 return {
     "williamboman/mason.nvim",
-    keys = {
-        { "<leader>M", "<cmd>Mason<cr>", desc = "Mason" },
-    },
-    cmd = {
-        "Mason"
-    },
+    keys = { { "<leader>M", "<cmd>Mason<cr>", desc = "Mason" }, },
+    cmd = { "Mason" },
     opts = {
         ensure_installed = {
-            "stylua",
-            "lua-language-server",
+            "bash-language-server",
+            "beautysh",
+            "black",
             "clangd",
+            "cmake-language-server",
+            "cmakelang",
+            "codelldb",
+            "eslint-lsp",
+            "jdtls",
+            "lua-language-server",
+            "markdownlint",
+            "prettier",
             "pyright",
+            "python-lsp-server",
+            "stylua",
+            "superhtml",
+            "tailwindcss-language-server",
+            "tree-sitter-cli",
+            "typescript-language-server",
         },
         ui = {
             check_outdated_packages_on_open = true,
