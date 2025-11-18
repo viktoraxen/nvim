@@ -120,12 +120,12 @@ return {
         },
     },
     config = function(_, opts)
-        require('custom-highlights-nvim').add({
+        require('tiny-glimmer').setup(opts)
+
+        require('highlights-nvim').add({
             customizations = {
-                catppuccin = { FadeStart = { bg = "mauve" } }
+                FadeStart = { bg = "#CBA6F7" }
             }
         })
-
-        require('tiny-glimmer').setup(opts)
     end,
 }

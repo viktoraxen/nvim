@@ -19,13 +19,4 @@ return {
         toggle_key = "<c-c>",
         select_signature_key = "<m-j>",
     },
-    config = function(_, opts)
-        require("custom-highlights-nvim").add({
-            customizations = {
-                catppuccin = { LspSignatureActiveParameter = { bg = "surface2" } }
-            }
-        })
-
-        require('lsp_signature').setup(opts)
-    end
 }

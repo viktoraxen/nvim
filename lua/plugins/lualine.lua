@@ -3,39 +3,6 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = "VeryLazy",
     config = function()
-        local catppuccin_theme = require('lualine.themes.catppuccin-mocha')
-        local catppuccin_palette = require("catppuccin.palettes").get_palette()
-
-        local modes = {
-            "normal",
-            "visual",
-            "insert",
-            "command",
-            "terminal",
-            "replace",
-            "inactive",
-        }
-
-        local sections = {
-            "a", "b", "c"
-        }
-
-        for _, section in ipairs(sections) do
-            for _, mode in ipairs(modes) do
-                if catppuccin_theme[mode][section] then
-                    catppuccin_theme[mode][section].fg = catppuccin_theme[mode][section].bg
-                    catppuccin_theme[mode][section].bg = catppuccin_palette["base"]
-                end
-            end
-        end
-
-        for _, mode in ipairs(modes) do
-            catppuccin_theme[mode].b.fg = catppuccin_palette["text"]
-        end
-
-        catppuccin_theme.normal.c.fg = catppuccin_palette["overlay0"]
-        catppuccin_theme.inactive.c.fg = catppuccin_palette["overlay0"]
-
         local disabled_fts = {
             "neo%-tree",
             "snacks",
@@ -102,7 +69,6 @@ return {
         require("lualine").setup({
             options = {
                 icons_enabled = true,
-                theme = catppuccin_theme,
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
                 disabled_filetypes = {
@@ -163,8 +129,8 @@ return {
                     { venv, icon = '󰹩' }
                 },
                 lualine_y = {
-                    { 'filetype', cond = actual_filetypes },
                     'searchcount',
+                    { 'filetype', cond = actual_filetypes, color = { bg = vim.NIL } },
                 },
                 lualine_z = {
                     { 'progress', padding = { left = 1, right = 0 } },
@@ -208,8 +174,70 @@ return {
             },
         })
 
-        require('custom-highlights-nvim').add({
-            links = { lualine_b_inactive = "lualine_b_normal" }
-        })
+        local highlights_utils = require('highlights-nvim.utils')
+
+        local modes = {
+            "normal",
+            "visual",
+            "insert",
+            "command",
+            "terminal",
+            "replace",
+            "inactive",
+        }
+
+        local sections = {
+            "a", "b", "c"
+        }
+
+        local diagnostics = {
+            "error",
+            "hint",
+            "warn",
+            "info",
+        }
+
+        local apply_highlights = function()
+            -- Invert lualine_a
+            for _, mode in ipairs(modes) do
+                local current_a_hl = highlights_utils.get_hl("lualine_a_" .. mode)
+                local new_fg = nil
+
+                if current_a_hl.bg then
+                    new_fg = string.format("#%06x", current_a_hl.bg)
+                end
+
+                local new_a_hl = vim.tbl_deep_extend("force", current_a_hl, { fg = new_fg })
+
+                local normal_hl = highlights_utils.get_hl("Normal")
+                local current_b_hl = highlights_utils.get_hl("lualine_b_" .. mode)
+                local normal_fg = string.format("#%06x", normal_hl.fg)
+                local new_b_hl = vim.tbl_deep_extend("force", current_b_hl, { fg = normal_fg })
+
+                vim.api.nvim_set_hl(0, "lualine_a_" .. mode, new_a_hl)
+                vim.api.nvim_set_hl(0, "lualine_b_" .. mode, new_b_hl)
+            end
+
+            -- Remove background from all
+            local all_hls = vim.api.nvim_get_hl(0, {})
+
+            for group_name, hl in pairs(all_hls) do
+                if group_name:match("^lualine") then
+                    hl.bg = nil
+                    vim.api.nvim_set_hl(0, group_name, hl)
+                end
+            end
+
+            require('highlights-nvim').add({
+                links = {
+                    lualine_b_inactive = "lualine_b_normal",
+                    lualine_c_normal = "lualine_c_inactive",
+                    WinBar = "lualine_b_normal",
+                    WinBarNC = "WinBar",
+                }
+            })
+        end
+
+        apply_highlights()
     end
 }

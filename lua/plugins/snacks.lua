@@ -69,17 +69,13 @@ return {
         { "<M-9>",      function() toggle_terminal(9) end,                         desc = "Toggle terminal",      mode = { "n", "i", "v", "t" } },
     },
     init = function()
-        require('custom-highlights-nvim').add({
+        require('highlights-nvim').add({
             customizations = {
-                catppuccin = {
-                    SnacksPickerToggle = { fg = "surface0", bg = "sky" },
-                    SnacksPickerGitStatusStaged = { italic = false },
-                    SnacksPickerGitStatusModified = { italic = false },
-
-                    SnacksIndentScope = { fg = "rosewater" },
-                }
+                SnacksPickerGitStatusStaged = { italic = false },
+                SnacksPickerGitStatusModified = { italic = false },
             },
             links = {
+                SnacksPickerToggle = "SnacksPickerInputTitle",
 
                 SnacksNotifierBorderTrace = "NormalFloat",
                 SnacksNotifierBorderDebug = "NormalFloat",

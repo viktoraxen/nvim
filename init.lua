@@ -10,8 +10,6 @@ require 'lazy-plugins'
 
 require 'options'
 
-require 'lsp'
-
 require 'keymaps'
 
 vim.api.nvim_create_autocmd("UIEnter", {

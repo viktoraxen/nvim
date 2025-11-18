@@ -210,17 +210,21 @@ return {
             },
         }
 
-        require('custom-highlights-nvim').add({
+        require('highlights-nvim').add({
             customizations = {
-                cappuccin = {
-                    NeoTreeGitUnstaged = { fg = "subtext0" },
-                    NeoTreeGitModified = { fg = "subtext0" },
-                    NeoTreeGitAdded = { fg = "subtext0" },
-                    NeoTreeGitDeleted = { fg = "subtext0" },
-                    NeoTreeGitUntracked = { fg = "subtext0" },
-                }
+                NeoTreeGitUnstaged = { italic = false, cterm = { italic = false } },
+                NeoTreeGitModified = { italic = false, cterm = { italic = false } },
+                NeoTreeGitAdded = { italic = false, cterm = { italic = false } },
+                NeoTreeGitDeleted = { italic = false, cterm = { italic = false } },
+                NeoTreeGitUntracked = { italic = false, cterm = { italic = false } },
             },
             links = {
+                NeoTreeGitUnstaged = "Comment",
+                NeoTreeGitModified = "Comment",
+                NeoTreeGitAdded = "Comment",
+                NeoTreeGitDeleted = "Comment",
+                NeoTreeGitUntracked = "Comment",
+
                 NeoTreeFloatNormal = "NormalFloat",
                 NeoTreeFloatBorder = "FloatBorder",
 

@@ -47,7 +47,7 @@ return {
     },
     config = function(_, opts)
         require("neogit").setup(opts)
-        require('custom-highlights-nvim').add({
+        require('highlights-nvim').add({
             links = { NeogitNormal = "NormalFloat", }
         })
     end,
