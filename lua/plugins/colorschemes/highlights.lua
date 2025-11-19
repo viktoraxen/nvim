@@ -1,7 +1,7 @@
 return {
-    -- "viktoraxen/highlights-nvim",
-    "highlights-nvim",
-    dev = true,
+    "viktoraxen/highlights-nvim",
+    -- "highlights-nvim",
+    -- dev = true,
     event = "VeryLazy",
     config = function()
         local highlights = require('highlights-nvim')
