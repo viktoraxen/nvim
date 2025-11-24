@@ -14,10 +14,47 @@ return {
         DiagnosticInfo = { italic = false, cterm = { italic = false } },
         DiagnosticWarn = { italic = false, cterm = { italic = false } },
         DiagnosticError = { italic = false, cterm = { italic = false } },
+        DiagnosticUnnecessary = { italic = false, cterm = { italic = false } },
+
+        DiagnosticUnderlineOk = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        DiagnosticUnderlineHint = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        DiagnosticUnderlineInfo = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        DiagnosticUnderlineWarn = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        DiagnosticUnderlineError = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        LspDiagnosticsUnderlineHint = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        LspDiagnosticsUnderlineError = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        LspDiagnosticsUnderlineWarning = {
+          cterm = { underline = false },
+          underline = false,
+        },
+        LspDiagnosticsUnderlineInformation = {
+          cterm = { underline = false },
+          underline = false,
+        },
 
         catppuccin = {
           Normal = { bg = 'mantle' },
-
           NormalFloat = { bg = 'base' },
           FloatTitle = { fg = 'sky', bg = 'base' },
           LightFloat = { bg = 'surface0|base' },

@@ -25,8 +25,8 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
--- vim.opt.signcolumn = 'yes'
+-- Keep signcolumn off by default
+vim.opt.signcolumn = 'no'
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -92,7 +92,7 @@ vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl 
 vim.fn.sign_define('DiagnosticSignHint', { text = diagnostic_icons.hint, texthl = 'DiagnosticSignHint' })
 
 vim.diagnostic.config {
-  underline = false,
+  underline = true,
   signs = false,
   update_in_insert = true,
   virtual_text = false,
