@@ -23,13 +23,12 @@ return {
         -- }
         --
         -- vim.lsp.config['tailwind'] = require('nvim-lspconfig.lsp.tailwindcss')
-        vim.lsp.config('luals', {})
-
+        -- vim.lsp.enable 'stylua'
         vim.lsp.enable 'luals'
         vim.lsp.enable 'clangd'
         vim.lsp.enable 'pyright'
         vim.lsp.enable 'ruff'
         vim.lsp.enable 'typescript'
         vim.lsp.enable 'tailwindcss'
-    end
+    end,
 }

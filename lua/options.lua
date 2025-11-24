@@ -1,4 +1,4 @@
-vim.cmd("colorscheme catppuccin")
+vim.cmd 'colorscheme catppuccin'
 
 -- Don't use swapfile
 vim.opt.swapfile = false
@@ -43,7 +43,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.fillchars = { eob = " " }
+vim.opt.fillchars = { eob = ' ' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -60,30 +60,30 @@ vim.opt.softtabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 5
-vim.opt.winborder = "solid"
+vim.opt.winborder = 'solid'
 vim.opt.pumblend = 5
 vim.opt.pumheight = 10
 
 vim.ui.open = function(url)
-    vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
+  vim.fn.jobstart({ 'explorer.exe', url }, { detach = true })
 end
 
 local diagnostic_icons = {
-    error = "",
-    warn = "",
-    info = "",
-    hint = "",
+  error = '',
+  warn = '',
+  info = '',
+  hint = '',
 }
 
 local get_diagnostic_icon = function(diagnostic, _, _)
-    local icons_hls = {
-        [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
-        [vim.diagnostic.severity.WARN]  = { diagnostic_icons.warn, "DiagnosticWarn" },
-        [vim.diagnostic.severity.INFO]  = { diagnostic_icons.info, "DiagnosticInfo" },
-        [vim.diagnostic.severity.HINT]  = { diagnostic_icons.hint, "DiagnosticHint" },
-    }
-    local icon, hl = unpack(icons_hls[diagnostic.severity] or { " ", "" })
-    return icon .. " ", hl
+  local icons_hls = {
+    [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, 'DiagnosticError' },
+    [vim.diagnostic.severity.WARN] = { diagnostic_icons.warn, 'DiagnosticWarn' },
+    [vim.diagnostic.severity.INFO] = { diagnostic_icons.info, 'DiagnosticInfo' },
+    [vim.diagnostic.severity.HINT] = { diagnostic_icons.hint, 'DiagnosticHint' },
+  }
+  local icon, hl = unpack(icons_hls[diagnostic.severity] or { ' ', '' })
+  return icon .. ' ', hl
 end
 
 vim.fn.sign_define('DiagnosticSignError', { text = diagnostic_icons.error, texthl = 'DiagnosticSignError' })
@@ -92,16 +92,16 @@ vim.fn.sign_define('DiagnosticSignInfo', { text = diagnostic_icons.info, texthl 
 vim.fn.sign_define('DiagnosticSignHint', { text = diagnostic_icons.hint, texthl = 'DiagnosticSignHint' })
 
 vim.diagnostic.config {
-    underline = false,
-    signs = false,
-    update_in_insert = true,
-    virtual_text = false,
-    severity_sort = true,
-    float = {
-        source = 'if_many',
-        header = '',
-        scope = 'line',
-        prefix = get_diagnostic_icon,
-        suffix = ''
-    }
+  underline = false,
+  signs = false,
+  update_in_insert = true,
+  virtual_text = false,
+  severity_sort = true,
+  float = {
+    source = 'if_many',
+    header = '',
+    scope = 'line',
+    prefix = get_diagnostic_icon,
+    suffix = '',
+  },
 }

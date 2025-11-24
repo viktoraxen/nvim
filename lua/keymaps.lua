@@ -1,10 +1,10 @@
-local map = require('utils.keymap')
+local map = require 'utils.keymap'
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 local clear_hl_and_notifications = function()
-    vim.cmd('nohlsearch')
-    Snacks.notifier.hide()
+  vim.cmd 'nohlsearch'
+  Snacks.notifier.hide()
 end
 
 map.ln('R', ':so<cr>', 'Reload config')
@@ -24,27 +24,26 @@ map.v('=', '=gv', 'Auto-indent selection')
 map.v('>', '>gv', 'Indent selection')
 map.v('<', '<gv', 'De-indent selection')
 
-
 -- Basic
 map.ln('q', '<cmd>q<cr>', 'Close buffer')
 map.ln('w', '<cmd>w<cr>', 'Save buffer')
 
 local close_tab = function()
-    if vim.fn.tabpagenr('$') > 1 then
-        vim.cmd.tabclose()
-    else
-        vim.cmd.qa()
-    end
+  if vim.fn.tabpagenr '$' > 1 then
+    vim.cmd.tabclose()
+  else
+    vim.cmd.qa()
+  end
 end
 
 map.ln('Q', close_tab, 'Close tab')
 
 local prev_diag = function()
-    vim.diagnostic.jump({ count = -1 })
+  vim.diagnostic.jump { count = -1 }
 end
 
 local next_diag = function()
-    vim.diagnostic.jump({ count = 1 })
+  vim.diagnostic.jump { count = 1 }
 end
 
 map.n('gh', vim.diagnostic.open_float, 'Show line diagnostics')
@@ -108,15 +107,23 @@ map.ln('vh', '<C-w>H', 'Move window to left')
 map.ln('ve', '<C-w>=', 'Equalize window size')
 
 local move_window = function(direction)
-    vim.cmd('wincmd ' .. direction)
-    vim.wo.winhl = ''
-    vim.wo.winblend = 0
+  vim.cmd('wincmd ' .. direction)
+  vim.wo.winhl = ''
+  vim.wo.winblend = 0
 end
 
-map.ln('vl', function() move_window('L') end, 'Move window to right')
-map.ln('vh', function() move_window('H') end, 'Move window to left')
-map.ln('vj', function() move_window('J') end, 'Move window to bottom')
-map.ln('vk', function() move_window('K') end, 'Move window to top')
+map.ln('vl', function()
+  move_window 'L'
+end, 'Move window to right')
+map.ln('vh', function()
+  move_window 'H'
+end, 'Move window to left')
+map.ln('vj', function()
+  move_window 'J'
+end, 'Move window to bottom')
+map.ln('vk', function()
+  move_window 'K'
+end, 'Move window to top')
 
 -- Line numbers
 map.l_group('n', 'Line Numbers')

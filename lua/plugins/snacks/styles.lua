@@ -1,14 +1,14 @@
 return {
-    notification = {
-        border = "solid",
-        wo = {
-            wrap = true,
-            winblend = 0,
-        }
+  notification = {
+    border = 'solid',
+    wo = {
+      wrap = true,
+      winblend = 0,
     },
-    float = {
-        wo = {
-            winblend = 5
-        }
-    }
+  },
+  float = {
+    wo = {
+      winblend = 5,
+    },
+  },
 }
