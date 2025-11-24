@@ -5,7 +5,6 @@ return {
     easing = 'linear',
     duration = {
       step = 10,
-
       total = 100,
     },
   },

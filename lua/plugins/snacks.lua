@@ -310,6 +310,10 @@ return {
       customizations = {
         SnacksPickerGitStatusStaged = { italic = false },
         SnacksPickerGitStatusModified = { italic = false },
+
+        catppuccin = {
+          SnacksIndent = { fg = 'surface0' },
+        },
       },
       links = {
         SnacksPickerToggle = 'SnacksPickerInputTitle',
