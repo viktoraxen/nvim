@@ -11,8 +11,12 @@ return {
       javascriptreact = { 'prettier' },
       json = { 'prettier' },
       lua = { 'stylua' },
+      python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
     },
     formatters = {
+      ruff_format = {
+        prepend_args = { 'format', '--line-length', '100' },
+      },
       stylua = {
         -- This function runs every time formatting is triggered
         prepend_args = function(self, ctx)

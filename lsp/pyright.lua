@@ -6,7 +6,6 @@ return {
     pyright = { disableOrganizeImports = true },
     python = {
       analysis = {
-        ignore = { '*' },
         autoSearchPaths = true,
         typeCheckingMode = 'basic',
         diagnosticMode = 'openFilesOnly',

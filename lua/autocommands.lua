@@ -31,23 +31,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   end,
 })
 
-local wrap_group = vim.api.nvim_create_augroup('PythonAutoformat', { clear = true })
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = wrap_group,
-  pattern = 'python',
-  callback = function()
-    vim.bo.textwidth = 100
-
-    -- Configure HOW text is formatted
-    -- c: auto-wrap comments using textwidth, inserting the comment leader
-    -- q: allow formatting of comments with 'gq'
-    -- r: continue comments when pressing <Enter> in Insert mode
-    -- o: continue comments when pressing 'o' or 'O' in Normal mode
-    vim.bo.formatoptions = 'cqro'
-  end,
-})
-
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'html',
