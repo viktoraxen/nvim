@@ -1,6 +1,6 @@
 return {
   notification = {
-    border = 'solid',
+    border = "solid",
     wo = {
       wrap = true,
       winblend = 0,

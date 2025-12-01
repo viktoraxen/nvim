@@ -1,10 +1,10 @@
 return {
-  'MeanderingProgrammer/render-markdown.nvim',
+  "MeanderingProgrammer/render-markdown.nvim",
   dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'nvim-tree/nvim-web-devicons',
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
   },
-  ft = { 'markdown' },
+  ft = { "markdown" },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
@@ -16,11 +16,11 @@ return {
     },
     heading = {
       sign = false,
-      position = 'inline',
+      position = "inline",
     },
     code = {
       sign = false,
-      border = 'thick',
+      border = "thick",
       inline_pad = 1,
       left_pad = 2,
     },
@@ -32,7 +32,7 @@ return {
             left_pad = 0,
             right_pad = 0,
             disable_background = true,
-            border = 'hide',
+            border = "hide",
             language = false,
           },
         },

@@ -1,10 +1,10 @@
 return {
-  'folke/which-key.nvim',
-  event = 'VimEnter',
+  "folke/which-key.nvim",
+  event = "VimEnter",
   config = function()
-    require('which-key').setup {
+    require("which-key").setup({
       icons = { rules = false },
       delay = 500,
-    }
+    })
   end,
 }

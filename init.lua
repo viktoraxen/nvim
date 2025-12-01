@@ -1,23 +1,23 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
-require 'autocommands'
+require("autocommands")
 
-require 'lazy-bootstrap'
+require("lazy-bootstrap")
 
-require 'lazy-plugins'
+require("lazy-plugins")
 
-require 'options'
+require("options")
 
-require 'keymaps'
+require("keymaps")
 
-vim.api.nvim_create_autocmd('UIEnter', {
-  desc = 'Launch Neovide configuration',
-  pattern = '*',
+vim.api.nvim_create_autocmd("UIEnter", {
+  desc = "Launch Neovide configuration",
+  pattern = "*",
   callback = function()
     if vim.g.neovide then
-      require 'neovide'
+      require("neovide")
     end
   end,
 })

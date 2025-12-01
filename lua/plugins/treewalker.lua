@@ -1,21 +1,21 @@
 return {
-  'aaronik/treewalker.nvim',
+  "aaronik/treewalker.nvim",
   dependencies = {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
   },
-  event = { 'BufReadPre', 'BufNewFile' },
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
-    local map = require 'utils.keymap'
+    local map = require("utils.keymap")
 
-    map.n('<C-M-h>', '<cmd>Treewalker Left<cr>', 'Treewalker Left')
-    map.n('<C-M-l>', '<cmd>Treewalker Right<cr>', 'Treewalker Right')
-    map.n('<C-M-j>', '<cmd>Treewalker Down<cr>', 'Treewalker Down')
-    map.n('<C-M-k>', '<cmd>Treewalker Up<cr>', 'Treewalker Up')
+    map.n("<C-M-h>", "<cmd>Treewalker Left<cr>", "Treewalker Left")
+    map.n("<C-M-l>", "<cmd>Treewalker Right<cr>", "Treewalker Right")
+    map.n("<C-M-j>", "<cmd>Treewalker Down<cr>", "Treewalker Down")
+    map.n("<C-M-k>", "<cmd>Treewalker Up<cr>", "Treewalker Up")
 
-    map.n('<C-S-h>', '<cmd>Treewalker SwapLeft<cr>', 'Treewalker Swap Left')
-    map.n('<C-S-l>', '<cmd>Treewalker SwapRight<cr>', 'Treewalker Swap Right')
-    map.n('<C-S-j>', '<cmd>Treewalker SwapDown<cr>', 'Treewalker Swap Down')
-    map.n('<C-S-k>', '<cmd>Treewalker SwapUp<cr>', 'Treewalker Swap Up')
+    map.n("<C-S-h>", "<cmd>Treewalker SwapLeft<cr>", "Treewalker Swap Left")
+    map.n("<C-S-l>", "<cmd>Treewalker SwapRight<cr>", "Treewalker Swap Right")
+    map.n("<C-S-j>", "<cmd>Treewalker SwapDown<cr>", "Treewalker Swap Down")
+    map.n("<C-S-k>", "<cmd>Treewalker SwapUp<cr>", "Treewalker Swap Up")
   end,
 
   -- The following options are the defaults.
@@ -30,7 +30,7 @@ return {
 
     -- The color of the above highlight. Must be a valid vim highlight group.
     -- (see :h highlight-group for options)
-    highlight_group = 'CursorLine',
+    highlight_group = "CursorLine",
 
     -- Whether the plugin adds movements to the jumplist -- true | false | 'left'
     --  true: All movements more than 1 line are added to the jumplist. This is the default,

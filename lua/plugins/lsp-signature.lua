@@ -1,6 +1,6 @@
 return {
-  'ray-x/lsp_signature.nvim',
-  event = 'InsertEnter',
+  "ray-x/lsp_signature.nvim",
+  event = "InsertEnter",
   enabled = false,
   opts = {
     doc_lines = 0,
@@ -9,10 +9,10 @@ return {
     floating_window_off_x = -2,
     hint_enable = false,
     handler_opts = {
-      border = 'solid',
+      border = "solid",
     },
     transparency = 5,
-    toggle_key = '<c-c>',
-    select_signature_key = '<m-j>',
+    toggle_key = "<c-c>",
+    select_signature_key = "<m-j>",
   },
 }

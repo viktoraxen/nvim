@@ -1,12 +1,12 @@
 return {
-  'viktoraxen/highlights-nvim',
+  "viktoraxen/highlights-nvim",
   -- "highlights-nvim",
   -- dev = true,
-  event = 'VeryLazy',
+  event = "VeryLazy",
   config = function()
-    local highlights = require 'highlights-nvim'
+    local highlights = require("highlights-nvim")
 
-    highlights.add {
+    highlights.add({
       customizations = {
         DiagnosticOk = { italic = false, cterm = { italic = false } },
         DiagnosticDebug = { italic = false, cterm = { italic = false } },
@@ -54,22 +54,22 @@ return {
         },
 
         catppuccin = {
-          Normal = { bg = 'mantle' },
-          NormalFloat = { bg = 'base' },
-          FloatTitle = { fg = 'sky', bg = 'base' },
-          LightFloat = { bg = 'surface0|base' },
-          LightFloatTitle = { fg = 'sky', bg = 'surface0|base' },
-          DarkFloat = { bg = 'mantle|crust' },
-          DarkFloatTitle = { fg = 'sky', bg = 'mantle|crust' },
+          Normal = { bg = "mantle" },
+          NormalFloat = { bg = "base" },
+          FloatTitle = { fg = "sky", bg = "base" },
+          LightFloat = { bg = "surface0|base" },
+          LightFloatTitle = { fg = "sky", bg = "surface0|base" },
+          DarkFloat = { bg = "mantle|crust" },
+          DarkFloatTitle = { fg = "sky", bg = "mantle|crust" },
         },
       },
       links = {
-        FloatBorder = 'NormalFloat',
-        PMenu = 'NormalFloat',
-        PMenuSelect = 'LightFloat',
+        FloatBorder = "NormalFloat",
+        PMenu = "NormalFloat",
+        PMenuSelect = "LightFloat",
 
-        NormalNC = 'Normal',
+        NormalNC = "Normal",
       },
-    }
+    })
   end,
 }

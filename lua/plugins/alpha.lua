@@ -1,11 +1,11 @@
 return {
-  'goolord/alpha-nvim',
+  "goolord/alpha-nvim",
   config = function()
-    local alpha = require 'alpha'
-    local dashboard = require 'alpha.themes.dashboard'
-    local map = require 'utils.keymap'
+    local alpha = require("alpha")
+    local dashboard = require("alpha.themes.dashboard")
+    local map = require("utils.keymap")
 
-    map.ln('A', '<cmd>bd % | Alpha<cr>', 'Alpha')
+    map.ln("A", "<cmd>bd % | Alpha<cr>", "Alpha")
 
     dashboard.section.header.val = {
       [[                               __                ]],
@@ -17,28 +17,28 @@ return {
     }
 
     local open_config = function()
-      vim.cmd 'cd ~/.config/nvim'
-      require('persistence').load()
+      vim.cmd("cd ~/.config/nvim")
+      require("persistence").load()
     end
 
     dashboard.section.buttons.val = {
-      dashboard.button('n', '  New file', ':ene<CR>'),
-      dashboard.button('f', '  Find files', Snacks.picker.files),
-      dashboard.button('p', '  Projects', Snacks.picker.projects),
-      dashboard.button('l', '  Plugins', ':Lazy<CR>'),
-      dashboard.button('m', '󰯠  Mason', ':Mason<CR>'),
-      dashboard.button('c', '󰢻  Configuration', open_config),
-      dashboard.button('q', '󱎘  Quit', ':qa<CR>'),
+      dashboard.button("n", "  New file", ":ene<CR>"),
+      dashboard.button("f", "  Find files", Snacks.picker.files),
+      dashboard.button("p", "  Projects", Snacks.picker.projects),
+      dashboard.button("l", "  Plugins", ":Lazy<CR>"),
+      dashboard.button("m", "󰯠  Mason", ":Mason<CR>"),
+      dashboard.button("c", "󰢻  Configuration", open_config),
+      dashboard.button("q", "󱎘  Quit", ":qa<CR>"),
     }
 
     dashboard.config.opts.noautocmd = true
 
     dashboard.config.layout = {
-      { type = 'padding', val = 4 },
+      { type = "padding", val = 4 },
       dashboard.section.header,
-      { type = 'padding', val = 7 },
+      { type = "padding", val = 7 },
       dashboard.section.buttons,
-      { type = 'padding', val = 2 },
+      { type = "padding", val = 2 },
       dashboard.section.footer,
     }
 

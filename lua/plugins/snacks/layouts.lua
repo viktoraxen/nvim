@@ -3,29 +3,29 @@ local M = {}
 M.vscode = {
   preview = false,
   layout = {
-    box = 'vertical',
+    box = "vertical",
     row = 0.25,
     width = 0.5,
     min_width = 75,
     height = 0.4,
     backdrop = false,
     {
-      win = 'preview',
-      title = '{preview}',
+      win = "preview",
+      title = "{preview}",
       height = 0.5,
-      border = 'solid',
+      border = "solid",
     },
     {
-      box = 'vertical',
+      box = "vertical",
       {
-        win = 'input',
+        win = "input",
         height = 1,
-        border = 'solid',
-        title = '{title} {live} {flags}',
+        border = "solid",
+        title = "{title} {live} {flags}",
       },
       {
-        win = 'list',
-        border = 'solid',
+        win = "list",
+        border = "solid",
       },
     },
   },
@@ -39,30 +39,30 @@ local preview = {
   },
 }
 
-M.vscode_preview = vim.tbl_deep_extend('force', { layout = M.vscode }, preview)
+M.vscode_preview = vim.tbl_deep_extend("force", { layout = M.vscode }, preview)
 -- M.vscode_preview_all = vim.tbl_deep_extend("force", M.vscode_preview, M.vscode_all)
 
 M.wide = {
   layout = {
-    box = 'horizontal',
+    box = "horizontal",
     min_width = 120,
     width = 0.85,
     height = 0.85,
     backdrop = false,
     {
-      box = 'vertical',
+      box = "vertical",
       {
-        win = 'input',
+        win = "input",
         height = 1,
-        border = 'solid',
-        title = '{title} {live} {flags}',
+        border = "solid",
+        title = "{title} {live} {flags}",
       },
-      { win = 'list', border = 'solid' },
+      { win = "list", border = "solid" },
     },
     {
-      win = 'preview',
-      title = '{preview}',
-      border = 'solid',
+      win = "preview",
+      title = "{preview}",
+      border = "solid",
       width = 0.55,
     },
   },
@@ -70,27 +70,27 @@ M.wide = {
 
 M.narrow = {
   layout = {
-    box = 'vertical',
+    box = "vertical",
     width = 0.9,
     height = 0.9,
     backdrop = false,
     {
-      win = 'preview',
-      title = '{preview}',
+      win = "preview",
+      title = "{preview}",
       height = 0.65,
-      border = 'solid',
+      border = "solid",
     },
     {
-      box = 'vertical',
+      box = "vertical",
       {
-        win = 'input',
+        win = "input",
         height = 1,
-        border = 'solid',
-        title = '{title} {live} {flags}',
+        border = "solid",
+        title = "{title} {live} {flags}",
       },
       {
-        win = 'list',
-        border = 'solid',
+        win = "list",
+        border = "solid",
       },
     },
   },
@@ -98,25 +98,25 @@ M.narrow = {
 
 M.git_wide = {
   layout = {
-    box = 'horizontal',
+    box = "horizontal",
     min_width = 120,
     width = 0.85,
     height = 0.85,
     backdrop = false,
     {
-      box = 'vertical',
+      box = "vertical",
       {
-        win = 'input',
+        win = "input",
         height = 1,
-        border = 'solid',
-        title = '{title} {live} {flags}',
+        border = "solid",
+        title = "{title} {live} {flags}",
       },
-      { win = 'list', border = 'solid' },
+      { win = "list", border = "solid" },
     },
     {
-      win = 'preview',
-      title = '{preview}',
-      border = 'solid',
+      win = "preview",
+      title = "{preview}",
+      border = "solid",
       width = 0.65,
     },
   },

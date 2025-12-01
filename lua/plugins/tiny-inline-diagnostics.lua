@@ -1,10 +1,10 @@
 return {
   {
-    'rachartier/tiny-inline-diagnostic.nvim',
-    event = 'VeryLazy',
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
     priority = 1000,
     opts = {
-      preset = 'classic',
+      preset = "classic",
       transparent_bg = true,
       options = {
         add_messages = { display_count = true },

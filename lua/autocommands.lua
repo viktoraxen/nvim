@@ -1,57 +1,57 @@
-vim.api.nvim_create_autocmd('WinLeave', {
-  desc = 'Deactivate cursorline highight when leaving a window',
-  pattern = '*',
+vim.api.nvim_create_autocmd("WinLeave", {
+  desc = "Deactivate cursorline highight when leaving a window",
+  pattern = "*",
   callback = function()
     vim.wo.cursorline = false
   end,
 })
 
-vim.api.nvim_create_autocmd('WinEnter', {
-  desc = 'Activate cursorline highight when entering a window',
-  pattern = '*',
+vim.api.nvim_create_autocmd("WinEnter", {
+  desc = "Activate cursorline highight when entering a window",
+  pattern = "*",
   callback = function()
     vim.wo.cursorline = true
   end,
 })
 
-vim.api.nvim_create_autocmd('CursorMoved', {
-  desc = 'Clear status on cursor move.',
+vim.api.nvim_create_autocmd("CursorMoved", {
+  desc = "Clear status on cursor move.",
   callback = function()
-    vim.cmd "echo ''"
+    vim.cmd("echo ''")
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-  desc = 'Remove trailing whitespace on save',
-  pattern = { '*' },
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  desc = "Remove trailing whitespace on save",
+  pattern = { "*" },
   callback = function()
-    local save_cursor = vim.fn.getpos '.'
-    vim.cmd [[%s/\s\+$//e]]
-    vim.fn.setpos('.', save_cursor)
+    local save_cursor = vim.fn.getpos(".")
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setpos(".", save_cursor)
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = {
-    'html',
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
-    'css',
-    'json',
-    'json',
-    'lua',
+    "html",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "css",
+    "json",
+    "json",
+    "lua",
   },
   callback = function()
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
   end,
-  desc = '2 space indentation for certain filetypes',
+  desc = "2 space indentation for certain filetypes",
 })
 
-vim.api.nvim_create_autocmd('BufReadPost', {
-  desc = 'Return to last cursor position when opening new file',
+vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Return to last cursor position when opening new file",
   callback = function(args)
     local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -60,28 +60,28 @@ vim.api.nvim_create_autocmd('BufReadPost', {
       vim.api.nvim_win_set_cursor(0, mark)
 
       vim.schedule(function()
-        vim.cmd 'normal! zz'
+        vim.cmd("normal! zz")
       end)
     end
   end,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Open help in vertical split',
-  pattern = 'help',
-  command = 'wincmd L',
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Open help in vertical split",
+  pattern = "help",
+  command = "wincmd L",
 })
 
-vim.api.nvim_create_autocmd('VimResized', {
-  desc = 'Resize splits when windows resizes',
-  command = 'wincmd =',
+vim.api.nvim_create_autocmd("VimResized", {
+  desc = "Resize splits when windows resizes",
+  command = "wincmd =",
 })
 
-vim.api.nvim_create_autocmd('BufRead', {
-  desc = 'Syntax highlighting for dotenv-files',
-  pattern = { '.env', '.env.*' },
+vim.api.nvim_create_autocmd("BufRead", {
+  desc = "Syntax highlighting for dotenv-files",
+  pattern = { ".env", ".env.*" },
   callback = function()
-    vim.bo.filetype = 'dosini'
+    vim.bo.filetype = "dosini"
   end,
 })
 
@@ -104,49 +104,49 @@ vim.api.nvim_create_autocmd('BufRead', {
 --     end,
 -- })
 
-vim.api.nvim_create_autocmd({ 'ColorScheme', 'UIEnter' }, {
-  desc = 'Corrects terminal background color according to colorscheme',
+vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+  desc = "Corrects terminal background color according to colorscheme",
   callback = function()
-    if vim.api.nvim_get_hl(0, { name = 'Normal' }).bg then
-      io.write(string.format('\027]11;#%06x\027\\', vim.api.nvim_get_hl(0, { name = 'Normal' }).bg))
+    if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
+      io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
     end
   end,
 })
 
-vim.api.nvim_create_autocmd('UILeave', {
-  desc = 'Reset terminal backgroun',
+vim.api.nvim_create_autocmd("UILeave", {
+  desc = "Reset terminal backgroun",
   callback = function()
-    io.write '\027]111\027\\'
+    io.write("\027]111\027\\")
   end,
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
   callback = function(event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
     if client and client.server_capabilities.documentHighlightProvider then
-      local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        desc = 'Highlight word under cursor',
+      local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        desc = "Highlight word under cursor",
         buffer = event.buf,
         group = highlight_augroup,
         callback = vim.lsp.buf.document_highlight,
       })
 
-      vim.api.nvim_create_autocmd({ 'WinLeave', 'CursorMoved', 'CursorMovedI' }, {
-        desc = 'Clear highlight word under cursor on move',
+      vim.api.nvim_create_autocmd({ "WinLeave", "CursorMoved", "CursorMovedI" }, {
+        desc = "Clear highlight word under cursor on move",
         buffer = event.buf,
         group = highlight_augroup,
         callback = vim.lsp.buf.clear_references,
       })
 
-      vim.api.nvim_create_autocmd('LspDetach', {
-        desc = 'Clear highlight word under cursor on LSP detach',
-        group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+      vim.api.nvim_create_autocmd("LspDetach", {
+        desc = "Clear highlight word under cursor on LSP detach",
+        group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
         callback = function(event2)
           vim.lsp.buf.clear_references()
-          vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+          vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
         end,
       })
     end

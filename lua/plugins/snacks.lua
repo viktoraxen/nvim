@@ -1,11 +1,11 @@
-local configs = require 'plugins.snacks.configs'
+local configs = require("plugins.snacks.configs")
 
 local toggle_terminal = function(id)
-  Snacks.terminal.toggle('zsh', { env = { id = id } })
+  Snacks.terminal.toggle("zsh", { env = { id = id } })
 end
 
 return {
-  'folke/snacks.nvim',
+  "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
@@ -13,351 +13,351 @@ return {
     bigfile = { enabled = true },
     bufdelete = { enabled = true },
     debug = { enabled = true },
-    indent = require 'plugins.snacks.indent',
-    input = require 'plugins.snacks.input',
-    notifier = require 'plugins.snacks.notifier',
-    picker = require 'plugins.snacks.picker',
+    indent = require("plugins.snacks.indent"),
+    input = require("plugins.snacks.input"),
+    notifier = require("plugins.snacks.notifier"),
+    picker = require("plugins.snacks.picker"),
     quickfile = { enabled = true },
     rename = { enabled = true },
     scope = { enabled = true },
-    scroll = require 'plugins.snacks.scroll',
-    terminal = require 'plugins.snacks.terminal',
+    scroll = require("plugins.snacks.scroll"),
+    terminal = require("plugins.snacks.terminal"),
     words = { enabled = true },
-    styles = require 'plugins.snacks.styles',
+    styles = require("plugins.snacks.styles"),
   },
   keys = {
     {
-      'grc',
+      "grc",
       function()
         Snacks.picker.lsp_declarations()
       end,
-      desc = 'Go to declaration',
+      desc = "Go to declaration",
     },
     {
-      'grd',
+      "grd",
       function()
         Snacks.picker.lsp_definitions()
       end,
-      desc = 'Go to definition',
+      desc = "Go to definition",
     },
     {
-      'gri',
+      "gri",
       function()
         Snacks.picker.lsp_implementations()
       end,
-      desc = 'Implementation',
+      desc = "Implementation",
     },
     {
-      'grr',
+      "grr",
       function()
         Snacks.picker.lsp_references()
       end,
-      desc = 'References',
+      desc = "References",
     },
     {
-      'grt',
+      "grt",
       function()
         Snacks.picker.lsp_type_definitions()
       end,
-      desc = 'Go to type definition',
+      desc = "Go to type definition",
     },
 
     {
-      '<leader>lc',
+      "<leader>lc",
       function()
         Snacks.picker.lsp_declarations()
       end,
-      desc = 'Declarations',
+      desc = "Declarations",
     },
     {
-      '<leader>ld',
+      "<leader>ld",
       function()
         Snacks.picker.lsp_definitions()
       end,
-      desc = 'Definitions',
+      desc = "Definitions",
     },
     {
-      '<leader>li',
+      "<leader>li",
       function()
         Snacks.picker.lsp_implementations()
       end,
-      desc = 'Implementation',
+      desc = "Implementation",
     },
     {
-      '<leader>lr',
+      "<leader>lr",
       function()
         Snacks.picker.lsp_references()
       end,
-      desc = 'References',
+      desc = "References",
     },
     {
-      '<leader>lt',
+      "<leader>lt",
       function()
         Snacks.picker.lsp_type_definitions()
       end,
-      desc = 'Type definitions',
+      desc = "Type definitions",
     },
 
     {
-      '<leader>f',
+      "<leader>f",
       function()
         Snacks.picker.files(configs.vscode)
       end,
-      desc = 'Search files',
+      desc = "Search files",
     },
     {
-      '<leader>F',
+      "<leader>F",
       function()
         Snacks.picker.files(configs.vscode_all)
       end,
-      desc = 'Search files (All)',
+      desc = "Search files (All)",
     },
     {
-      '<leader>b',
+      "<leader>b",
       function()
         Snacks.picker.buffers(configs.vscode)
       end,
-      desc = 'Search buffers',
+      desc = "Search buffers",
     },
     {
-      '<leader>sb',
+      "<leader>sb",
       function()
         Snacks.picker.buffers()
       end,
-      desc = 'Buffers',
+      desc = "Buffers",
     },
     {
-      '<leader>sd',
+      "<leader>sd",
       function()
         Snacks.picker.diagnostics()
       end,
-      desc = 'Diagnostics',
+      desc = "Diagnostics",
     },
     {
-      '<leader>sD',
+      "<leader>sD",
       function()
         Snacks.picker.diagnostics(configs.all)
       end,
-      desc = 'Diagnostics (All)',
+      desc = "Diagnostics (All)",
     },
     {
-      '<leader>sf',
+      "<leader>sf",
       function()
         Snacks.picker.files()
       end,
-      desc = 'Files',
+      desc = "Files",
     },
     {
-      '<leader>sF',
+      "<leader>sF",
       function()
         Snacks.picker.files(configs.all)
       end,
-      desc = 'Files (All)',
+      desc = "Files (All)",
     },
     {
-      '<leader>sg',
+      "<leader>sg",
       function()
         Snacks.picker.git_diff(configs.git_status)
       end,
-      desc = 'Git files (All)',
+      desc = "Git files (All)",
     },
     {
-      '<leader>ss',
+      "<leader>ss",
       function()
         Snacks.picker.grep()
       end,
-      desc = 'Grep',
+      desc = "Grep",
     },
     {
-      '<leader>sS',
+      "<leader>sS",
       function()
         Snacks.picker.grep(configs.all)
       end,
-      desc = 'Grep (All)',
+      desc = "Grep (All)",
     },
     {
-      '<leader>sh',
+      "<leader>sh",
       function()
         Snacks.picker.help()
       end,
-      desc = 'Help',
+      desc = "Help",
     },
     {
-      '<leader>sH',
+      "<leader>sH",
       function()
         Snacks.picker.highlights()
       end,
-      desc = 'Highlights',
+      desc = "Highlights",
     },
     {
-      '<leader>si',
+      "<leader>si",
       function()
         Snacks.picker.icons(configs.vscode)
       end,
-      desc = 'Icons',
+      desc = "Icons",
     },
     {
-      '<leader>sw',
+      "<leader>sw",
       function()
         Snacks.picker.lsp_symbols()
       end,
-      desc = 'Symbols',
+      desc = "Symbols",
     },
     {
-      '<leader>sW',
+      "<leader>sW",
       function()
         Snacks.picker.lsp_workspace_symbols()
       end,
-      desc = 'Workspace symbols',
+      desc = "Workspace symbols",
     },
     {
-      '<leader>sp',
+      "<leader>sp",
       function()
         Snacks.picker.projects()
       end,
-      desc = 'Projects',
+      desc = "Projects",
     },
     {
-      '<leader>sP',
+      "<leader>sP",
       function()
         Snacks.picker.pickers(configs.vscode)
       end,
-      desc = 'Pickers',
+      desc = "Pickers",
     },
     {
-      '<leader>sr',
+      "<leader>sr",
       function()
         Snacks.picker.resume()
       end,
-      desc = 'Resume',
+      desc = "Resume",
     },
 
     {
-      '<M-1>',
+      "<M-1>",
       function()
         toggle_terminal(1)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-2>',
+      "<M-2>",
       function()
         toggle_terminal(2)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-3>',
+      "<M-3>",
       function()
         toggle_terminal(3)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-4>',
+      "<M-4>",
       function()
         toggle_terminal(4)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-5>',
+      "<M-5>",
       function()
         toggle_terminal(5)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-6>',
+      "<M-6>",
       function()
         toggle_terminal(6)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-7>',
+      "<M-7>",
       function()
         toggle_terminal(7)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-8>',
+      "<M-8>",
       function()
         toggle_terminal(8)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
     {
-      '<M-9>',
+      "<M-9>",
       function()
         toggle_terminal(9)
       end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 'v', 't' },
+      desc = "Toggle terminal",
+      mode = { "n", "i", "v", "t" },
     },
   },
   init = function()
-    require('highlights-nvim').add {
+    require("highlights-nvim").add({
       customizations = {
         SnacksPickerGitStatusStaged = { italic = false },
         SnacksPickerGitStatusModified = { italic = false },
 
         catppuccin = {
-          SnacksIndent = { fg = 'surface0' },
+          SnacksIndent = { fg = "surface0" },
         },
       },
       links = {
-        SnacksPickerToggle = 'SnacksPickerInputTitle',
+        SnacksPickerToggle = "SnacksPickerInputTitle",
 
-        SnacksNotifierBorderTrace = 'NormalFloat',
-        SnacksNotifierBorderDebug = 'NormalFloat',
-        SnacksNotifierBorderInfo = 'NormalFloat',
-        SnacksNotifierBorderWarn = 'NormalFloat',
-        SnacksNotifierBorderError = 'NormalFloat',
+        SnacksNotifierBorderTrace = "NormalFloat",
+        SnacksNotifierBorderDebug = "NormalFloat",
+        SnacksNotifierBorderInfo = "NormalFloat",
+        SnacksNotifierBorderWarn = "NormalFloat",
+        SnacksNotifierBorderError = "NormalFloat",
 
-        SnacksNotifierTrace = 'NormalFloat',
-        SnacksNotifierDebug = 'NormalFloat',
-        SnacksNotifierInfo = 'NormalFloat',
-        SnacksNotifierWarn = 'NormalFloat',
-        SnacksNotifierError = 'NormalFloat',
+        SnacksNotifierTrace = "NormalFloat",
+        SnacksNotifierDebug = "NormalFloat",
+        SnacksNotifierInfo = "NormalFloat",
+        SnacksNotifierWarn = "NormalFloat",
+        SnacksNotifierError = "NormalFloat",
 
-        SnacksPickerInput = 'LightFloat',
-        SnacksPickerInputBorder = 'SnacksPickerInput',
-        SnacksPickerInputLine = 'SnacksPickerInput',
-        SnacksPickerInputFooter = 'SnacksPickerInput',
-        SnacksPickerInputSearch = 'SnacksPickerInput',
-        SnacksPickerInputCursorLine = 'SnacksPickerInput',
-        SnacksPickerInputTitle = 'LightFloatTitle',
+        SnacksPickerInput = "LightFloat",
+        SnacksPickerInputBorder = "SnacksPickerInput",
+        SnacksPickerInputLine = "SnacksPickerInput",
+        SnacksPickerInputFooter = "SnacksPickerInput",
+        SnacksPickerInputSearch = "SnacksPickerInput",
+        SnacksPickerInputCursorLine = "SnacksPickerInput",
+        SnacksPickerInputTitle = "LightFloatTitle",
 
-        SnacksPickerPrompt = 'NormalFloat',
+        SnacksPickerPrompt = "NormalFloat",
 
-        SnacksPickerPreview = 'DarkFloat',
-        SnacksPickerPreviewBorder = 'SnacksPickerPreview',
-        SnacksPickerPreviewFooter = 'SnacksPickerPreview',
-        SnacksPickerPreviewNormal = 'SnacksPickerPreview',
-        SnacksPickerPreviewTitle = 'DarkFloatTitle',
+        SnacksPickerPreview = "DarkFloat",
+        SnacksPickerPreviewBorder = "SnacksPickerPreview",
+        SnacksPickerPreviewFooter = "SnacksPickerPreview",
+        SnacksPickerPreviewNormal = "SnacksPickerPreview",
+        SnacksPickerPreviewTitle = "DarkFloatTitle",
 
-        SnacksPickerListBorder = 'SnacksPickerList',
-        SnacksPickerListCursorLine = 'LightFloat',
+        SnacksPickerListBorder = "SnacksPickerList",
+        SnacksPickerListCursorLine = "LightFloat",
 
-        SnacksInputNormal = 'LightFloat',
-        SnacksInputBorder = 'SnacksInputNormal',
-        SnacksInputTitle = 'SnacksInputNormal',
-        SnacksInputCursorLine = 'SnacksInputNormal',
+        SnacksInputNormal = "LightFloat",
+        SnacksInputBorder = "SnacksInputNormal",
+        SnacksInputTitle = "SnacksInputNormal",
+        SnacksInputCursorLine = "SnacksInputNormal",
       },
-    }
+    })
 
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'VeryLazy',
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "VeryLazy",
       callback = function()
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...)

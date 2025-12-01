@@ -1,8 +1,8 @@
 return {
   animate = {
     enabled = true,
-    style = 'out',
-    easing = 'linear',
+    style = "out",
+    easing = "linear",
     duration = {
       step = 10,
       total = 100,
@@ -11,12 +11,12 @@ return {
   indent = {
     enabled = true,
     only_current = false,
-    char = '│',
+    char = "│",
     only_scope = false,
   },
   scope = {
     enabled = true,
-    char = '│',
+    char = "│",
     only_current = true,
   },
 }

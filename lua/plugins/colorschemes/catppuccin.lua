@@ -1,9 +1,9 @@
 return {
-  'catppuccin/nvim',
+  "catppuccin/nvim",
   priority = 1000,
   config = function()
-    require('catppuccin').setup {
-      flavor = 'mocha',
-    }
+    require("catppuccin").setup({
+      flavor = "mocha",
+    })
   end,
 }

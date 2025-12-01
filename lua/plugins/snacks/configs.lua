@@ -1,4 +1,4 @@
-local layouts = require 'plugins.snacks.layouts'
+local layouts = require("plugins.snacks.layouts")
 
 local M = {}
 
@@ -13,14 +13,14 @@ M.git_status = {
   win = {
     input = {
       keys = {
-        ['<c-l>'] = { 'git_stage', mode = { 'n', 'i' } },
-        ['<C-i'] = { 'git_restore', mode = { 'n', 'i' } },
+        ["<c-l>"] = { "git_stage", mode = { "n", "i" } },
+        ["<C-i"] = { "git_restore", mode = { "n", "i" } },
       },
     },
   },
 }
 
 M.vscode = { layout = layouts.vscode }
-M.vscode_all = vim.tbl_deep_extend('force', M.vscode, M.all)
+M.vscode_all = vim.tbl_deep_extend("force", M.vscode, M.all)
 
 return M

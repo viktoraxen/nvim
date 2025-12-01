@@ -1,8 +1,8 @@
 return {
   win = {
-    style = 'float',
+    style = "float",
     backdrop = false,
-    border = 'solid',
+    border = "solid",
     width = 0.85,
     height = 0.85,
   },
