@@ -1,4 +1,5 @@
 return {
+  enabled = false,
   "aaronik/treewalker.nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
