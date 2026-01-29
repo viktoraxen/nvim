@@ -9,6 +9,7 @@ return {
     "Pipfile",
     "pyrightconfig.json",
     ".git",
+    "main.py",
   },
   settings = {
     pyright = { disableOrganizeImports = true },

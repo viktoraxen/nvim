@@ -44,14 +44,6 @@ return {
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
-      "<c-s>",
-      function()
-        require("sidekick.cli").toggle()
-      end,
-      desc = "Sidekick Toggle",
-      mode = { "n", "t", "i", "x" },
-    },
-    {
       "<leader>aa",
       function()
         require("sidekick.cli").toggle()
