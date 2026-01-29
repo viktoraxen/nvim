@@ -16,7 +16,7 @@ return {
       enabled = false,
     },
   },
-  init = function(_, opts)
+  init = function(_, _)
     require("highlights-nvim").add({
       links = {
         SidekickChat = "Normal",

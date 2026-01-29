@@ -1,11 +1,23 @@
 return {
   "goolord/alpha-nvim",
+  cmd = "Alpha",
+  keys = {
+    { "<leader>A", "<cmd>bd % | Alpha<cr>", desc = "Alpha" },
+  },
+  init = function()
+    -- Auto-show dashboard only when opening nvim without files
+    if vim.fn.argc() == 0 then
+      vim.api.nvim_create_autocmd("VimEnter", {
+        once = true,
+        callback = function()
+          require("alpha").start()
+        end,
+      })
+    end
+  end,
   config = function()
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")
-    local map = require("utils.keymap")
-
-    map.ln("A", "<cmd>bd % | Alpha<cr>", "Alpha")
 
     dashboard.section.header.val = {
       [[                               __                ]],
