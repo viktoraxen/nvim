@@ -6,7 +6,9 @@ return {
     local disabled_fts = {
       "neo%-tree",
       "snacks",
+      "sidekick",
       "alpha",
+      "tmux",
     }
 
     local actual_filetypes = function()

@@ -8,7 +8,7 @@ return {
         enabled = true,
       },
       win = {
-        layout = "float",
+        layout = "right",
         float = { width = 0.85, height = 0.85 },
       },
     },
@@ -16,21 +16,13 @@ return {
       enabled = false,
     },
   },
-  -- config = function(_, opts)
-  --     require("sidekick").setup(opts)
-  --
-  --     vim.api.nvim_create_autocmd("InsertEnter", {
-  --         callback = function()
-  --             require("sidekick.nes").disable()
-  --         end,
-  --     })
-  --
-  --     vim.api.nvim_create_autocmd("InsertLeave", {
-  --         callback = function()
-  --             require("sidekick.nes").enable()
-  --         end,
-  --     })
-  -- end,
+  init = function(_, opts)
+    require("highlights-nvim").add({
+      links = {
+        SidekickChat = "Normal",
+      },
+    })
+  end,
   keys = {
     {
       "<Tab>",
