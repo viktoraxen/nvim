@@ -28,7 +28,7 @@ return {
         include_surrounding_whitespace = true,
         lsp_interop = {
           enable = true,
-          border = "single",
+          border = "solid",
           floating_preview_opts = {
             max_height = 22,
           },

@@ -41,7 +41,7 @@ return {
     floating = {
       max_height = 0.88,
       max_width = 0.89, -- Floats will be treated as percentage of your screen.
-      border = "rounded", -- Border style. Can be "single", "double", "shadow", or "rounded"
+      border = "solid",
       mappings = {
         close = { "q", "<Esc>" },
       },

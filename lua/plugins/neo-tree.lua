@@ -51,7 +51,7 @@ return {
     local events = require("neo-tree.events")
 
     require("neo-tree").setup({
-      popup_border_style = "",
+      popup_border_style = "solid",
       event_handlers = {
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
