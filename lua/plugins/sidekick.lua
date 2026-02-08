@@ -2,7 +2,6 @@ return {
   "folke/sidekick.nvim",
   dependencies = { "zbirenbaum/copilot.lua" },
   opts = {
-    -- add any options here
     cli = {
       mux = {
         enabled = true,
@@ -14,6 +13,11 @@ return {
     },
     nes = {
       enabled = false,
+    },
+    copilot = {
+      status = {
+        level = vim.log.levels.OFF,
+      },
     },
   },
   init = function(_, _)
