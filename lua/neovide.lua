@@ -12,7 +12,7 @@ vim.g.neovide_title_background_color = background_color
 vim.g.neovide_hide_mouse_when_typing = true
 vim.g.neovide_cursor_animation_length = 0
 
-local change_scale_factor = function(delta)
+local function change_scale_factor(delta)
   vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 

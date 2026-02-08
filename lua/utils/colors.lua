@@ -4,7 +4,7 @@ local palettes = {
   catppuccin = require("catppuccin.palettes").get_palette(),
 }
 
-M.get_color = function(palette, name)
+function M.get_color(palette, name)
   return palettes[palette][name]
 end
 

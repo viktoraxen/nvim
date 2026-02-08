@@ -28,7 +28,7 @@ return {
       [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
     }
 
-    local open_config = function()
+    local function open_config()
       vim.cmd("cd ~/.config/nvim")
       require("persistence").load()
     end

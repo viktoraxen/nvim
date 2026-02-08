@@ -2,7 +2,7 @@ local map = require("utils.keymap")
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-local clear_hl_and_notifications = function()
+local function clear_hl_and_notifications()
   vim.cmd("nohlsearch")
   Snacks.notifier.hide()
 end
@@ -13,6 +13,7 @@ map.n("<Esc>", clear_hl_and_notifications, "Clear search highlight and notificat
 
 -- Groups
 map.l_group("a", "Sidekick")
+map.l_group("c", "Copilot")
 map.l_group("d", "Debug")
 map.l_group("g", "Git")
 map.l_group("l", "Language Server")
@@ -38,11 +39,11 @@ end
 
 map.ln("Q", close_tab, "Close tab")
 
-local prev_diag = function()
+local function prev_diag()
   vim.diagnostic.jump({ count = -1 })
 end
 
-local next_diag = function()
+local function next_diag()
   vim.diagnostic.jump({ count = 1 })
 end
 

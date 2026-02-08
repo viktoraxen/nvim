@@ -1,38 +1,38 @@
 local M = {}
 
-local map = function(mode, key, action, desc)
+local function map(mode, key, action, desc)
   vim.keymap.set(mode, key, action, { desc = desc })
 end
 
-M.o = function(key, action, desc)
+function M.o(key, action, desc)
   map("o", key, action, desc)
 end
 
-M.n = function(key, action, desc)
+function M.n(key, action, desc)
   map("n", key, action, desc)
 end
 
-M.v = function(key, action, desc)
+function M.v(key, action, desc)
   map("v", key, action, desc)
 end
 
-M.t = function(key, action, desc)
+function M.t(key, action, desc)
   map("t", key, action, desc)
 end
 
-M.i = function(key, action, desc)
+function M.i(key, action, desc)
   map("i", key, action, desc)
 end
 
-M.ln = function(key, action, desc)
+function M.ln(key, action, desc)
   M.n("<leader>" .. key, action, desc)
 end
 
-M.l_group = function(key, desc)
+function M.l_group(key, desc)
   require("which-key").add({ mode = { "n", "v" }, { "<leader>" .. key, group = desc } })
 end
 
-M.group = function(key, desc)
+function M.group(key, desc)
   require("which-key").add({ mode = { "n", "v" }, { key, group = desc } })
 end
 

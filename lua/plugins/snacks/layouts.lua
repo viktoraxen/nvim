@@ -122,7 +122,7 @@ M.git_wide = {
   },
 }
 
-M.adaptive_width = function(wide, narrow)
+function M.adaptive_width(wide, narrow)
   return function()
     return vim.o.columns >= 120 and wide or narrow
   end

@@ -90,7 +90,7 @@ local diagnostic_icons = {
   hint = "",
 }
 
-local get_diagnostic_icon = function(diagnostic, _, _)
+local function get_diagnostic_icon(diagnostic, _, _)
   local icons_hls = {
     [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
     [vim.diagnostic.severity.WARN] = { diagnostic_icons.warn, "DiagnosticWarn" },

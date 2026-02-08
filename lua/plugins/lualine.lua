@@ -11,7 +11,7 @@ return {
       "tmux",
     }
 
-    local actual_filetypes = function()
+    local function actual_filetypes()
       for _, ft in ipairs(disabled_fts) do
         if string.match(vim.bo.ft, ft) then
           return false
@@ -21,7 +21,7 @@ return {
       return true
     end
 
-    local filepath = function()
+    local function filepath()
       local full_filepath = vim.fn.expand("%:p")
 
       if full_filepath == "" or full_filepath:match("^%[%a%s*%a+%]$") or full_filepath:match("term://.*") then
@@ -41,7 +41,7 @@ return {
       return " " .. dir_path
     end
 
-    local venv = function()
+    local function venv()
       local devicons = require("nvim-web-devicons")
       local icon, group = devicons.get_icon_by_filetype("python", { default = true })
       local venv_name = ""
@@ -205,7 +205,7 @@ return {
       "info",
     }
 
-    local apply_highlights = function()
+    local function apply_highlights()
       -- Invert lualine_a
       for _, mode in ipairs(modes) do
         local current_a_hl = highlights_utils.get_hl("lualine_a_" .. mode)

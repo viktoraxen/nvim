@@ -1,6 +1,6 @@
 local configs = require("plugins.snacks.configs")
 
-local toggle_terminal = function(id)
+local function toggle_terminal(id)
   Snacks.terminal.toggle("zsh", { env = { id = id } })
 end
 
