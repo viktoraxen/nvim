@@ -1,4 +1,4 @@
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme tokyonight")
 
 -- Don't use swapfile
 vim.opt.swapfile = false
@@ -84,10 +84,10 @@ vim.ui.open = function(url)
 end
 
 local diagnostic_icons = {
-  error = "",
-  warn = "",
-  info = "",
-  hint = "",
+  error = " ",
+  warn = " ",
+  info = " ",
+  hint = " ",
 }
 
 local function get_diagnostic_icon(diagnostic, _, _)

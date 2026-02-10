@@ -40,7 +40,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "typescriptreact",
     "css",
     "json",
-    "json",
     "lua",
   },
   callback = function()

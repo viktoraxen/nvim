@@ -100,8 +100,8 @@ return {
         },
         lualine_c = {},
         lualine_x = {
-          { "branch", icon = "" },
-          { venv, icon = "󰹩" },
+          { "branch", icon = " " },
+          { venv, icon = "󰹩 " },
         },
         lualine_y = {
           "searchcount",

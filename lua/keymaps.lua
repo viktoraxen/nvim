@@ -104,7 +104,6 @@ map.l_group("v", "Window")
 
 map.ln("vv", "<C-w>v", "Split window vertically")
 map.ln("vs", "<C-w>s", "Split window horizontally")
-map.ln("vh", "<C-w>H", "Move window to left")
 map.ln("ve", "<C-w>=", "Equalize window size")
 
 local move_window = function(direction)

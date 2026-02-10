@@ -14,7 +14,7 @@ M.git_status = {
     input = {
       keys = {
         ["<c-l>"] = { "git_stage", mode = { "n", "i" } },
-        ["<C-i"] = { "git_restore", mode = { "n", "i" } },
+        ["<C-i>"] = { "git_restore", mode = { "n", "i" } },
       },
     },
   },
