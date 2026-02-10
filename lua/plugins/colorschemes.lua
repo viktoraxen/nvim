@@ -1,19 +1,12 @@
 return {
-  {
-    "folke/tokyonight.nvim",
-    lazy = true,
-    opts = {},
-  },
-  {
-    "rebelot/kanagawa.nvim",
-  },
-  {
-    "catppuccin/nvim",
-    priority = 1000,
-    config = function()
-      require("catppuccin").setup({
-        flavor = "mocha",
-      })
-    end,
-  },
+  { "folke/tokyonight.nvim" },
+  { "rebelot/kanagawa.nvim" },
+  { "EdenEast/nightfox.nvim" },
+  { "catppuccin/nvim" },
+  { "navarasu/onedark.nvim" },
+  { "sainnhe/gruvbox-material" },
+  { "projekt0n/github-nvim-theme" },
+  { "sainnhe/everforest" },
+  { "Mofiqul/vscode.nvim" },
+  { "olimorris/onedarkpro.nvim" },
 }
