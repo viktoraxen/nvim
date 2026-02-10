@@ -4,11 +4,11 @@ local function toggle_terminal(id)
   Snacks.terminal.toggle("zsh", { env = { id = id } })
 end
 
-local function pick(key, picker, config, desc)
+local function pick(key, method, config, desc)
   return {
     key,
     function()
-      picker(config)
+      Snacks.picker[method](config)
     end,
     desc = desc,
   }
@@ -23,26 +23,26 @@ local lsp_pickers = {
 }
 
 local keys = {
-  pick("<leader>f", Snacks.picker.files, configs.vscode, "Search files"),
-  pick("<leader>F", Snacks.picker.files, configs.vscode_all, "Search files (All)"),
-  pick("<leader>b", Snacks.picker.buffers, configs.vscode, "Search buffers"),
-  pick("<leader>sb", Snacks.picker.buffers, nil, "Buffers"),
-  pick("<leader>sc", Snacks.picker.colorschemes, nil, "Colorschemes"),
-  pick("<leader>sd", Snacks.picker.diagnostics, nil, "Diagnostics"),
-  pick("<leader>sD", Snacks.picker.diagnostics, configs.all, "Diagnostics (All)"),
-  pick("<leader>sf", Snacks.picker.files, nil, "Files"),
-  pick("<leader>sF", Snacks.picker.files, configs.all, "Files (All)"),
-  pick("<leader>sg", Snacks.picker.git_diff, configs.git_status, "Git files (All)"),
-  pick("<leader>ss", Snacks.picker.grep, nil, "Grep"),
-  pick("<leader>sS", Snacks.picker.grep, configs.all, "Grep (All)"),
-  pick("<leader>sh", Snacks.picker.help, nil, "Help"),
-  pick("<leader>sH", Snacks.picker.highlights, nil, "Highlights"),
-  pick("<leader>si", Snacks.picker.icons, configs.vscode, "Icons"),
-  pick("<leader>sw", Snacks.picker.lsp_symbols, nil, "Symbols"),
-  pick("<leader>sW", Snacks.picker.lsp_workspace_symbols, nil, "Workspace symbols"),
-  pick("<leader>sp", Snacks.picker.projects, nil, "Projects"),
-  pick("<leader>sP", Snacks.picker.pickers, configs.vscode, "Pickers"),
-  pick("<leader>sr", Snacks.picker.resume, nil, "Resume"),
+  pick("<leader>f", "files", configs.vscode, "Search files"),
+  pick("<leader>F", "files", configs.vscode_all, "Search files (All)"),
+  pick("<leader>b", "buffers", configs.vscode, "Search buffers"),
+  pick("<leader>sb", "buffers", nil, "Buffers"),
+  pick("<leader>sc", "colorschemes", configs.vscode, "Colorschemes"),
+  pick("<leader>sd", "diagnostics", nil, "Diagnostics"),
+  pick("<leader>sD", "diagnostics", configs.all, "Diagnostics (All)"),
+  pick("<leader>sf", "files", nil, "Files"),
+  pick("<leader>sF", "files", configs.all, "Files (All)"),
+  pick("<leader>sg", "git_diff", configs.git_status, "Git files (All)"),
+  pick("<leader>ss", "grep", nil, "Grep"),
+  pick("<leader>sS", "grep", configs.all, "Grep (All)"),
+  pick("<leader>sh", "help", nil, "Help"),
+  pick("<leader>sH", "highlights", nil, "Highlights"),
+  pick("<leader>si", "icons", configs.vscode, "Icons"),
+  pick("<leader>sw", "lsp_symbols", nil, "Symbols"),
+  pick("<leader>sW", "lsp_workspace_symbols", nil, "Workspace symbols"),
+  pick("<leader>sp", "projects", configs.vscode, "Projects"),
+  pick("<leader>sP", "pickers", configs.vscode, "Pickers"),
+  pick("<leader>sr", "resume", nil, "Resume"),
 }
 
 for _, lsp in ipairs(lsp_pickers) do
