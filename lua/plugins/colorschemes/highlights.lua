@@ -54,6 +54,10 @@ return {
             underline = false,
           },
 
+          CursorLine = { bg = "Normal" },
+          LineNr = { bg = "Normal" },
+          SignColumn = { bg = "Normal" },
+
           NormalFloat = { bg = "Normal|CursorLine" },
           FloatTitle = { fg = "Title", bg = "Normal|CursorLine" },
           LightFloat = { bg = "CursorLine" },
@@ -80,9 +84,6 @@ return {
 
           NormalNC = "Normal",
           EndOfBuffer = "Normal",
-          SignColumn = "Normal",
-          LineNr = "Normal",
-          CursorLineNr = "Normal",
         },
       },
     })
