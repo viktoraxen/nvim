@@ -11,74 +11,53 @@ return {
       "tmux",
     }
 
-    local function actual_filetypes()
+    local function is_enabled_ft()
       for _, ft in ipairs(disabled_fts) do
-        if string.match(vim.bo.ft, ft) then
+        if vim.bo.ft:match(ft) then
           return false
         end
       end
-
       return true
     end
 
     local function filepath()
-      local full_filepath = vim.fn.expand("%:p")
-
-      if full_filepath == "" or full_filepath:match("^%[%a%s*%a+%]$") or full_filepath:match("term://.*") then
+      local full = vim.fn.expand("%:p")
+      if full == "" or full:match("^%[%a%s*%a+%]$") or full:match("term://") then
         return ""
       end
 
-      local relative_to_cwd_filepath = vim.fn.fnamemodify(full_filepath, ":.")
-
-      local dir_path = vim.fn.fnamemodify(relative_to_cwd_filepath, ":h")
-
-      if dir_path == "." or dir_path == "" then
+      local dir = vim.fn.fnamemodify(vim.fn.fnamemodify(full, ":."), ":h")
+      if dir == "." or dir == "" then
         return ""
       end
 
-      dir_path = dir_path:gsub("/$", "")
-
-      return " " .. dir_path
+      return " " .. dir:gsub("/$", "")
     end
 
     local function venv()
-      local devicons = require("nvim-web-devicons")
-      local icon, group = devicons.get_icon_by_filetype("python", { default = true })
-      local venv_name = ""
-
-      local virtual_env_path = os.getenv("VIRTUAL_ENV")
-      if virtual_env_path then
+      local env = os.getenv("VIRTUAL_ENV")
+      if env then
         local sep = package.config:sub(1, 1)
-        local parts = {}
-        for part in string.gmatch(virtual_env_path, "[^" .. sep .. "]+") do
-          table.insert(parts, part)
-        end
-        if #parts > 0 then
-          venv_name = parts[#parts]
-        end
-      else
-        local conda_env = os.getenv("CONDA_DEFAULT_ENV")
-        if conda_env then
-          venv_name = conda_env
-        end
+        return env:match("[^" .. sep .. "]+$") or ""
       end
-
-      if venv_name ~= "" then
-        return venv_name
-      end
-
-      return ""
+      return os.getenv("CONDA_DEFAULT_ENV") or ""
     end
+
+    local filename_component = {
+      "filename",
+      file_status = false,
+      icon = "󰧮",
+      cond = is_enabled_ft,
+    }
+
+    local filepath_component = { filepath }
 
     require("lualine").setup({
       options = {
         icons_enabled = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
-        disabled_filetypes = {
-          statusline = disabled_fts,
-          winbar = disabled_fts,
-        },
+        disabled_filetypes = { statusline = disabled_fts, winbar = disabled_fts },
         ignore_focus = {},
         always_divide_middle = true,
         always_show_tabline = true,
@@ -87,7 +66,7 @@ return {
           statusline = 1000,
           tabline = 1000,
           winbar = 1000,
-          refresh_time = 16, -- ~60fps
+          refresh_time = 16,
           events = {
             "WinEnter",
             "BufEnter",
@@ -107,10 +86,7 @@ return {
           {
             "mode",
             fmt = function(str)
-              local first_char = string.sub(str, 1, 1)
-              local rest_of_string_lower = string.lower(string.sub(str, 2))
-
-              return first_char .. rest_of_string_lower
+              return str:sub(1, 1) .. str:sub(2):lower()
             end,
           },
         },
@@ -118,12 +94,7 @@ return {
           {
             "diagnostics",
             padding = { left = 0, right = 1 },
-            symbols = {
-              error = " ",
-              warn = " ",
-              info = " ",
-              hint = " ",
-            },
+            symbols = { error = "", warn = "", info = "", hint = "" },
             update_in_insert = true,
           },
         },
@@ -134,7 +105,7 @@ return {
         },
         lualine_y = {
           "searchcount",
-          { "filetype", cond = actual_filetypes, color = { bg = vim.NIL } },
+          { "filetype", cond = is_enabled_ft, color = { bg = vim.NIL } },
         },
         lualine_z = {
           { "progress", padding = { left = 1, right = 0 } },
@@ -143,92 +114,58 @@ return {
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = {
-          {
-            "filename",
-            file_status = false,
-            icon = "󰧮",
-            cond = actual_filetypes,
-          },
-        },
-        lualine_c = { { filepath } },
+        lualine_b = { filename_component },
+        lualine_c = { filepath_component },
         lualine_x = {},
         lualine_y = {},
         lualine_z = {},
       },
       winbar = {
-        lualine_b = {
-          {
-            "filename",
-            file_status = false,
-            icon = "󰧮",
-            cond = actual_filetypes,
-          },
-        },
-        lualine_c = { { filepath } },
+        lualine_b = { filename_component },
+        lualine_c = { filepath_component },
       },
       inactive_winbar = {
-        lualine_b = {
-          {
-            "filename",
-            file_status = false,
-            icon = "󰧮",
-            cond = actual_filetypes,
-          },
-        },
-        lualine_c = { { filepath } },
+        lualine_b = { filename_component },
+        lualine_c = { filepath_component },
       },
     })
 
-    local highlights_utils = require("highlights-nvim.utils")
+    -- Highlight overrides: flat statusline with mode-colored A/Z sections
+    local get_hl = require("highlights-nvim.utils").get_hl
+    local modes = { "normal", "visual", "insert", "command", "terminal", "replace", "inactive" }
 
-    local modes = {
-      "normal",
-      "visual",
-      "insert",
-      "command",
-      "terminal",
-      "replace",
-      "inactive",
+    local section_styles = {
+      { prefixes = { "lualine_a_", "lualine_z_" }, fg = "mode", bold = true },
+      { prefixes = { "lualine_b_", "lualine_y_" }, fg = "normal" },
+      { prefixes = { "lualine_c_", "lualine_x_" }, fg = "conceal" },
     }
 
+    local function hex(val)
+      return val and string.format("#%06x", val) or nil
+    end
+
     local function apply_highlights()
-      local normal_fg = highlights_utils.get_hl("Normal").fg
-      local conceal_fg = highlights_utils.get_hl("Conceal").fg
-
-      local fmt = function(val)
-        return val and string.format("#%06x", val) or nil
-      end
-
+      local normal_fg = hex(get_hl("Normal").fg)
+      local conceal_fg = hex(get_hl("Conceal").fg)
       local set_groups = {}
 
       for _, mode in ipairs(modes) do
-        local mode_color = fmt(highlights_utils.get_hl("lualine_a_" .. mode).bg)
+        local mode_color = hex(get_hl("lualine_a_" .. mode).bg)
+        local colors = { mode = mode_color, normal = normal_fg, conceal = conceal_fg }
 
-        for _, prefix in ipairs({ "lualine_a_", "lualine_z_" }) do
-          local group = prefix .. mode
-          vim.api.nvim_set_hl(0, group, { fg = mode_color, bold = true })
-          set_groups[group] = true
-        end
-
-        for _, prefix in ipairs({ "lualine_b_", "lualine_y_" }) do
-          local group = prefix .. mode
-          vim.api.nvim_set_hl(0, group, { fg = fmt(normal_fg) })
-          set_groups[group] = true
-        end
-
-        for _, prefix in ipairs({ "lualine_c_", "lualine_x_" }) do
-          local group = prefix .. mode
-          vim.api.nvim_set_hl(0, group, { fg = fmt(conceal_fg) })
-          set_groups[group] = true
+        for _, style in ipairs(section_styles) do
+          for _, prefix in ipairs(style.prefixes) do
+            local group = prefix .. mode
+            vim.api.nvim_set_hl(0, group, { fg = colors[style.fg], bold = style.bold })
+            set_groups[group] = true
+          end
         end
       end
 
-      local all_hls = vim.api.nvim_get_hl(0, {})
-      for group_name, hl in pairs(all_hls) do
-        if group_name:match("^lualine") and not set_groups[group_name] then
+      for name, hl in pairs(vim.api.nvim_get_hl(0, {})) do
+        if name:match("^lualine") and not set_groups[name] then
           hl.bg = nil
-          vim.api.nvim_set_hl(0, group_name, hl)
+          vim.api.nvim_set_hl(0, name, hl)
         end
       end
 
