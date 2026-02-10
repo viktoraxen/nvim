@@ -1,6 +1,7 @@
 return {
-  "highlights-nvim",
-  dev = true,
+  "viktoraxen/highlights-nvim",
+  -- "highlights-nvim",
+  -- dev = true,
   event = "VeryLazy",
   config = function()
     local no_italic = { italic = false, cterm = { italic = false } }
