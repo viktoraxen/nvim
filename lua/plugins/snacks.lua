@@ -27,7 +27,7 @@ local keys = {
   pick("<leader>F", "files", configs.vscode_all, "Search files (All)"),
   pick("<leader>b", "buffers", configs.vscode, "Search buffers"),
   pick("<leader>sb", "buffers", nil, "Buffers"),
-  pick("<leader>sc", "colorschemes", configs.vscode, "Colorschemes"),
+  pick("<leader>sc", "colorschemes", nil, "Colorschemes"),
   pick("<leader>sd", "diagnostics", nil, "Diagnostics"),
   pick("<leader>sD", "diagnostics", configs.all, "Diagnostics (All)"),
   pick("<leader>sf", "files", nil, "Files"),
@@ -140,6 +140,7 @@ return {
           SnacksPickerGitStatusStaged = { italic = false },
           SnacksPickerGitStatusModified = { italic = false },
           SnacksIndent = { bg = false },
+          SnacksInputIcon = { fg = "FloatTitle", bg = "LightFloat" },
         },
         catppuccin = {
           SnacksIndent = { fg = "surface0" },
