@@ -1,72 +1,46 @@
 return {
-  -- "viktoraxen/highlights-nvim",
   "highlights-nvim",
   dev = true,
   event = "VeryLazy",
   config = function()
-    local highlights = require("highlights-nvim")
+    local no_italic = { italic = false, cterm = { italic = false } }
+    local no_underline = { underline = false, cterm = { underline = false } }
 
-    highlights.add({
+    local globals = {}
+
+    for _, level in ipairs({ "Ok", "Debug", "Hint", "Info", "Warn", "Error", "Unnecessary" }) do
+      globals["Diagnostic" .. level] = no_italic
+    end
+
+    for _, group in ipairs({
+      "DiagnosticUnderlineOk",
+      "DiagnosticUnderlineHint",
+      "DiagnosticUnderlineInfo",
+      "DiagnosticUnderlineWarn",
+      "DiagnosticUnderlineError",
+      "LspDiagnosticsUnderlineHint",
+      "LspDiagnosticsUnderlineError",
+      "LspDiagnosticsUnderlineWarning",
+      "LspDiagnosticsUnderlineInformation",
+    }) do
+      globals[group] = no_underline
+    end
+
+    globals.CursorLine = { bg = "Normal" }
+    globals.LineNr = { bg = false }
+    globals.SignColumn = { bg = false }
+    globals.EndOfBuffer = { fg = "Normal", bg = false }
+
+    globals.NormalFloat = { bg = "Normal|Folded" }
+    globals.FloatTitle = { fg = "Title", bg = "Normal|Folded" }
+    globals.LightFloat = { bg = "Folded" }
+    globals.LightFloatTitle = { fg = "Title", bg = "Folded" }
+    globals.DarkFloat = { bg = "Normal|contrast|0.8" }
+    globals.DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.8" }
+
+    require("highlights-nvim").add({
       customizations = {
-        ["*"] = {
-          DiagnosticOk = { italic = false, cterm = { italic = false } },
-          DiagnosticDebug = { italic = false, cterm = { italic = false } },
-          DiagnosticHint = { italic = false, cterm = { italic = false } },
-          DiagnosticInfo = { italic = false, cterm = { italic = false } },
-          DiagnosticWarn = { italic = false, cterm = { italic = false } },
-          DiagnosticError = { italic = false, cterm = { italic = false } },
-          DiagnosticUnnecessary = { italic = false, cterm = { italic = false } },
-
-          DiagnosticUnderlineOk = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          DiagnosticUnderlineHint = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          DiagnosticUnderlineInfo = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          DiagnosticUnderlineWarn = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          DiagnosticUnderlineError = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          LspDiagnosticsUnderlineHint = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          LspDiagnosticsUnderlineError = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          LspDiagnosticsUnderlineWarning = {
-            cterm = { underline = false },
-            underline = false,
-          },
-          LspDiagnosticsUnderlineInformation = {
-            cterm = { underline = false },
-            underline = false,
-          },
-
-          CursorLine = { bg = "Normal" },
-          LineNr = { bg = false },
-          SignColumn = { bg = false },
-          EndOfBuffer = { fg = "Normal", bg = false },
-
-          NormalFloat = { bg = "Normal|Folded" },
-          FloatTitle = { fg = "Title", bg = "Normal|Folded" },
-          LightFloat = { bg = "Folded" },
-          LightFloatTitle = { fg = "Title", bg = "Folded" },
-          DarkFloat = { bg = "Normal|contrast|0.8" },
-          DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.8" },
-        },
-
+        ["*"] = globals,
         catppuccin = {
           Normal = { bg = "mantle" },
           NormalFloat = { bg = "base" },
@@ -82,7 +56,6 @@ return {
           FloatBorder = "NormalFloat",
           PMenu = "NormalFloat",
           PMenuSelect = "LightFloat",
-
           NormalNC = "Normal",
         },
       },
