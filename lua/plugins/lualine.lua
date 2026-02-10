@@ -158,7 +158,7 @@ return {
               return ""
             end,
             cond = function()
-              return package.loaded["copilot"] ~= nil
+              return package.loaded["copilot"] ~= nil and not require("copilot.client").is_disabled()
             end,
           },
           { "branch", icon = "" },
