@@ -43,9 +43,55 @@ return {
       return os.getenv("CONDA_DEFAULT_ENV") or ""
     end
 
+    local function git_file_status()
+      local file = vim.fn.expand("%:p")
+      if file == "" or file:match("term://") then
+        return "" -- non-file buffer
+      end
+
+      local output = vim.fn.system({ "git", "status", "--porcelain", "--", file })
+      if vim.v.shell_error ~= 0 then
+        return "" -- not a git repo
+      end
+
+      output = output:gsub("%s+$", "")
+      if output == "" then
+        return " " -- committed
+      end
+
+      local x, y = output:sub(1, 1), output:sub(2, 2)
+
+      if x == "?" then
+        return " " -- untracked
+      end
+      if x == "!" then
+        return " " -- ignored
+      end
+      if x == "U" or y == "U" then
+        return " " -- conflict
+      end
+
+      local staged_icons = { A = " ", M = "󰜥 ", D = " ", R = "󰳞 " }
+      local staged = staged_icons[x]
+      local unstaged = (y == "M" or y == "D") and "" or nil
+
+      if staged and unstaged then
+        return staged .. " " .. unstaged -- staged + unstaged
+      end
+      if staged then
+        return staged -- staged
+      end
+      if unstaged then
+        return unstaged -- unstaged
+      end
+
+      return "" -- unknown
+    end
+
     local filename_component = {
       "filename",
-      file_status = false,
+      file_status = true,
+      symbols = { modified = " ●", readonly = " 󰌾" },
       icon = "󰧮",
       cond = is_enabled_ft,
     }
@@ -91,15 +137,30 @@ return {
           },
         },
         lualine_b = {
+          -- { git_file_status, cond = is_enabled_ft },
+        },
+        lualine_c = {
           {
             "diagnostics",
             padding = { left = 0, right = 1 },
-            symbols = { error = " ", warn = " ", info = " ", hint = " " },
+            symbols = {
+              error = " ",
+              warn = " ",
+              info = " ",
+              hint = " ",
+            },
             update_in_insert = true,
           },
         },
-        lualine_c = {},
         lualine_x = {
+          {
+            function()
+              return " "
+            end,
+            cond = function()
+              return package.loaded["copilot"] ~= nil
+            end,
+          },
           { "branch", icon = " " },
           { venv, icon = "󰹩 " },
         },

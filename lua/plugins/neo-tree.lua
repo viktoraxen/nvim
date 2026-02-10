@@ -190,7 +190,7 @@ return {
           symbols = {
             -- Change type
             added = "",
-            modified = "",
+            modified = "󰜥",
             deleted = "",
             renamed = "󰳞",
             -- Status type
