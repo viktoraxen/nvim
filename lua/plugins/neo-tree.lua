@@ -94,7 +94,7 @@ return {
           ["<space>"] = { "toggle_node", nowait = false },
           ["<cr>"] = "open_with_window_picker",
           ["O"] = "open",
-          ["<esc>"] = "cancel", -- close preview or floating neo-tree window
+          ["q"] = "cancel", -- close preview or floating neo-tree window
           ["-"] = "navigate_up",
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
           ["l"] = "focus_preview",
@@ -111,7 +111,6 @@ return {
           ["p"] = "paste_from_clipboard",
           ["c"] = "copy_to_clipboard",
           ["m"] = "move",
-          ["q"] = "close_window",
           ["R"] = "refresh",
           ["?"] = "show_help",
           ["K"] = "show_file_details",
@@ -212,24 +211,28 @@ return {
 
     require("highlights-nvim").add({
       customizations = {
-        NeoTreeGitUnstaged = { italic = false, cterm = { italic = false } },
-        NeoTreeGitModified = { italic = false, cterm = { italic = false } },
-        NeoTreeGitAdded = { italic = false, cterm = { italic = false } },
-        NeoTreeGitDeleted = { italic = false, cterm = { italic = false } },
-        NeoTreeGitUntracked = { italic = false, cterm = { italic = false } },
+        ["*"] = {
+          NeoTreeGitUnstaged = { italic = false, cterm = { italic = false } },
+          NeoTreeGitModified = { italic = false, cterm = { italic = false } },
+          NeoTreeGitAdded = { italic = false, cterm = { italic = false } },
+          NeoTreeGitDeleted = { italic = false, cterm = { italic = false } },
+          NeoTreeGitUntracked = { italic = false, cterm = { italic = false } },
+        },
       },
       links = {
-        NeoTreeGitUnstaged = "Comment",
-        NeoTreeGitModified = "Comment",
-        NeoTreeGitAdded = "Comment",
-        NeoTreeGitDeleted = "Comment",
-        NeoTreeGitUntracked = "Comment",
+        ["*"] = {
+          NeoTreeGitUnstaged = "Comment",
+          NeoTreeGitModified = "Comment",
+          NeoTreeGitAdded = "Comment",
+          NeoTreeGitDeleted = "Comment",
+          NeoTreeGitUntracked = "Comment",
 
-        NeoTreeFloatNormal = "NormalFloat",
-        NeoTreeFloatBorder = "FloatBorder",
+          NeoTreeFloatNormal = "NormalFloat",
+          NeoTreeFloatBorder = "FloatBorder",
 
-        NeoTreeNormal = "Normal",
-        NeoTreeNormalNC = "NeoTreeNormal",
+          NeoTreeNormal = "Normal",
+          NeoTreeNormalNC = "NeoTreeNormal",
+        },
       },
     })
   end,
