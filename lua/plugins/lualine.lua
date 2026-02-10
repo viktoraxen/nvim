@@ -31,7 +31,7 @@ return {
         return ""
       end
 
-      return " " .. dir:gsub("/$", "")
+      return " " .. dir:gsub("/$", "")
     end
 
     local function venv()
