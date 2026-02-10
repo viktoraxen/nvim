@@ -9,4 +9,5 @@ return {
   { "sainnhe/everforest" },
   { "Mofiqul/vscode.nvim" },
   { "olimorris/onedarkpro.nvim" },
+  { "pgdouyon/vim-yin-yang" },
 }
