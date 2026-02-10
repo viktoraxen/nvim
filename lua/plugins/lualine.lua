@@ -94,7 +94,7 @@ return {
           {
             "diagnostics",
             padding = { left = 0, right = 1 },
-            symbols = { error = "", warn = "", info = "", hint = "" },
+            symbols = { error = " ", warn = " ", info = " ", hint = " " },
             update_in_insert = true,
           },
         },
