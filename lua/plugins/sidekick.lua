@@ -23,7 +23,9 @@ return {
   init = function(_, _)
     require("highlights-nvim").add({
       links = {
-        SidekickChat = "Normal",
+        ["*"] = {
+          SidekickChat = "Normal",
+        },
       },
     })
   end,

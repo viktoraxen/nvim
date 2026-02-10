@@ -315,51 +315,57 @@ return {
   init = function()
     require("highlights-nvim").add({
       customizations = {
-        SnacksPickerGitStatusStaged = { italic = false },
-        SnacksPickerGitStatusModified = { italic = false },
+        ["*"] = {
+          SnacksPickerGitStatusStaged = { italic = false },
+          SnacksPickerGitStatusModified = { italic = false },
+
+          SnacksIndent = { bg = false },
+        },
 
         catppuccin = {
           SnacksIndent = { fg = "surface0" },
         },
       },
       links = {
-        SnacksPickerToggle = "SnacksPickerInputTitle",
+        ["*"] = {
+          SnacksPickerToggle = "SnacksPickerInputTitle",
 
-        SnacksNotifierBorderTrace = "NormalFloat",
-        SnacksNotifierBorderDebug = "NormalFloat",
-        SnacksNotifierBorderInfo = "NormalFloat",
-        SnacksNotifierBorderWarn = "NormalFloat",
-        SnacksNotifierBorderError = "NormalFloat",
+          SnacksNotifierBorderTrace = "NormalFloat",
+          SnacksNotifierBorderDebug = "NormalFloat",
+          SnacksNotifierBorderInfo = "NormalFloat",
+          SnacksNotifierBorderWarn = "NormalFloat",
+          SnacksNotifierBorderError = "NormalFloat",
 
-        SnacksNotifierTrace = "NormalFloat",
-        SnacksNotifierDebug = "NormalFloat",
-        SnacksNotifierInfo = "NormalFloat",
-        SnacksNotifierWarn = "NormalFloat",
-        SnacksNotifierError = "NormalFloat",
+          SnacksNotifierTrace = "NormalFloat",
+          SnacksNotifierDebug = "NormalFloat",
+          SnacksNotifierInfo = "NormalFloat",
+          SnacksNotifierWarn = "NormalFloat",
+          SnacksNotifierError = "NormalFloat",
 
-        SnacksPickerInput = "LightFloat",
-        SnacksPickerInputBorder = "SnacksPickerInput",
-        SnacksPickerInputLine = "SnacksPickerInput",
-        SnacksPickerInputFooter = "SnacksPickerInput",
-        SnacksPickerInputSearch = "SnacksPickerInput",
-        SnacksPickerInputCursorLine = "SnacksPickerInput",
-        SnacksPickerInputTitle = "LightFloatTitle",
+          SnacksPickerInput = "LightFloat",
+          SnacksPickerInputBorder = "SnacksPickerInput",
+          SnacksPickerInputLine = "SnacksPickerInput",
+          SnacksPickerInputFooter = "SnacksPickerInput",
+          SnacksPickerInputSearch = "SnacksPickerInput",
+          SnacksPickerInputCursorLine = "SnacksPickerInput",
+          SnacksPickerInputTitle = "LightFloatTitle",
 
-        SnacksPickerPrompt = "NormalFloat",
+          SnacksPickerPrompt = "NormalFloat",
 
-        SnacksPickerPreview = "DarkFloat",
-        SnacksPickerPreviewBorder = "SnacksPickerPreview",
-        SnacksPickerPreviewFooter = "SnacksPickerPreview",
-        SnacksPickerPreviewNormal = "SnacksPickerPreview",
-        SnacksPickerPreviewTitle = "DarkFloatTitle",
+          SnacksPickerPreview = "DarkFloat",
+          SnacksPickerPreviewBorder = "SnacksPickerPreview",
+          SnacksPickerPreviewFooter = "SnacksPickerPreview",
+          SnacksPickerPreviewNormal = "SnacksPickerPreview",
+          SnacksPickerPreviewTitle = "DarkFloatTitle",
 
-        SnacksPickerListBorder = "SnacksPickerList",
-        SnacksPickerListCursorLine = "LightFloat",
+          SnacksPickerListBorder = "SnacksPickerList",
+          SnacksPickerListCursorLine = "LightFloat",
 
-        SnacksInputNormal = "LightFloat",
-        SnacksInputBorder = "SnacksInputNormal",
-        SnacksInputTitle = "SnacksInputNormal",
-        SnacksInputCursorLine = "SnacksInputNormal",
+          SnacksInputNormal = "LightFloat",
+          SnacksInputBorder = "SnacksInputNormal",
+          SnacksInputTitle = "SnacksInputNormal",
+          SnacksInputCursorLine = "SnacksInputNormal",
+        },
       },
     })
 

@@ -1,56 +1,65 @@
 return {
-  "viktoraxen/highlights-nvim",
-  -- "highlights-nvim",
-  -- dev = true,
+  -- "viktoraxen/highlights-nvim",
+  "highlights-nvim",
+  dev = true,
   event = "VeryLazy",
   config = function()
     local highlights = require("highlights-nvim")
 
     highlights.add({
       customizations = {
-        DiagnosticOk = { italic = false, cterm = { italic = false } },
-        DiagnosticDebug = { italic = false, cterm = { italic = false } },
-        DiagnosticHint = { italic = false, cterm = { italic = false } },
-        DiagnosticInfo = { italic = false, cterm = { italic = false } },
-        DiagnosticWarn = { italic = false, cterm = { italic = false } },
-        DiagnosticError = { italic = false, cterm = { italic = false } },
-        DiagnosticUnnecessary = { italic = false, cterm = { italic = false } },
+        ["*"] = {
+          DiagnosticOk = { italic = false, cterm = { italic = false } },
+          DiagnosticDebug = { italic = false, cterm = { italic = false } },
+          DiagnosticHint = { italic = false, cterm = { italic = false } },
+          DiagnosticInfo = { italic = false, cterm = { italic = false } },
+          DiagnosticWarn = { italic = false, cterm = { italic = false } },
+          DiagnosticError = { italic = false, cterm = { italic = false } },
+          DiagnosticUnnecessary = { italic = false, cterm = { italic = false } },
 
-        DiagnosticUnderlineOk = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        DiagnosticUnderlineHint = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        DiagnosticUnderlineInfo = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        DiagnosticUnderlineWarn = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        DiagnosticUnderlineError = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        LspDiagnosticsUnderlineHint = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        LspDiagnosticsUnderlineError = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        LspDiagnosticsUnderlineWarning = {
-          cterm = { underline = false },
-          underline = false,
-        },
-        LspDiagnosticsUnderlineInformation = {
-          cterm = { underline = false },
-          underline = false,
+          DiagnosticUnderlineOk = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          DiagnosticUnderlineHint = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          DiagnosticUnderlineInfo = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          DiagnosticUnderlineWarn = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          DiagnosticUnderlineError = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          LspDiagnosticsUnderlineHint = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          LspDiagnosticsUnderlineError = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          LspDiagnosticsUnderlineWarning = {
+            cterm = { underline = false },
+            underline = false,
+          },
+          LspDiagnosticsUnderlineInformation = {
+            cterm = { underline = false },
+            underline = false,
+          },
+
+          NormalFloat = { bg = "Normal|CursorLine" },
+          FloatTitle = { fg = "Title", bg = "Normal|CursorLine" },
+          LightFloat = { bg = "CursorLine" },
+          LightFloatTitle = { fg = "Title", bg = "CursorLine" },
+          DarkFloat = { bg = "Normal|contrast|0.8" },
+          DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.8" },
         },
 
         catppuccin = {
@@ -64,11 +73,17 @@ return {
         },
       },
       links = {
-        FloatBorder = "NormalFloat",
-        PMenu = "NormalFloat",
-        PMenuSelect = "LightFloat",
+        ["*"] = {
+          FloatBorder = "NormalFloat",
+          PMenu = "NormalFloat",
+          PMenuSelect = "LightFloat",
 
-        NormalNC = "Normal",
+          NormalNC = "Normal",
+          EndOfBuffer = "Normal",
+          SignColumn = "Normal",
+          LineNr = "Normal",
+          CursorLineNr = "Normal",
+        },
       },
     })
   end,

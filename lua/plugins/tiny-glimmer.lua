@@ -124,7 +124,9 @@ return {
 
     require("highlights-nvim").add({
       customizations = {
-        FadeStart = { bg = "#CBA6F7" },
+        ["*"] = {
+          FadeStart = { bg = "#CBA6F7" },
+        },
       },
     })
   end,

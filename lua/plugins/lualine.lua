@@ -192,45 +192,41 @@ return {
       "inactive",
     }
 
-    local sections = {
-      "a",
-      "b",
-      "c",
-    }
-
-    local diagnostics = {
-      "error",
-      "hint",
-      "warn",
-      "info",
-    }
-
     local function apply_highlights()
-      -- Invert lualine_a
-      for _, mode in ipairs(modes) do
-        local current_a_hl = highlights_utils.get_hl("lualine_a_" .. mode)
-        local new_fg = nil
+      local normal_fg = highlights_utils.get_hl("Normal").fg
+      local conceal_fg = highlights_utils.get_hl("Conceal").fg
 
-        if current_a_hl.bg then
-          new_fg = string.format("#%06x", current_a_hl.bg)
-        end
-
-        local new_a_hl = vim.tbl_deep_extend("force", current_a_hl, { fg = new_fg })
-
-        local normal_hl = highlights_utils.get_hl("Normal")
-        local current_b_hl = highlights_utils.get_hl("lualine_b_" .. mode)
-        local normal_fg = string.format("#%06x", normal_hl.fg)
-        local new_b_hl = vim.tbl_deep_extend("force", current_b_hl, { fg = normal_fg })
-
-        vim.api.nvim_set_hl(0, "lualine_a_" .. mode, new_a_hl)
-        vim.api.nvim_set_hl(0, "lualine_b_" .. mode, new_b_hl)
+      local fmt = function(val)
+        return val and string.format("#%06x", val) or nil
       end
 
-      -- Remove background from all
-      local all_hls = vim.api.nvim_get_hl(0, {})
+      local set_groups = {}
 
+      for _, mode in ipairs(modes) do
+        local mode_color = fmt(highlights_utils.get_hl("lualine_a_" .. mode).bg)
+
+        for _, prefix in ipairs({ "lualine_a_", "lualine_z_" }) do
+          local group = prefix .. mode
+          vim.api.nvim_set_hl(0, group, { fg = mode_color, bold = true })
+          set_groups[group] = true
+        end
+
+        for _, prefix in ipairs({ "lualine_b_", "lualine_y_" }) do
+          local group = prefix .. mode
+          vim.api.nvim_set_hl(0, group, { fg = fmt(normal_fg) })
+          set_groups[group] = true
+        end
+
+        for _, prefix in ipairs({ "lualine_c_", "lualine_x_" }) do
+          local group = prefix .. mode
+          vim.api.nvim_set_hl(0, group, { fg = fmt(conceal_fg) })
+          set_groups[group] = true
+        end
+      end
+
+      local all_hls = vim.api.nvim_get_hl(0, {})
       for group_name, hl in pairs(all_hls) do
-        if group_name:match("^lualine") then
+        if group_name:match("^lualine") and not set_groups[group_name] then
           hl.bg = nil
           vim.api.nvim_set_hl(0, group_name, hl)
         end
@@ -238,10 +234,13 @@ return {
 
       require("highlights-nvim").add({
         links = {
-          lualine_b_inactive = "lualine_b_normal",
-          lualine_c_normal = "lualine_c_inactive",
-          WinBar = "lualine_b_normal",
-          WinBarNC = "WinBar",
+          ["*"] = {
+            StatusLine = "Normal",
+            lualine_b_inactive = "lualine_b_normal",
+            lualine_c_normal = "lualine_c_inactive",
+            WinBar = "lualine_b_normal",
+            WinBarNC = "WinBar",
+          },
         },
       })
     end
