@@ -55,8 +55,9 @@ return {
           },
 
           CursorLine = { bg = "Normal" },
-          LineNr = { bg = "Normal" },
-          SignColumn = { bg = "Normal" },
+          LineNr = { bg = false },
+          SignColumn = { bg = false },
+          EndOfBuffer = { fg = "Normal", bg = false },
 
           NormalFloat = { bg = "Normal|Folded" },
           FloatTitle = { fg = "Title", bg = "Normal|Folded" },
@@ -83,7 +84,6 @@ return {
           PMenuSelect = "LightFloat",
 
           NormalNC = "Normal",
-          EndOfBuffer = "Normal",
         },
       },
     })

@@ -362,6 +362,7 @@ return {
           SnacksPickerListCursorLine = "LightFloat",
 
           SnacksInputNormal = "LightFloat",
+          SnacksInputIcon = "SnacksInputNormal",
           SnacksInputBorder = "SnacksInputNormal",
           SnacksInputTitle = "SnacksInputNormal",
           SnacksInputCursorLine = "SnacksInputNormal",
