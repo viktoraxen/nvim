@@ -155,14 +155,14 @@ return {
         lualine_x = {
           {
             function()
-              return " "
+              return ""
             end,
             cond = function()
               return package.loaded["copilot"] ~= nil
             end,
           },
-          { "branch", icon = " " },
-          { venv, icon = "󰹩 " },
+          { "branch", icon = "" },
+          { venv, icon = "󰹩" },
         },
         lualine_y = {
           "searchcount",
