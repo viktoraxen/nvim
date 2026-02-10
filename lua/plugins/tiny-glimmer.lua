@@ -96,22 +96,6 @@ return {
         from_color = "Visual",
         to_color = "Normal",
       },
-
-      -- Custom animation example
-      custom = {
-        max_duration = 350,
-        chars_for_max_duration = 40,
-        color = "#ff0000", -- Custom property
-
-        -- Custom effect function
-        -- @param self table - The effect object with settings
-        -- @param progress number - Animation progress [0, 1]
-        -- @return string color - Hex color or highlight group
-        -- @return number progress - How much of the animation to draw
-        effect = function(self, progress)
-          return self.settings.color, progress
-        end,
-      },
     },
 
     hijack_ft_disabled = {
