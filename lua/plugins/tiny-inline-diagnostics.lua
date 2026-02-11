@@ -1,8 +1,7 @@
 return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
-    priority = 1000,
+    event = "LspAttach",
     opts = {
       preset = "classic",
       transparent_bg = true,
