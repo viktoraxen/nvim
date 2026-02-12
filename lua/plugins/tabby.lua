@@ -2,6 +2,11 @@ return {
   "nanozuki/tabby.nvim",
   config = function()
     local function tab_label(tabid)
+      local custom = require("tabby.feature.tab_name").get_raw(tabid)
+      if custom ~= "" then
+        return custom
+      end
+
       local tabnr = vim.api.nvim_tabpage_get_number(tabid)
       local cwd = vim.fn.getcwd(-1, tabnr)
       local project = vim.fn.fnamemodify(cwd, ":t")
@@ -33,6 +38,14 @@ return {
         },
       },
     })
+
+    vim.keymap.set("n", "<leader>tn", function()
+      Snacks.input({ prompt = "Tab name", win = { relative = "editor", row = math.floor(vim.o.lines / 2), col = math.floor((vim.o.columns - 40) / 2) } }, function(name)
+        if name then
+          require("tabby.feature.tab_name").set(0, name)
+        end
+      end)
+    end, { desc = "Rename tab" })
 
     require("tabby").setup({
       line = function(line)
