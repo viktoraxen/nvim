@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 vim.api.nvim_create_autocmd("CursorMoved", {
   desc = "Clear status on cursor move.",
   callback = function()
-    vim.cmd("echo ''")
+    vim.api.nvim_echo({ { "", "" } }, false, {})
   end,
 })
 

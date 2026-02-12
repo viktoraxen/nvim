@@ -1,6 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
-  event = "VimEnter",
+  keys = { "w", "e", "b", "W", "E", "B" },
   config = function()
     local map = require("utils.keymap")
 
