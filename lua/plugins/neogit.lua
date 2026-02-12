@@ -65,6 +65,12 @@ return {
         width = math.max(width, vim.fn.strdisplaywidth(line))
       end
       width = width + 2
+      if opts and opts.min_width then
+        width = math.max(width, opts.min_width)
+      end
+      if opts and opts.max_width then
+        width = math.min(width, opts.max_width)
+      end
 
       local max_height = opts and opts.max_height
       local height = math.min(#lines, max_height or #lines)
@@ -81,7 +87,7 @@ return {
         border = "solid",
       })
 
-      vim.wo[win].winhighlight = "NormalFloat:WhichKeyNormal,FloatBorder:WhichKeyNormal"
+      vim.wo[win].winhighlight = "Normal:DarkFloat,NormalFloat:DarkFloat,FloatBorder:DarkFloat,Folded:DarkFloat"
     end
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -105,6 +111,20 @@ return {
         end
         vim.schedule(function()
           center_float(win, vim.api.nvim_win_get_buf(win), { max_height = math.floor(vim.o.lines * 0.5) })
+        end)
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitLogView",
+      callback = function()
+        vim.schedule(function()
+          local win = vim.api.nvim_get_current_win()
+          center_float(win, vim.api.nvim_win_get_buf(win), {
+            max_height = math.floor(vim.o.lines * 0.85),
+            max_width = 100,
+            min_width = vim.o.columns,
+          })
         end)
       end,
     })
