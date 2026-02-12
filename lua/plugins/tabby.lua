@@ -1,6 +1,21 @@
 return {
   "nanozuki/tabby.nvim",
   config = function()
+    local function tab_label(tabid)
+      local tabnr = vim.api.nvim_tabpage_get_number(tabid)
+      local cwd = vim.fn.getcwd(-1, tabnr)
+      local project = vim.fn.fnamemodify(cwd, ":t")
+
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabid)) do
+        local name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+        if name:match("^codediff://") then
+          return "  " .. project
+        end
+      end
+
+      return project
+    end
+
     local theme = {
       fill = "Normal",
       head = "TabLine",
@@ -27,7 +42,8 @@ return {
             local hl = tab.is_current() and theme.current_tab or theme.tab
             return {
               line.sep(" ", hl, theme.fill),
-              tab.number(),
+              -- tab.number(),
+              tab_label(tab.id),
               line.sep(" ", hl, theme.fill),
               hl = hl,
               margin = "  ",
