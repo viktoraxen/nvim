@@ -33,10 +33,10 @@ return {
     globals.EndOfBuffer = { fg = "Normal", bg = false }
     globals.WinSeparator = { bg = false }
 
-    globals.NormalFloat = { bg = "Normal|Folded" }
-    globals.FloatTitle = { fg = "Title", bg = "Normal|Folded" }
-    globals.LightFloat = { bg = "Folded" }
-    globals.LightFloatTitle = { fg = "Title", bg = "Folded" }
+    globals.NormalFloat = { bg = "Normal|Folded|0.8" }
+    globals.FloatTitle = { fg = "Title", bg = "Normal|Folded|0.8" }
+    globals.LightFloat = { bg = "Normal|Folded|0.6" }
+    globals.LightFloatTitle = { fg = "Title", bg = "Normal|Folded|0.6" }
     globals.DarkFloat = { bg = "Normal|contrast|0.9" }
     globals.DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.9" }
 
