@@ -105,22 +105,46 @@ vim.api.nvim_create_autocmd("BufRead", {
 --     end,
 -- })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
-  desc = "Hide cursor",
+local cursor_hidden = false
+local hide_cursor_fts = { ["neo-tree"] = true, ["snacks_picker_list"] = true }
+
+vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
+
+local function hide_cursor()
+  cursor_hidden = true
+  vim.o.guicursor = "a:HiddenCursor/HiddenCursor"
+end
+
+local function show_cursor()
+  cursor_hidden = false
+  vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+end
+
+vim.api.nvim_create_autocmd({ "WinEnter", "FileType" }, {
+  desc = "Hide cursor in tree/picker list, show elsewhere",
   callback = function()
-    if vim.bo.filetype == "neo-tree" or vim.bo.filetype == "snacks_picker_list" then
-      vim.o.guicursor = "a:block-Cursor/lCursor"
-      vim.api.nvim_set_hl(0, "Cursor", { nocombine = true, blend = 100 })
+    if hide_cursor_fts[vim.bo.filetype] then
+      hide_cursor()
+    elseif cursor_hidden then
+      show_cursor()
     end
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufLeave", "FileType" }, {
-  desc = "Restore cursor",
+vim.api.nvim_create_autocmd("WinLeave", {
+  desc = "Restore cursor when leaving tree/picker list",
   callback = function()
-    if vim.bo.filetype == "neo-tree" or vim.bo.filetype == "snacks_picker_list" then
-      vim.api.nvim_set_hl(0, "Cursor", {})
-      vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+    if hide_cursor_fts[vim.bo.filetype] then
+      show_cursor()
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  desc = "Restore cursor when entering insert mode (handles noautocmd windows)",
+  callback = function()
+    if cursor_hidden and not hide_cursor_fts[vim.bo.filetype] then
+      show_cursor()
     end
   end,
 })
@@ -138,6 +162,13 @@ vim.api.nvim_create_autocmd("UILeave", {
   desc = "Reset terminal backgroun",
   callback = function()
     io.write("\027]111\027\\")
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+  desc = "Re-create HiddenCursor highlight after colorscheme change",
+  callback = function()
+    vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
   end,
 })
 
