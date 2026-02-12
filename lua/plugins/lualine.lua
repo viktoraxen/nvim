@@ -13,6 +13,9 @@ return {
     }
 
     local function is_enabled_ft()
+      if vim.bo.buftype == "terminal" then
+        return false
+      end
       for _, ft in ipairs(disabled_fts) do
         if vim.bo.ft:match(ft) then
           return false
@@ -55,7 +58,7 @@ return {
       padding = padding,
     }
 
-    local filepath_component = { filepath, padding = padding }
+    local filepath_component = { filepath, cond = is_enabled_ft, padding = padding }
 
     require("lualine").setup({
       options = {
