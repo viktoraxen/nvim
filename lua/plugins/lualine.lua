@@ -95,6 +95,9 @@ return {
           },
         },
         lualine_b = {
+          -- { git_file_status, cond = is_enabled_ft },
+        },
+        lualine_c = {
           {
             function()
               return " "
@@ -104,17 +107,14 @@ return {
             end,
             padding = padding,
           },
-          -- { git_file_status, cond = is_enabled_ft },
-        },
-        lualine_c = {
           {
             "diagnostics",
-            padding = padding,
+            padding = { left = 1, right = padding },
             symbols = {
-              error = " ",
-              warn = " ",
-              info = " ",
-              hint = " ",
+              error = "  ",
+              warn = "  ",
+              info = "  ",
+              hint = "  ",
             },
             update_in_insert = true,
           },
@@ -125,7 +125,21 @@ return {
         },
         lualine_y = {
           { "searchcount", padding = padding },
-          { "filetype", cond = is_enabled_ft, color = { bg = vim.NIL }, padding = padding },
+          {
+            "filetype",
+            cond = is_enabled_ft,
+            colored = true,
+            icon_only = true,
+            padding = { left = padding, right = 1 },
+            color = { bg = vim.NIL },
+          },
+          {
+            function()
+              return vim.bo.filetype
+            end,
+            cond = is_enabled_ft,
+            padding = { left = 0, right = padding },
+          },
         },
         lualine_z = {
           { "progress", padding = { left = padding, right = 1 } },
