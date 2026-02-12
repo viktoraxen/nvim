@@ -6,23 +6,19 @@ return {
     ensure_installed = {
       "bash-language-server",
       "beautysh",
-      "black",
       "clangd",
       "cmake-language-server",
       "cmakelang",
       "codelldb",
       "eslint-lsp",
-      "jdtls",
       "lua-language-server",
       "markdownlint",
       "prettier",
       "pyright",
       "python-lsp-server",
+      "ruff",
       "stylua",
-      "superhtml",
-      "tailwindcss-language-server",
       "tree-sitter-cli",
-      "typescript-language-server",
     },
     ui = {
       check_outdated_packages_on_open = true,
@@ -30,7 +26,7 @@ return {
       backdrop = 100,
 
       width = 0.85,
-      height = 0.85,
+      height = 0.8,
     },
   },
 }

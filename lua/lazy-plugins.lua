@@ -8,7 +8,7 @@ require("lazy").setup({
   ui = {
     border = "solid",
     backdrop = 100,
-    size = { width = 0.85, height = 0.85 },
+    size = { width = 0.85, height = 0.8 },
   },
   dev = {
     path = "~/dev",
