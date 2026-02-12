@@ -21,6 +21,9 @@ return {
   opts = {
     graph_style = "unicode",
     kind = "floating",
+    integrations = {
+      snacks = false,
+    },
     floating = {
       relative = "editor",
       width = 0.85,
@@ -53,6 +56,43 @@ return {
           NeogitNormal = "NormalFloat",
         },
       },
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitPopup",
+      callback = function()
+        -- Double vim.schedule to run after Neogit's own deferred resize
+        vim.schedule(function()
+          vim.schedule(function()
+            local win = vim.api.nvim_get_current_win()
+            local buf = vim.api.nvim_win_get_buf(win)
+
+            local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+            local width = 0
+
+            for _, line in ipairs(lines) do
+              width = math.max(width, vim.fn.strdisplaywidth(line))
+            end
+
+            width = width + 2
+
+            local height = #lines
+
+            local row = math.floor((vim.o.lines - height) / 2)
+            local col = math.floor((vim.o.columns - width) / 2)
+
+            vim.api.nvim_win_set_config(win, {
+              relative = "editor",
+              anchor = "NW",
+              width = width,
+              height = height,
+              row = row,
+              col = col,
+              border = "solid",
+            })
+          end)
+        end)
+      end,
     })
   end,
 }
