@@ -106,7 +106,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 -- })
 
 local cursor_hidden = false
-local hide_cursor_fts = { ["neo-tree"] = true, ["snacks_picker_list"] = true }
+local hide_cursor_fts = { ["neo-tree"] = true, ["snacks_picker_list"] = true, ["NeogitPopup"] = true }
 
 vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
 
