@@ -103,6 +103,33 @@ vim.api.nvim_create_autocmd("BufRead", {
 --     end,
 -- })
 
+do
+  local saved_guicursor
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    desc = "Hide cursor in Neo-tree, only cursorline visible",
+    callback = function()
+      if vim.bo.filetype == "neo-tree" then
+        saved_guicursor = vim.o.guicursor
+        vim.o.guicursor = "a:block-Cursor/lCursor"
+        vim.api.nvim_set_hl(0, "Cursor", { nocombine = true, blend = 100 })
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufLeave", {
+    desc = "Restore cursor when leaving Neo-tree",
+    callback = function()
+      if vim.bo.filetype == "neo-tree" then
+        vim.api.nvim_set_hl(0, "Cursor", {})
+        if saved_guicursor then
+          vim.o.guicursor = saved_guicursor
+        end
+      end
+    end,
+  })
+end
+
 vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
   desc = "Corrects terminal background color according to colorscheme",
   callback = function()

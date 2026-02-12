@@ -58,6 +58,7 @@ return {
           PMenu = "NormalFloat",
           PMenuSelect = "LightFloat",
           NormalNC = "Normal",
+          NeoTreeCursorLine = "Folded",
         },
       },
     })
