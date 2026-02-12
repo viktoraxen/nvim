@@ -37,8 +37,8 @@ return {
     globals.FloatTitle = { fg = "Title", bg = "Normal|Folded" }
     globals.LightFloat = { bg = "Folded" }
     globals.LightFloatTitle = { fg = "Title", bg = "Folded" }
-    globals.DarkFloat = { bg = "Normal|contrast|0.8" }
-    globals.DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.8" }
+    globals.DarkFloat = { bg = "Normal|contrast|0.9" }
+    globals.DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.9" }
 
     require("highlights-nvim").add({
       customizations = {
