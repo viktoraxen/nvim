@@ -44,15 +44,18 @@ return {
       return os.getenv("CONDA_DEFAULT_ENV") or ""
     end
 
+    local padding = 2
+
     local filename_component = {
       "filename",
       file_status = true,
       symbols = { modified = " ●", readonly = " 󰌾" },
       icon = "󰧮",
       cond = is_enabled_ft,
+      padding = padding,
     }
 
-    local filepath_component = { filepath }
+    local filepath_component = { filepath, padding = padding }
 
     require("lualine").setup({
       options = {
@@ -88,15 +91,25 @@ return {
             fmt = function(str)
               return str:sub(1, 1) .. str:sub(2):lower()
             end,
+            padding = padding,
           },
         },
         lualine_b = {
+          {
+            function()
+              return " "
+            end,
+            cond = function()
+              return package.loaded["copilot"] ~= nil and not require("copilot.client").is_disabled()
+            end,
+            padding = padding,
+          },
           -- { git_file_status, cond = is_enabled_ft },
         },
         lualine_c = {
           {
             "diagnostics",
-            padding = { left = 0, right = 1 },
+            padding = padding,
             symbols = {
               error = " ",
               warn = " ",
@@ -107,24 +120,16 @@ return {
           },
         },
         lualine_x = {
-          {
-            function()
-              return ""
-            end,
-            cond = function()
-              return package.loaded["copilot"] ~= nil and not require("copilot.client").is_disabled()
-            end,
-          },
-          { "branch", icon = "" },
-          { venv, icon = "󰹩" },
+          { "branch", icon = "", padding = padding },
+          { venv, icon = "󰹩", padding = padding },
         },
         lualine_y = {
-          "searchcount",
-          { "filetype", cond = is_enabled_ft, color = { bg = vim.NIL } },
+          { "searchcount", padding = padding },
+          { "filetype", cond = is_enabled_ft, color = { bg = vim.NIL }, padding = padding },
         },
         lualine_z = {
-          { "progress", padding = { left = 1, right = 0 } },
-          { "location", padding = { left = 1, right = 1 } },
+          { "progress", padding = { left = padding, right = 1 } },
+          { "location", padding = { left = 0, right = padding } },
         },
       },
       inactive_sections = {
