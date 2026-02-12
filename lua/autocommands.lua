@@ -103,28 +103,20 @@ vim.api.nvim_create_autocmd("BufRead", {
 --     end,
 -- })
 
-local hide_cursor_fts = {
-  "neo-tree",
-  "snacks_picker_list",
-}
-
-vim.api.nvim_create_autocmd("BufEnter", {
-  desc = "Hide cursor in Neo-tree, only cursorline visible",
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+  desc = "Hide cursor",
   callback = function()
-    if vim.tbl_contains(hide_cursor_fts, vim.bo.filetype) then
+    if vim.bo.filetype == "neo-tree" or vim.bo.filetype == "snacks_picker_list" then
       vim.o.guicursor = "a:block-Cursor/lCursor"
       vim.api.nvim_set_hl(0, "Cursor", { nocombine = true, blend = 100 })
-    else
-      vim.api.nvim_set_hl(0, "Cursor", {})
-      vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
     end
   end,
 })
 
-vim.api.nvim_create_autocmd("BufLeave", {
-  desc = "Restore cursor when leaving Neo-tree",
+vim.api.nvim_create_autocmd({ "BufLeave", "FileType" }, {
+  desc = "Restore cursor",
   callback = function()
-    if vim.tbl_contains(hide_cursor_fts, vim.bo.filetype) then
+    if vim.bo.filetype == "neo-tree" or vim.bo.filetype == "snacks_picker_list" then
       vim.api.nvim_set_hl(0, "Cursor", {})
       vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
     end
