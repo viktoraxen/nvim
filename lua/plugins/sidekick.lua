@@ -1,6 +1,5 @@
 return {
   "folke/sidekick.nvim",
-  dependencies = { "zbirenbaum/copilot.lua" },
   opts = {
     cli = {
       mux = {

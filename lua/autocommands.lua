@@ -59,7 +59,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
       vim.api.nvim_win_set_cursor(0, mark)
 
       vim.schedule(function()
-        vim.cmd("normal! zz")
+        if vim.api.nvim_get_mode().mode ~= "t" then
+          vim.cmd("normal! zz")
+        end
       end)
     end
   end,
@@ -136,6 +138,38 @@ vim.api.nvim_create_autocmd("UILeave", {
   desc = "Reset terminal backgroun",
   callback = function()
     io.write("\027]111\027\\")
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+  desc = "Setup hidden indent guide highlight matching Normal background",
+  callback = function()
+    local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+    if bg then
+      vim.api.nvim_set_hl(0, "SnacksIndentHidden", { fg = bg, nocombine = true })
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("WinLeave", {
+  desc = "Hide snacks indent guides in inactive windows",
+  callback = function()
+    local whl = vim.wo.winhighlight
+    local hide = "SnacksIndent:SnacksIndentHidden,SnacksIndentScope:SnacksIndentHidden"
+    if not whl:find("SnacksIndentHidden") then
+      vim.wo.winhighlight = whl == "" and hide or (whl .. "," .. hide)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+  desc = "Show snacks indent guides in active window",
+  callback = function()
+    local whl = vim.wo.winhighlight
+    whl = whl:gsub(",?SnacksIndent:SnacksIndentHidden", "")
+    whl = whl:gsub(",?SnacksIndentScope:SnacksIndentHidden", "")
+    whl = whl:gsub("^,", "")
+    vim.wo.winhighlight = whl
   end,
 })
 
