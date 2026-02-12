@@ -31,6 +31,7 @@ return {
     globals.LineNr = { bg = false }
     globals.SignColumn = { bg = false }
     globals.EndOfBuffer = { fg = "Normal", bg = false }
+    globals.WinSeparator = { bg = false }
 
     globals.NormalFloat = { bg = "Normal|Folded" }
     globals.FloatTitle = { fg = "Title", bg = "Normal|Folded" }

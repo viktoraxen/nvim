@@ -122,7 +122,7 @@ return {
 
     local links = vim.tbl_extend("force", notifier_links, picker_input_links, snacks_input_links, {
       SnacksPickerToggle = "SnacksPickerInputTitle",
-      SnacksPickerPrompt = "NormalFloat",
+      SnacksPickerPrompt = "SnacksPickerInputTitle",
 
       SnacksPickerPreview = "DarkFloat",
       SnacksPickerPreviewBorder = "SnacksPickerPreview",
