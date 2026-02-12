@@ -12,7 +12,7 @@ return {
     enabled = true,
     only_current = false,
     char = "│",
-    only_scope = false,
+    only_scope = true,
   },
   scope = {
     enabled = true,
