@@ -9,6 +9,7 @@ return {
       "sidekick",
       "alpha",
       "tmux",
+      "codediff-explorer",
     }
 
     local function is_enabled_ft()
@@ -41,51 +42,6 @@ return {
         return env:match("[^" .. sep .. "]+$") or ""
       end
       return os.getenv("CONDA_DEFAULT_ENV") or ""
-    end
-
-    local function git_file_status()
-      local file = vim.fn.expand("%:p")
-      if file == "" or file:match("term://") then
-        return "" -- non-file buffer
-      end
-
-      local output = vim.fn.system({ "git", "status", "--porcelain", "--", file })
-      if vim.v.shell_error ~= 0 then
-        return "" -- not a git repo
-      end
-
-      output = output:gsub("%s+$", "")
-      if output == "" then
-        return " " -- committed
-      end
-
-      local x, y = output:sub(1, 1), output:sub(2, 2)
-
-      if x == "?" then
-        return " " -- untracked
-      end
-      if x == "!" then
-        return " " -- ignored
-      end
-      if x == "U" or y == "U" then
-        return " " -- conflict
-      end
-
-      local staged_icons = { A = " ", M = "󰜥 ", D = " ", R = "󰳞 " }
-      local staged = staged_icons[x]
-      local unstaged = (y == "M" or y == "D") and "" or nil
-
-      if staged and unstaged then
-        return staged .. " " .. unstaged -- staged + unstaged
-      end
-      if staged then
-        return staged -- staged
-      end
-      if unstaged then
-        return unstaged -- unstaged
-      end
-
-      return "" -- unknown
     end
 
     local filename_component = {
@@ -229,9 +185,13 @@ return {
       end
 
       require("highlights-nvim").add({
+        customizations = {
+          ["*"] = {
+            StatusLine = { fg = "Normal", bg = "Normal" },
+          },
+        },
         links = {
           ["*"] = {
-            StatusLine = "Normal",
             lualine_b_inactive = "lualine_b_normal",
             lualine_c_normal = "lualine_c_inactive",
             WinBar = "lualine_b_normal",

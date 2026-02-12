@@ -4,6 +4,7 @@ return {
   -- dev = true,
   -- "gitter-nvim",
   "viktoraxen/gitter-nvim",
+  enabled = false,
   dependencies = { "folke/snacks.nvim" },
   opts = {
     layout = layouts.adaptive_width(layouts.git_wide, layouts.narrow),
