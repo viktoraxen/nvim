@@ -53,7 +53,7 @@ return {
     require("highlights-nvim").add({
       links = {
         ["*"] = {
-          NeogitNormal = "NormalFloat",
+          NeogitNormal = "DarkFloat",
         },
       },
     })

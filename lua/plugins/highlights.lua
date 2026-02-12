@@ -60,6 +60,10 @@ return {
           PMenuSelect = "LightFloat",
           NormalNC = "Normal",
           NeoTreeCursorLine = "Folded",
+          LazyNormal = "DarkFloat",
+          MasonNormal = "DarkFloat",
+          DapUIFloatNormal = "DarkFloat",
+          DapUIFloatBorder = "DarkFloat",
         },
       },
     })
