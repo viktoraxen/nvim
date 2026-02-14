@@ -1,4 +1,4 @@
-vim.o.guifont = "FiraMono Nerd Font Propo:h12"
+vim.o.guifont = "UbuntuMono Nerd Font Propo:h14"
 vim.opt.linespace = 15
 
 vim.g.neovide_padding_left = 15
