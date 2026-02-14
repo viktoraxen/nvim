@@ -1,18 +1,18 @@
-vim.api.nvim_create_autocmd("WinLeave", {
-  desc = "Deactivate cursorline highight when leaving a window",
-  pattern = "*",
-  callback = function()
-    vim.wo.cursorline = false
-  end,
-})
+-- vim.api.nvim_create_autocmd("WinLeave", {
+--   desc = "Deactivate cursorline highight when leaving a window",
+--   pattern = "*",
+--   callback = function()
+--     vim.wo.cursorline = false
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd("WinEnter", {
-  desc = "Activate cursorline highight when entering a window",
-  pattern = "*",
-  callback = function()
-    vim.wo.cursorline = true
-  end,
-})
+-- vim.api.nvim_create_autocmd("WinEnter", {
+--   desc = "Activate cursorline highight when entering a window",
+--   pattern = "*",
+--   callback = function()
+--     vim.wo.cursorline = true
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("CursorMoved", {
   desc = "Clear status on cursor move.",

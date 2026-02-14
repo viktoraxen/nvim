@@ -27,7 +27,6 @@ return {
       globals[group] = no_underline
     end
 
-    globals.CursorLine = { bg = "Normal" }
     globals.LineNr = { bg = false }
     globals.SignColumn = { bg = false }
     globals.EndOfBuffer = { fg = "Normal", bg = false }
