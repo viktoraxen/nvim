@@ -51,6 +51,40 @@ return {
       return not matches_any(vim.bo.ft, disabled_winbar_fts)
     end
 
+    local rev_name_cache = {}
+
+    local function get_ref_name(rev, git_root)
+      if not git_root or not rev or #rev ~= 40 or not rev:match("^%x+$") then
+        return nil
+      end
+      if rev_name_cache[rev] then
+        return rev_name_cache[rev]
+      end
+      for _, ref in ipairs({ "HEAD", "HEAD~1", "HEAD~2", "HEAD~3" }) do
+        local hash = vim.trim(vim.fn.system({ "git", "-C", git_root, "rev-parse", ref }))
+        if vim.v.shell_error == 0 and #hash == 40 then
+          rev_name_cache[hash] = ref
+        end
+      end
+      return rev_name_cache[rev]
+    end
+
+    local function format_rev(rev, git_root)
+      if rev == nil or rev == "WORKING" then
+        return nil
+      elseif rev == ":0" then
+        return "Staged"
+      elseif rev == ":2" then
+        return "Current (ours)"
+      elseif rev == ":3" then
+        return "Incoming (theirs)"
+      elseif #rev == 40 and rev:match("^%x+$") then
+        return get_ref_name(rev, git_root) or rev:sub(1, 7)
+      else
+        return rev
+      end
+    end
+
     local function codediff_label()
       local ok, lifecycle = pcall(require, "codediff.ui.lifecycle")
       if not ok then
@@ -82,19 +116,11 @@ return {
         return ""
       end
 
-      if rev == nil or rev == "WORKING" then
-        return filename .. " — Current"
-      elseif rev == ":0" then
-        return filename .. " — Staged"
-      elseif rev == ":2" then
-        return filename .. " — Current (ours)"
-      elseif rev == ":3" then
-        return filename .. " — Incoming (theirs)"
-      elseif #rev == 40 and rev:match("^%x+$") then
-        return filename .. " at " .. rev:sub(1, 7)
-      else
-        return filename .. " at " .. rev
+      local ref_name = format_rev(rev, session.git_root)
+      if ref_name then
+        return filename .. " at " .. ref_name
       end
+      return filename .. " — Current"
     end
 
     local function filepath()
