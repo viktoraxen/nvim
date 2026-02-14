@@ -45,14 +45,8 @@ return {
     require("highlights-nvim").add({
       customizations = {
         ["*"] = globals,
-        catppuccin = {
-          Normal = { bg = "mantle" },
-          NormalFloat = { bg = "base" },
-          FloatTitle = { fg = "sky", bg = "base" },
-          LightFloat = { bg = "surface0|base" },
-          LightFloatTitle = { fg = "sky", bg = "surface0|base" },
-          DarkFloat = { bg = "mantle|crust" },
-          DarkFloatTitle = { fg = "sky", bg = "mantle|crust" },
+        yin = {
+          WinSeparator = { fg = "Normal|contrast|0.4" },
         },
       },
       links = {
