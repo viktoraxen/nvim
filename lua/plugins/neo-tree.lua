@@ -233,6 +233,7 @@ return {
 
           NeoTreeNormal = "Normal",
           NeoTreeNormalNC = "NeoTreeNormal",
+          NeoTreeCursorLine = "CursorLine",
         },
       },
     })
