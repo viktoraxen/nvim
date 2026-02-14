@@ -3,32 +3,52 @@ return {
   dependencies = { "nvim-mini/mini.nvim" },
   event = "VeryLazy",
   config = function()
-    local disabled_fts = {
+    local disabled_statusline_fts = {
+      "snacks_dashboard",
+    }
+
+    local disabled_winbar_fts = {
       "neo%-tree",
       "snacks",
       "sidekick",
       "snacks_dashboard",
       "tmux",
       "codediff-explorer",
+      "checkhealth",
+    }
+
+    local disabled_filetypes = {
+      "snacks",
+      "neo%-tree",
+      "codediff",
+      "sidekick",
     }
 
     local function is_codediff_win()
       return vim.w.codediff_restore == 1
     end
 
-    local function is_enabled_ft()
+    local function matches_any(ft, patterns)
+      for _, pat in ipairs(patterns) do
+        if ft:match(pat) then
+          return true
+        end
+      end
+      return false
+    end
+
+    local function is_enabled_filetype()
+      return not matches_any(vim.bo.ft, disabled_filetypes)
+    end
+
+    local function is_enabled_winbar()
       if vim.bo.buftype == "terminal" then
         return false
       end
       if is_codediff_win() then
         return false
       end
-      for _, ft in ipairs(disabled_fts) do
-        if vim.bo.ft:match(ft) then
-          return false
-        end
-      end
-      return true
+      return not matches_any(vim.bo.ft, disabled_winbar_fts)
     end
 
     local function codediff_label()
@@ -107,11 +127,11 @@ return {
       file_status = true,
       symbols = { modified = " ●", readonly = " 󰌾" },
       icon = "󰧮",
-      cond = is_enabled_ft,
+      cond = is_enabled_winbar,
       padding = padding,
     }
 
-    local filepath_component = { filepath, cond = is_enabled_ft, padding = padding }
+    local filepath_component = { filepath, cond = is_enabled_winbar, padding = padding }
 
     local codediff_component = {
       codediff_label,
@@ -125,7 +145,7 @@ return {
         icons_enabled = true,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
-        disabled_filetypes = { statusline = disabled_fts, winbar = disabled_fts },
+        disabled_filetypes = { statusline = disabled_statusline_fts, winbar = disabled_winbar_fts },
         ignore_focus = {},
         always_divide_middle = true,
         always_show_tabline = true,
@@ -190,7 +210,7 @@ return {
           { "searchcount", padding = padding },
           {
             "filetype",
-            cond = is_enabled_ft,
+            cond = is_enabled_filetype,
             colored = true,
             icon_only = true,
             padding = { left = padding, right = 1 },
@@ -200,7 +220,7 @@ return {
             function()
               return vim.bo.filetype
             end,
-            cond = is_enabled_ft,
+            cond = is_enabled_filetype,
             padding = { left = 0, right = padding },
           },
         },

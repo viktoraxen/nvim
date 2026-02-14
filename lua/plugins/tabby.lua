@@ -12,9 +12,20 @@ return {
       local project = vim.fn.fnamemodify(cwd, ":t")
 
       for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabid)) do
-        local name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+        local buf = vim.api.nvim_win_get_buf(win)
+        local name = vim.api.nvim_buf_get_name(buf)
         if name:match("^codediff://") then
-          return "  " .. project
+          return " " .. project
+        end
+        if vim.bo[buf].filetype == "checkhealth" then
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, 20, false)
+          for _, line in ipairs(lines) do
+            local module = line:match("^(.+) ~$")
+            if module then
+              return "󰓙  " .. module
+            end
+          end
+          return "󰓙  health"
         end
       end
 
@@ -33,14 +44,16 @@ return {
     require("highlights-nvim").add({
       customizations = {
         ["*"] = {
-          TabLineSel = { bg = "Normal", fg = "DiagnosticHint" },
           TabLine = { bg = "Normal", fg = "Conceal" },
         },
       },
     })
 
     vim.keymap.set("n", "<leader>tn", function()
-      Snacks.input({ prompt = "Tab name", win = { relative = "editor", row = math.floor(vim.o.lines / 2), col = math.floor((vim.o.columns - 40) / 2) } }, function(name)
+      Snacks.input({
+        prompt = "Tab name",
+        win = { relative = "editor", row = math.floor(vim.o.lines / 2), col = math.floor((vim.o.columns - 40) / 2) },
+      }, function(name)
         if name then
           require("tabby.feature.tab_name").set(0, name)
         end
