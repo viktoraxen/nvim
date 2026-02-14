@@ -19,6 +19,7 @@ map.l_group("g", "Git")
 map.l_group("l", "Language Server")
 map.l_group("p", "Peek")
 map.l_group("s", "Search")
+map.l_group("t", "Tab")
 
 -- Visual editing
 map.v("=", "=gv", "Auto-indent selection")
