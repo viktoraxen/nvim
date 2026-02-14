@@ -99,7 +99,6 @@ return {
     },
 
     hijack_ft_disabled = {
-      "alpha",
       "snacks_dashboard",
     },
   },

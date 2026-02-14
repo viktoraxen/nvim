@@ -1,5 +1,4 @@
 return {
-  event = "InsertEnter",
   "nvim-mini/mini.nvim",
   version = false,
   config = function()

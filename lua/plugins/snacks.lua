@@ -23,6 +23,13 @@ local lsp_pickers = {
 }
 
 local keys = {
+  {
+    "<leader>A",
+    function()
+      Snacks.dashboard()
+    end,
+    desc = "Dashboard",
+  },
   pick("<leader>f", "files", configs.vscode, "Search files"),
   pick("<leader>F", "files", configs.vscode_all, "Search files (All)"),
   pick("<leader>b", "buffers", configs.vscode, "Search buffers"),
@@ -86,6 +93,7 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
+    dashboard = require("plugins.snacks.dashboard"),
     bufdelete = { enabled = true },
     debug = { enabled = true },
     indent = require("plugins.snacks.indent"),

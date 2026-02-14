@@ -7,7 +7,7 @@ return {
       "neo%-tree",
       "snacks",
       "sidekick",
-      "alpha",
+      "snacks_dashboard",
       "tmux",
       "codediff-explorer",
     }
