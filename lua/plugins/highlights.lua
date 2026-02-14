@@ -10,6 +10,7 @@ return {
 
     local globals = {
       LineNr = { bg = false },
+      CursorLineNr = { bg = false },
       SignColumn = { bg = false },
       EndOfBuffer = { fg = "Normal", bg = false },
       WinSeparator = { bg = false },
