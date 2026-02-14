@@ -15,10 +15,10 @@ return {
       EndOfBuffer = { fg = "Normal", bg = false },
       WinSeparator = { bg = false },
 
-      NormalFloat = { bg = "Normal|Folded|0.8" },
-      FloatTitle = { fg = "Title", bg = "Normal|Folded|0.8" },
-      LightFloat = { bg = "Normal|Folded|0.6" },
-      LightFloatTitle = { fg = "Title", bg = "Normal|Folded|0.6" },
+      NormalFloat = { bg = "Normal|highlight|0.98" },
+      FloatTitle = { fg = "Title", bg = "NormalFloat" },
+      LightFloat = { bg = "Normal|highlight|0.95" },
+      LightFloatTitle = { fg = "Title", bg = "LightFloat" },
       DarkFloat = { bg = "Normal|contrast|0.9" },
       DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.9" },
     }
@@ -26,6 +26,7 @@ return {
     for _, level in ipairs({ "Ok", "Debug", "Hint", "Info", "Warn", "Error", "Unnecessary" }) do
       globals["Diagnostic" .. level] = no_italic
       globals["DiagnosticSign" .. level] = no_background
+      globals["DiagnosticVirtualText" .. level] = no_background
     end
 
     for _, group in ipairs({

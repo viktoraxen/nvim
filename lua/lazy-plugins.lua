@@ -3,7 +3,7 @@ require("lazy").setup({
   { import = "plugins.colorschemes" },
 }, {
   install = {
-    colorscheme = { "catppuccin" },
+    colorscheme = { "kanagawa" },
   },
   ui = {
     border = "solid",
