@@ -1,4 +1,4 @@
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme kanagawa")
 
 -- Don't use swapfile
 vim.opt.swapfile = false

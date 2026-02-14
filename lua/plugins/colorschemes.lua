@@ -1,6 +1,6 @@
 return {
-  { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
-  { "rebelot/kanagawa.nvim", lazy = true },
+  { "folke/tokyonight.nvim", lazy = true },
+  { "rebelot/kanagawa.nvim", lazy = false, priority = 1000 },
   { "EdenEast/nightfox.nvim", lazy = true },
   { "catppuccin/nvim", lazy = true },
   { "navarasu/onedark.nvim", lazy = true },
