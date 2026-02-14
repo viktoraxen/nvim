@@ -13,7 +13,6 @@ return {
       ["<c-j>"] = { "select_next" },
       ["<c-k>"] = { "select_prev" },
       ["<c-l>"] = { "select_and_accept" },
-      ["<c-o>"] = { "show_documentation" },
       ["<c-d>"] = { "scroll_documentation_down" },
       ["<c-u>"] = { "scroll_documentation_up" },
     },

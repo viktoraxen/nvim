@@ -41,7 +41,7 @@ return {
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
-      "<leader>aa",
+      "<leader>aA",
       function()
         require("sidekick.cli").toggle()
       end,
@@ -96,7 +96,7 @@ return {
     },
     -- Example of a keybinding to open Claude directly
     {
-      "<leader>ac",
+      "<leader>aa",
       function()
         require("sidekick.cli").toggle({ name = "claude", focus = true })
       end,

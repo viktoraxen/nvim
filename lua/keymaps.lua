@@ -51,6 +51,9 @@ map.n("gh", vim.diagnostic.open_float, "Show line diagnostics")
 map.n("gj", next_diag, "Next diagnostic")
 map.n("gk", prev_diag, "Previous diagnostic")
 
+-- Shorten description for this keybinding
+map.n("gX", "gX", "Open file")
+
 -- LSP keymaps
 map.n("K", vim.lsp.buf.hover, "Hover")
 
