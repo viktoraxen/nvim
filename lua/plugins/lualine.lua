@@ -12,8 +12,15 @@ return {
       "codediff-explorer",
     }
 
+    local function is_codediff_win()
+      return vim.w.codediff_restore == 1
+    end
+
     local function is_enabled_ft()
       if vim.bo.buftype == "terminal" then
+        return false
+      end
+      if is_codediff_win() then
         return false
       end
       for _, ft in ipairs(disabled_fts) do
@@ -22,6 +29,52 @@ return {
         end
       end
       return true
+    end
+
+    local function codediff_label()
+      local ok, lifecycle = pcall(require, "codediff.ui.lifecycle")
+      if not ok then
+        return ""
+      end
+
+      local bufnr = vim.api.nvim_get_current_buf()
+      local tabpage = lifecycle.find_tabpage_by_buffer(bufnr)
+      if not tabpage then
+        return ""
+      end
+
+      local session = lifecycle.get_session(tabpage)
+      if not session then
+        return ""
+      end
+
+      local filename, rev
+      if bufnr == session.original_bufnr then
+        filename = vim.fn.fnamemodify(session.original_path or "", ":t")
+        rev = session.original_revision
+      elseif bufnr == session.modified_bufnr then
+        filename = vim.fn.fnamemodify(session.modified_path or "", ":t")
+        rev = session.modified_revision
+      elseif session.result_bufnr and bufnr == session.result_bufnr then
+        filename = vim.fn.fnamemodify(session.modified_path or "", ":t")
+        return filename .. " — Merge result"
+      else
+        return ""
+      end
+
+      if rev == nil or rev == "WORKING" then
+        return filename .. " — Current"
+      elseif rev == ":0" then
+        return filename .. " — Staged"
+      elseif rev == ":2" then
+        return filename .. " — Current (ours)"
+      elseif rev == ":3" then
+        return filename .. " — Incoming (theirs)"
+      elseif #rev == 40 and rev:match("^%x+$") then
+        return filename .. " at " .. rev:sub(1, 7)
+      else
+        return filename .. " at " .. rev
+      end
     end
 
     local function filepath()
@@ -59,6 +112,13 @@ return {
     }
 
     local filepath_component = { filepath, cond = is_enabled_ft, padding = padding }
+
+    local codediff_component = {
+      codediff_label,
+      icon = "󰧮",
+      cond = is_codediff_win,
+      padding = padding,
+    }
 
     require("lualine").setup({
       options = {
@@ -158,11 +218,11 @@ return {
         lualine_z = {},
       },
       winbar = {
-        lualine_b = { filename_component },
+        lualine_b = { codediff_component, filename_component },
         lualine_c = { filepath_component },
       },
       inactive_winbar = {
-        lualine_b = { filename_component },
+        lualine_b = { codediff_component, filename_component },
         lualine_c = { filepath_component },
       },
     })

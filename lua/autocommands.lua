@@ -185,6 +185,20 @@ vim.api.nvim_create_autocmd("WinEnter", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
+  desc = "Refresh lualine winbar after codediff clears it",
+  callback = function()
+    if vim.w.codediff_restore ~= 1 then
+      return
+    end
+    vim.schedule(function()
+      pcall(function()
+        require("lualine").refresh({ place = { "winbar" } })
+      end)
+    end)
+  end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
   callback = function(event)
