@@ -23,6 +23,6 @@ return {
   keys = {
     { "<leader>ce", ":Copilot enable<cr>", desc = "Enable CoPilot" },
     { "<leader>cd", ":Copilot disable<cr>", desc = "Disable CoPilot" },
-    { "<leader>cp", ":Copilot toggle<cr>", desc = "Toggle CoPilot" },
+    { "<leader>cc", ":Copilot toggle<cr>", desc = "Toggle CoPilot" },
   },
 }
