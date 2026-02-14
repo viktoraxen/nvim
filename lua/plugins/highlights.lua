@@ -4,13 +4,27 @@ return {
   -- dev = true,
   event = "VeryLazy",
   config = function()
+    local no_background = { bg = false }
     local no_italic = { italic = false, cterm = { italic = false } }
     local no_underline = { underline = false, cterm = { underline = false } }
 
-    local globals = {}
+    local globals = {
+      LineNr = { bg = false },
+      SignColumn = { bg = false },
+      EndOfBuffer = { fg = "Normal", bg = false },
+      WinSeparator = { bg = false },
+
+      NormalFloat = { bg = "Normal|Folded|0.8" },
+      FloatTitle = { fg = "Title", bg = "Normal|Folded|0.8" },
+      LightFloat = { bg = "Normal|Folded|0.6" },
+      LightFloatTitle = { fg = "Title", bg = "Normal|Folded|0.6" },
+      DarkFloat = { bg = "Normal|contrast|0.9" },
+      DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.9" },
+    }
 
     for _, level in ipairs({ "Ok", "Debug", "Hint", "Info", "Warn", "Error", "Unnecessary" }) do
       globals["Diagnostic" .. level] = no_italic
+      globals["DiagnosticSign" .. level] = no_background
     end
 
     for _, group in ipairs({
@@ -26,18 +40,6 @@ return {
     }) do
       globals[group] = no_underline
     end
-
-    globals.LineNr = { bg = false }
-    globals.SignColumn = { bg = false }
-    globals.EndOfBuffer = { fg = "Normal", bg = false }
-    globals.WinSeparator = { bg = false }
-
-    globals.NormalFloat = { bg = "Normal|Folded|0.8" }
-    globals.FloatTitle = { fg = "Title", bg = "Normal|Folded|0.8" }
-    globals.LightFloat = { bg = "Normal|Folded|0.6" }
-    globals.LightFloatTitle = { fg = "Title", bg = "Normal|Folded|0.6" }
-    globals.DarkFloat = { bg = "Normal|contrast|0.9" }
-    globals.DarkFloatTitle = { fg = "Title", bg = "Normal|contrast|0.9" }
 
     require("highlights-nvim").add({
       customizations = {
