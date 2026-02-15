@@ -6,8 +6,9 @@ return {
         enabled = true,
       },
       win = {
-        layout = "right",
+        layout = "left",
         float = { width = 0.85, height = 0.85 },
+        split = { width = 0.5 },
       },
     },
     nes = {
