@@ -29,17 +29,8 @@ map.v("<", "<gv", "De-indent selection")
 
 -- Basic
 map.ln("q", "<cmd>q<cr>", "Close buffer")
+map.ln("Q", "<cmd>qa<cr>", "Close Neovim")
 map.ln("w", "<cmd>w<cr>", "Save buffer")
-
-local close_tab = function()
-  if vim.fn.tabpagenr("$") > 1 then
-    vim.cmd.tabclose()
-  else
-    vim.cmd.qa()
-  end
-end
-
-map.ln("Q", close_tab, "Close tab")
 
 local function prev_diag()
   vim.diagnostic.jump({ count = -1 })
@@ -141,3 +132,26 @@ map.l_group("n", "Line Numbers")
 
 map.ln("nn", "<cmd>set invnumber<cr>", "Toggle line numbers")
 map.ln("nr", "<cmd>set invrelativenumber<cr>", "Toggle relative line numbers")
+
+local function rename_tab()
+  Snacks.input({
+    prompt = "Tab name",
+    win = { relative = "editor", row = math.floor(vim.o.lines / 2), col = math.floor((vim.o.columns - 40) / 2) },
+  }, function(name)
+    if name then
+      require("tabby.feature.tab_name").set(0, name)
+    end
+  end)
+end
+
+local close_tab = function()
+  if vim.fn.tabpagenr("$") > 1 then
+    vim.cmd.tabclose()
+  else
+    vim.cmd.qa()
+  end
+end
+
+map.ln("tt", "<cmd>tabnew<cr>", "Create")
+map.ln("tn", rename_tab, "Rename tab")
+map.ln("tq", close_tab, "Close tab")
