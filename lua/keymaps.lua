@@ -49,6 +49,15 @@ map.n("gk", prev_diag, "Previous diagnostic")
 map.n("gX", "gX", "Open file")
 
 -- LSP keymaps
+local orig_signature_help = vim.lsp.handlers["textDocument/signatureHelp"]
+vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+  local bufnr, winnr = orig_signature_help(err, result, ctx, config)
+  if winnr and vim.api.nvim_win_is_valid(winnr) then
+    vim.wo[winnr].winhighlight = "Normal:LightFloat,FloatBorder:LightFloat"
+  end
+  return bufnr, winnr
+end
+
 map.n("K", vim.lsp.buf.hover, "Hover")
 
 map.group("g", "Go to")
