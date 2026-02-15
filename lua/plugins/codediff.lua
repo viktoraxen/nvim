@@ -3,14 +3,16 @@ return {
   cmd = { "CodeDiff" },
   keys = {
     { "<leader>gg", ":CodeDiff<cr>", desc = "Git" },
-    { "<leader>gd", ":CodeDiff file HEAD<cr>", desc = "Diff" },
-    { "<leader>gD", ":CodeDiff file HEAD~1<cr>", desc = "Diff HEAD~1" },
+    { "<leader>gdf", ":CodeDiff file HEAD<cr>", desc = "File - HEAD" },
+    { "<leader>gdh", ":CodeDiff history<cr>", desc = "History" },
+    { "<leader>gdh", ":CodeDiff history --base WORKING<cr>", desc = "History - WORKING" },
   },
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {
     explorer = {
       position = "right",
       view_mode = "tree",
+      width = 33,
     },
     keymaps = {
       view = {
