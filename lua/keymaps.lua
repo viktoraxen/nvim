@@ -28,6 +28,7 @@ map.v(">", ">gv", "Indent selection")
 map.v("<", "<gv", "De-indent selection")
 
 -- Basic
+map.n("<c-q>", "<cmd>q<cr>", "Close buffer")
 map.ln("q", "<cmd>q<cr>", "Close buffer")
 map.ln("Q", "<cmd>qa<cr>", "Close Neovim")
 map.ln("w", "<cmd>w<cr>", "Save buffer")
