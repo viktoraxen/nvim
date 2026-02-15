@@ -1,3 +1,5 @@
+local border = require("config").border
+
 local M = {}
 
 M.vscode = {
@@ -13,19 +15,19 @@ M.vscode = {
       win = "preview",
       title = "{preview}",
       height = 0.5,
-      border = "solid",
+      border = border,
     },
     {
       box = "vertical",
       {
         win = "input",
         height = 1,
-        border = "solid",
+        border = border,
         title = "{title} {live} {flags}",
       },
       {
         win = "list",
-        border = "solid",
+        border = border,
       },
     },
   },
@@ -54,15 +56,15 @@ M.wide = {
       {
         win = "input",
         height = 1,
-        border = "solid",
+        border = border,
         title = "{title} {live} {flags}",
       },
-      { win = "list", border = "solid" },
+      { win = "list", border = border },
     },
     {
       win = "preview",
       title = "{preview}",
-      border = "solid",
+      border = border,
       width = 0.55,
     },
   },
@@ -78,19 +80,19 @@ M.narrow = {
       win = "preview",
       title = "{preview}",
       height = 0.65,
-      border = "solid",
+      border = border,
     },
     {
       box = "vertical",
       {
         win = "input",
         height = 1,
-        border = "solid",
+        border = border,
         title = "{title} {live} {flags}",
       },
       {
         win = "list",
-        border = "solid",
+        border = border,
       },
     },
   },
@@ -108,15 +110,15 @@ M.git_wide = {
       {
         win = "input",
         height = 1,
-        border = "solid",
+        border = border,
         title = "{title} {live} {flags}",
       },
-      { win = "list", border = "solid" },
+      { win = "list", border = border },
     },
     {
       win = "preview",
       title = "{preview}",
-      border = "solid",
+      border = border,
       width = 0.65,
     },
   },

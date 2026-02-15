@@ -1,6 +1,6 @@
 return {
   notification = {
-    border = "solid",
+    border = require("config").border,
     wo = {
       wrap = true,
       winblend = 0,

@@ -19,7 +19,9 @@ return {
 
     "folke/snacks.nvim",
   },
-  opts = {
+  opts = function()
+    local border = require("config").border
+    return {
     graph_style = "unicode",
     kind = "floating",
     integrations = {
@@ -30,7 +32,7 @@ return {
       width = 0.85,
       height = 0.85,
       style = "minimal",
-      border = "solid",
+      border = border,
     },
     signs = {
       hunk = { "", "" },
@@ -48,8 +50,10 @@ return {
     popup = { kind = "floating" },
     stash = { kind = "floating" },
     refs_view = { kind = "floating" },
-  },
+  }
+  end,
   config = function(_, opts)
+    local border = require("config").border
     require("neogit").setup(opts)
     require("highlights-nvim").add({
       links = {
@@ -85,7 +89,7 @@ return {
         height = height,
         row = row,
         col = col,
-        border = "solid",
+        border = border,
       })
 
       vim.wo[win].winhighlight = "Normal:DarkFloat,NormalFloat:DarkFloat,FloatBorder:DarkFloat,Folded:DarkFloat"

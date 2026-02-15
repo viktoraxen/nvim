@@ -1,3 +1,5 @@
+local config = require("config")
+
 vim.cmd("colorscheme kanagawa")
 
 -- Don't use swapfile
@@ -79,7 +81,7 @@ vim.opt.tabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 5
-vim.opt.winborder = "solid"
+vim.opt.winborder = config.border
 vim.opt.pumblend = 5
 vim.opt.pumheight = 10
 
@@ -87,28 +89,23 @@ vim.ui.open = function(url)
   vim.fn.jobstart({ "explorer.exe", url }, { detach = true })
 end
 
-local diagnostic_icons = {
-  error = " ",
-  warn = " ",
-  info = " ",
-  hint = " ",
-}
+local di = config.icons.diagnostics
 
 local function get_diagnostic_icon(diagnostic, _, _)
   local icons_hls = {
-    [vim.diagnostic.severity.ERROR] = { diagnostic_icons.error, "DiagnosticError" },
-    [vim.diagnostic.severity.WARN] = { diagnostic_icons.warn, "DiagnosticWarn" },
-    [vim.diagnostic.severity.INFO] = { diagnostic_icons.info, "DiagnosticInfo" },
-    [vim.diagnostic.severity.HINT] = { diagnostic_icons.hint, "DiagnosticHint" },
+    [vim.diagnostic.severity.ERROR] = { di.error .. " ", "DiagnosticError" },
+    [vim.diagnostic.severity.WARN] = { di.warn .. " ", "DiagnosticWarn" },
+    [vim.diagnostic.severity.INFO] = { di.info .. " ", "DiagnosticInfo" },
+    [vim.diagnostic.severity.HINT] = { di.hint .. " ", "DiagnosticHint" },
   }
   local icon, hl = unpack(icons_hls[diagnostic.severity] or { " ", "" })
   return icon .. " ", hl
 end
 
-vim.fn.sign_define("DiagnosticSignError", { text = diagnostic_icons.error, texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = diagnostic_icons.warn, texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = diagnostic_icons.info, texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = diagnostic_icons.hint, texthl = "DiagnosticSignHint" })
+vim.fn.sign_define("DiagnosticSignError", { text = di.error .. " ", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = di.warn .. " ", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = di.info .. " ", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = di.hint .. " ", texthl = "DiagnosticSignHint" })
 
 vim.diagnostic.config({
   underline = true,

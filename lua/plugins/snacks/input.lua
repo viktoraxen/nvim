@@ -6,7 +6,7 @@ return {
   prompt_pos = "title",
   win = {
     backdrop = false,
-    border = "solid",
+    border = require("config").border,
     title_pos = "center",
     height = 1,
     width = 40,

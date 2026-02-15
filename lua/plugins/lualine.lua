@@ -3,6 +3,8 @@ return {
   dependencies = { "nvim-mini/mini.nvim" },
   event = "VeryLazy",
   config = function()
+    local di = require("config").icons.diagnostics
+
     local disabled_statusline_fts = {
       "snacks_dashboard",
     }
@@ -220,10 +222,10 @@ return {
             "diagnostics",
             padding = { left = 1, right = padding },
             symbols = {
-              error = "  ",
-              warn = "  ",
-              info = "  ",
-              hint = "  ",
+              error = " " .. di.error .. " ",
+              warn = " " .. di.warn .. " ",
+              info = " " .. di.info .. " ",
+              hint = " " .. di.hint .. " ",
             },
             update_in_insert = true,
           },

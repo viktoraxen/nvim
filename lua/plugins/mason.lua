@@ -22,7 +22,7 @@ return {
     },
     ui = {
       check_outdated_packages_on_open = true,
-      border = "solid",
+      border = require("config").border,
       backdrop = 100,
 
       width = 0.85,

@@ -28,7 +28,7 @@ return {
         include_surrounding_whitespace = true,
         lsp_interop = {
           enable = true,
-          border = "solid",
+          border = require("config").border,
           floating_preview_opts = {
             max_height = 22,
           },

@@ -23,7 +23,7 @@ return {
       documentation = {
         auto_show = false,
         window = {
-          border = "solid",
+          border = require("config").border,
           winblend = 5,
         },
       },

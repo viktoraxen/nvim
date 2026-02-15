@@ -37,6 +37,9 @@ return {
     { "<leader>E", neo_tree_solid, desc = "Neotree (Persistent)" },
   },
   config = function()
+    local config = require("config")
+    local di = config.icons.diagnostics
+
     vim.api.nvim_create_autocmd("FileType", {
       desc = "Disable fillchars for NeoTree",
       pattern = "neo-tree",
@@ -52,7 +55,7 @@ return {
 
     require("neo-tree").setup({
       use_popups_for_input = false,
-      popup_border_style = "solid",
+      popup_border_style = config.border,
       event_handlers = {
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
@@ -123,10 +126,10 @@ return {
       default_component_configs = {
         diagnostics = {
           symbols = {
-            hint = "",
-            info = "",
-            warn = "",
-            error = "",
+            hint = di.hint,
+            info = di.info,
+            warn = di.warn,
+            error = di.error,
           },
           highlights = {
             hint = "DiagnosticSignHint",

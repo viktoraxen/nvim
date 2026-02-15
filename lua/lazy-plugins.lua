@@ -1,3 +1,5 @@
+local config = require("config")
+
 require("lazy").setup({
   { import = "plugins" },
   { import = "plugins.colorschemes" },
@@ -6,7 +8,7 @@ require("lazy").setup({
     colorscheme = { "kanagawa" },
   },
   ui = {
-    border = "solid",
+    border = config.border,
     backdrop = 100,
     size = { width = 0.85, height = 0.8 },
   },
