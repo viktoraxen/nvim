@@ -141,8 +141,28 @@ end, "Move window to top")
 -- Line numbers
 map.l_group("n", "Line Numbers")
 
-map.ln("nn", "<cmd>set invnumber<cr>", "Toggle line numbers")
-map.ln("nr", "<cmd>set invrelativenumber<cr>", "Toggle relative line numbers")
+local function sync_gitsigns_to_numcol()
+  local has_nums = vim.o.number or vim.o.relativenumber
+  local gs = require("gitsigns")
+  if has_nums then
+    vim.o.signcolumn = "no"
+    gs.toggle_signs(false)
+    gs.toggle_numhl(true)
+  else
+    gs.toggle_numhl(false)
+    gs.toggle_signs(true)
+    vim.o.signcolumn = "yes:1"
+  end
+end
+
+map.ln("nn", function()
+  vim.o.number = not vim.o.number
+  sync_gitsigns_to_numcol()
+end, "Toggle line numbers")
+map.ln("nr", function()
+  vim.o.relativenumber = not vim.o.relativenumber
+  sync_gitsigns_to_numcol()
+end, "Toggle relative line numbers")
 
 local function rename_tab()
   Snacks.input({

@@ -12,6 +12,22 @@ return {
   config = function(_, opts)
     require("gitsigns").setup(opts)
 
+    -- Override gitsigns' number_hl_group on the cursor line with CursorLineNr
+    local ns = vim.api.nvim_create_namespace("gitsigns_cursorline_nr")
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      callback = function()
+        local buf = vim.api.nvim_get_current_buf()
+        vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+        if vim.wo.number or vim.wo.relativenumber then
+          local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+          vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
+            number_hl_group = "CursorLineNr",
+            priority = 200,
+          })
+        end
+      end,
+    })
+
     require("highlights-nvim").add({
       customizations = {
         ["*"] = {
