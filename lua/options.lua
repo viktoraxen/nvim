@@ -42,6 +42,9 @@ vim.opt.smartcase = true
 -- Keep signcolumn off by default
 vim.opt.signcolumn = "no"
 
+-- Show tabline even with only one tab open
+vim.opt.showtabline = 2
+
 -- Decrease update time
 vim.opt.updatetime = 250
 

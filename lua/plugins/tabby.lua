@@ -15,7 +15,7 @@ return {
         local buf = vim.api.nvim_win_get_buf(win)
         local name = vim.api.nvim_buf_get_name(buf)
         if name:match("^codediff://") then
-          return " " .. project
+          return "  " .. project
         end
         if vim.bo[buf].filetype == "checkhealth" then
           local lines = vim.api.nvim_buf_get_lines(buf, 0, 20, false)
@@ -29,7 +29,7 @@ return {
         end
       end
 
-      return project
+      return "  " .. project
     end
 
     local theme = {

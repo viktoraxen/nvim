@@ -11,6 +11,32 @@ return {
   layouts = {
     select = layouts.vscode,
   },
+  actions = {
+    open_in_new_tab = function(picker)
+      local item = picker:selected({ fallback = true })[1]
+
+      if not item then
+        return
+      end
+
+      picker:close()
+      vim.cmd("tabnew")
+      vim.cmd.tcd(Snacks.picker.util.dir(item))
+
+      Snacks.picker.files()
+    end,
+  },
+  sources = {
+    projects = {
+      win = {
+        input = {
+          keys = {
+            ["<c-t>"] = { "open_in_new_tab", mode = { "n", "i" }, desc = "Open in new tab" },
+          },
+        },
+      },
+    },
+  },
   previewers = {
     diff = {
       style = "terminal", ---@type "fancy"|"syntax"|"terminal"
