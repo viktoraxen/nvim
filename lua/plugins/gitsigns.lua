@@ -1,12 +1,13 @@
 return {
   "lewis6991/gitsigns.nvim",
+  event = "BufEnter",
   keys = {
-    { "<leader>ghh", "<cmd>Gitsigns preview_hunk_inline", desc = "Preview" },
-    { "<leader>ghs", "<cmd>Gitsigns stage_hunk", desc = "Stage" },
-    { "<leader>ghr", "<cmd>Gitsigns reset_hunk", desc = "Reset" },
-    { "<leader>gj", "<cmd>Gitsigns nav_hunk next", desc = "Next hunk" },
-    { "<leader>gk", "<cmd>Gitsigns nav_hunk prev", desc = "Previous hunk" },
-    { "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame", desc = "Toggle blame Hunk" },
+    { "<leader>ghh", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview" },
+    { "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage" },
+    { "<leader>ghr", "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset" },
+    { "<leader>gj", "<cmd>Gitsigns nav_hunk next<cr>", desc = "Next hunk" },
+    { "<leader>gk", "<cmd>Gitsigns nav_hunk prev<cr>", desc = "Previous hunk" },
+    { "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle blame" },
   },
   config = function(_, opts)
     require("gitsigns").setup(opts)
@@ -17,6 +18,13 @@ return {
           GitSignsAdd = { bg = false },
           GitSignsChange = { bg = false },
           GitSignsDelete = { bg = false },
+        },
+      },
+      links = {
+        ["*"] = {
+          GitSignsStagedChange = "GitSignsChange",
+          GitSignsStagedAdd = "GitSignsAdd",
+          GitSignsStagedDelete = "GitSignsDelete",
         },
       },
     })
@@ -31,8 +39,8 @@ return {
       untracked = { text = "┆" },
     },
     signs_staged = {
-      add = { text = "│" },
-      change = { text = "│" },
+      add = { text = "┃" },
+      change = { text = "┃" },
       delete = { text = "_" },
       topdelete = { text = "‾" },
       changedelete = { text = "~" },
