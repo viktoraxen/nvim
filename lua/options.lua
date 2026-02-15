@@ -42,7 +42,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn off by default
-vim.opt.signcolumn = "no"
+vim.opt.signcolumn = "yes"
 
 -- Show tabline even with only one tab open
 vim.opt.showtabline = 2
