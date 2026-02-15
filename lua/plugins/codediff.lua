@@ -2,10 +2,10 @@ return {
   "esmuellert/codediff.nvim",
   cmd = { "CodeDiff" },
   keys = {
-    { "<leader>gg", ":CodeDiff<cr>", desc = "Git" },
+    { "<leader>gg", ":CodeDiff<cr>", desc = "CodeDiff" },
     { "<leader>gdf", ":CodeDiff file HEAD<cr>", desc = "File - HEAD" },
     { "<leader>gdh", ":CodeDiff history<cr>", desc = "History" },
-    { "<leader>gdh", ":CodeDiff history --base WORKING<cr>", desc = "History - WORKING" },
+    { "<leader>gdH", ":CodeDiff history --base WORKING<cr>", desc = "History - WORKING" },
   },
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {

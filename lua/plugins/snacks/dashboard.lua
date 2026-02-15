@@ -9,10 +9,8 @@ return {
   enabled = true,
   wo = { winblend = 0 },
   sections = {
-    { padding = 2 },
-    {
-      section = "header",
-    },
+    { padding = 1 },
+    { section = "header" },
     { section = "keys", padding = 1 },
     { section = "startup" },
   },
@@ -23,19 +21,28 @@ return {
         icon = " ",
         key = "f",
         desc = "Find files",
-        padding = 1,
         action = function()
           Snacks.picker.files()
         end,
+        padding = 1,
       },
       {
         icon = " ",
         key = "p",
         desc = "Projects",
-        padding = 1,
         action = function()
           Snacks.picker.projects(configs.vscode)
         end,
+        padding = 1,
+      },
+      {
+        icon = " ",
+        key = "r",
+        desc = "Restore session",
+        action = function()
+          require("persistence").load({ last = true })
+        end,
+        padding = 1,
       },
       { icon = " ", key = "l", desc = "Plugins", action = ":Lazy", padding = 1 },
       { icon = " ", key = "m", desc = "Mason", action = ":Mason", padding = 1 },
