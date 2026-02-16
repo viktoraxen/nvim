@@ -12,6 +12,9 @@ require("options")
 
 require("keymaps")
 
+vim.lsp.enable({ "luals", "clangd", "pyright", "typescript" })
+vim.lsp.inlay_hint.enable()
+
 vim.api.nvim_create_autocmd("UIEnter", {
   desc = "Launch Neovide configuration",
   pattern = "*",

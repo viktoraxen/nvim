@@ -15,7 +15,7 @@ return {
         import_dot_hl = "@comment",
         preserve_type_when_truncate = true,
       },
-      basedpyright = {
+      pyright = {
         extra_info_hl = "@comment",
       },
       fallback = true,
