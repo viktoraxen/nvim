@@ -1,6 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "BufEnter",
+  event = "BufReadPost",
   keys = {
     { "<leader>ghh", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview" },
     { "<leader>ghs", "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage" },
@@ -12,12 +12,17 @@ return {
   config = function(_, opts)
     -- Override gitsigns' number_hl_group on the cursor line with CursorLineNr
     local ns = vim.api.nvim_create_namespace("gitsigns_cursorline_nr")
+    local last_buf, last_row = -1, -1
     vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
       callback = function()
         local buf = vim.api.nvim_get_current_buf()
+        local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+        if buf == last_buf and row == last_row then
+          return
+        end
+        last_buf, last_row = buf, row
         vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
         if vim.wo.number or vim.wo.relativenumber then
-          local row = vim.api.nvim_win_get_cursor(0)[1] - 1
           vim.api.nvim_buf_set_extmark(buf, ns, row, 0, {
             number_hl_group = "CursorLineNr",
             priority = 200,
