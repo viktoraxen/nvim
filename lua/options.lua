@@ -80,7 +80,6 @@ vim.opt.tabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 5
--- vim.opt.winborder = config.border
 vim.opt.winborder = "none"
 vim.opt.pumblend = 5
 vim.opt.pumheight = 10
@@ -110,7 +109,7 @@ vim.fn.sign_define("DiagnosticSignHint", { text = di.hint .. " ", texthl = "Diag
 vim.diagnostic.config({
   underline = true,
   signs = false,
-  update_in_insert = true,
+  update_in_insert = false,
   virtual_text = false,
   severity_sort = true,
   float = {

@@ -2,7 +2,6 @@ local config = require("config")
 
 require("lazy").setup({
   { import = "plugins" },
-  { import = "plugins.colorschemes" },
 }, {
   install = {
     colorscheme = { "kanagawa" },
