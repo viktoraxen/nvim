@@ -1,6 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
-  keys = { "w", "e", "b", "W", "E", "B" },
+  event = "VeryLazy",
   config = function()
     local map = require("utils.keymap")
 
