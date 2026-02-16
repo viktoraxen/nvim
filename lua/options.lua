@@ -80,7 +80,7 @@ vim.opt.tabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 5
-vim.opt.winborder = "none"
+vim.opt.winborder = config.border
 vim.opt.pumblend = 5
 vim.opt.pumheight = 10
 
