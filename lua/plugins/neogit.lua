@@ -22,35 +22,35 @@ return {
   opts = function()
     local border = require("config").border
     return {
-    graph_style = "unicode",
-    kind = "floating",
-    integrations = {
-      snacks = false,
-    },
-    floating = {
-      relative = "editor",
-      width = 0.85,
-      height = 0.85,
-      style = "minimal",
-      border = border,
-    },
-    signs = {
-      hunk = { "", "" },
-      item = { "", "" },
-      section = { "", "" },
-    },
-    commit_editor = { kind = "floating" },
-    log_view = { kind = "floating" },
-    commit_select_view = { kind = "floating" },
-    commit_view = { kind = "floating" },
-    rebase_editor = { kind = "floating" },
-    reflog_view = { kind = "floating" },
-    merge_editor = { kind = "floating" },
-    preview_buffer = { kind = "floating_console" },
-    popup = { kind = "floating" },
-    stash = { kind = "floating" },
-    refs_view = { kind = "floating" },
-  }
+      graph_style = "unicode",
+      kind = "floating",
+      integrations = {
+        snacks = false,
+      },
+      floating = {
+        relative = "editor",
+        width = 0.85,
+        height = 0.85,
+        style = "minimal",
+        border = border,
+      },
+      signs = {
+        hunk = { "", "" },
+        item = { "", "" },
+        section = { "", "" },
+      },
+      commit_editor = { kind = "floating" },
+      log_view = { kind = "floating" },
+      commit_select_view = { kind = "floating" },
+      commit_view = { kind = "floating" },
+      rebase_editor = { kind = "floating" },
+      reflog_view = { kind = "floating" },
+      merge_editor = { kind = "floating" },
+      preview_buffer = { kind = "floating" },
+      popup = { kind = "floating" },
+      stash = { kind = "floating" },
+      refs_view = { kind = "floating" },
+    }
   end,
   config = function(_, opts)
     local border = require("config").border
@@ -104,6 +104,14 @@ return {
             center_float(win, vim.api.nvim_win_get_buf(win))
           end)
         end)
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "NeogitConsole",
+      callback = function()
+        local win = vim.api.nvim_get_current_win()
+        vim.wo[win].winhighlight = "Normal:DarkFloat,NormalFloat:DarkFloat,FloatBorder:DarkFloat,Folded:DarkFloat"
       end,
     })
 
