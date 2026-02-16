@@ -6,5 +6,6 @@ return {
       icons = { rules = false },
       delay = 500,
     })
+    require("utils.keymap")._flush_groups()
   end,
 }

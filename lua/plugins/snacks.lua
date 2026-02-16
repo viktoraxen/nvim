@@ -91,23 +91,25 @@ return {
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
-  opts = {
-    bigfile = { enabled = true },
-    dashboard = require("plugins.snacks.dashboard"),
-    bufdelete = { enabled = true },
-    debug = { enabled = true },
-    indent = require("plugins.snacks.indent"),
-    input = require("plugins.snacks.input"),
-    notifier = require("plugins.snacks.notifier"),
-    picker = require("plugins.snacks.picker"),
-    quickfile = { enabled = true },
-    rename = { enabled = true },
-    scope = { enabled = true },
-    scroll = require("plugins.snacks.scroll"),
-    terminal = require("plugins.snacks.terminal"),
-    words = { enabled = true },
-    styles = require("plugins.snacks.styles"),
-  },
+  opts = function()
+    return {
+      bigfile = { enabled = true },
+      dashboard = require("plugins.snacks.dashboard"),
+      bufdelete = { enabled = true },
+      debug = { enabled = true },
+      indent = require("plugins.snacks.indent"),
+      input = require("plugins.snacks.input"),
+      notifier = require("plugins.snacks.notifier"),
+      picker = require("plugins.snacks.picker"),
+      quickfile = { enabled = true },
+      rename = { enabled = true },
+      scope = { enabled = true },
+      scroll = require("plugins.snacks.scroll"),
+      terminal = require("plugins.snacks.terminal"),
+      words = { enabled = true },
+      styles = require("plugins.snacks.styles"),
+    }
+  end,
   keys = keys,
   init = function()
     local picker_input_links = {
@@ -142,24 +144,24 @@ return {
       SnacksPickerListCursorLine = "LightFloat",
     })
 
-    require("highlights-nvim").add({
-      customizations = {
-        ["*"] = {
-          SnacksPickerGitStatusStaged = { italic = false },
-          SnacksPickerGitStatusModified = { italic = false },
-          SnacksIndent = { bg = false },
-          SnacksInputIcon = { fg = "FloatTitle", bg = "LightFloat" },
-        },
-        catppuccin = {
-          SnacksIndent = { fg = "surface0" },
-        },
-      },
-      links = { ["*"] = links },
-    })
-
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
+        require("highlights-nvim").add({
+          customizations = {
+            ["*"] = {
+              SnacksPickerGitStatusStaged = { italic = false },
+              SnacksPickerGitStatusModified = { italic = false },
+              SnacksIndent = { bg = false },
+              SnacksInputIcon = { fg = "FloatTitle", bg = "LightFloat" },
+            },
+            catppuccin = {
+              SnacksIndent = { fg = "surface0" },
+            },
+          },
+          links = { ["*"] = links },
+        })
+
         _G.dd = function(...)
           Snacks.debug.inspect(...)
         end

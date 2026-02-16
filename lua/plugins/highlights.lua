@@ -1,7 +1,7 @@
 return {
-  "viktoraxen/highlights-nvim",
-  -- "highlights-nvim",
-  -- dev = true,
+  -- "viktoraxen/highlights-nvim",
+  "highlights-nvim",
+  dev = true,
   event = "VeryLazy",
   config = function()
     local no_background = { bg = false }
@@ -53,8 +53,8 @@ return {
       links = {
         ["*"] = {
           FloatBorder = "NormalFloat",
-          PMenu = "NormalFloat",
-          PMenuSelect = "LightFloat",
+          PMenu = "DarkFloat",
+          PMenuSelect = "NormalFloat",
           NormalNC = "Normal",
           NeoTreeCursorLine = "Folded",
           LazyNormal = "DarkFloat",

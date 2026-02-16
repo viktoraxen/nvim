@@ -1,7 +1,8 @@
 return {
   "rachartier/tiny-glimmer.nvim",
-  event = "VeryLazy",
-  priority = 10,
+  -- event = "VeryLazy",
+  keys = { "y" },
+  -- priority = 10,
   opts = {
     overwrite = {
       yank = {

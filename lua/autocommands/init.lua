@@ -1,19 +1,3 @@
-vim.api.nvim_create_autocmd("WinLeave", {
-  desc = "Deactivate cursorline highight when leaving a window",
-  pattern = "*",
-  callback = function()
-    vim.wo.cursorline = false
-  end,
-})
-
-vim.api.nvim_create_autocmd("WinEnter", {
-  desc = "Activate cursorline highight when entering a window",
-  pattern = "*",
-  callback = function()
-    vim.wo.cursorline = true
-  end,
-})
-
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   desc = "Remove trailing whitespace on save",
   pattern = { "*" },
@@ -79,25 +63,22 @@ vim.api.nvim_create_autocmd("BufRead", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
+local cmdline_timer
+
+vim.api.nvim_create_autocmd("CursorHold", {
   desc = "Clear commandline after a delay.",
   callback = function()
-    vim.fn.timer_start(3000, function()
+    if cmdline_timer then
+      vim.fn.timer_stop(cmdline_timer)
+    end
+
+    cmdline_timer = vim.fn.timer_start(3000, function()
       vim.schedule(function()
         if vim.api.nvim_get_mode().mode == "n" then
           vim.cmd("echo ''")
         end
       end)
     end)
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
-  desc = "Corrects terminal background color according to colorscheme",
-  callback = function()
-    if vim.api.nvim_get_hl(0, { name = "Normal" }).bg then
-      io.write(string.format("\027]11;#%06x\027\\", vim.api.nvim_get_hl(0, { name = "Normal" }).bg))
-    end
   end,
 })
 

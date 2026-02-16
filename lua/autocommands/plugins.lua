@@ -1,8 +1,6 @@
 local cursor_hidden = false
 local hide_cursor_fts = { ["neo-tree"] = true, ["snacks_picker_list"] = true, ["NeogitPopup"] = true }
 
-vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
-
 local function hide_cursor()
   cursor_hidden = true
   vim.o.guicursor = "a:HiddenCursor/HiddenCursor"
@@ -14,21 +12,31 @@ local function show_cursor()
 end
 
 vim.api.nvim_create_autocmd({ "WinEnter", "FileType" }, {
-  desc = "Hide cursor in tree/picker list, show elsewhere",
+  desc = "Combined WinEnter: cursor visibility, indent guides",
   callback = function()
     if hide_cursor_fts[vim.bo.filetype] then
       hide_cursor()
     elseif cursor_hidden then
       show_cursor()
     end
+
+    local whl = vim.wo.winhighlight
+    whl = whl:gsub(",?SnacksIndent[^,]*Hidden", ""):gsub("^,", "")
+    vim.wo.winhighlight = whl
   end,
 })
 
 vim.api.nvim_create_autocmd("WinLeave", {
-  desc = "Restore cursor when leaving tree/picker list",
+  desc = "Combined WinLeave: cursor restore, indent guides",
   callback = function()
     if hide_cursor_fts[vim.bo.filetype] then
       show_cursor()
+    end
+
+    local whl = vim.wo.winhighlight
+    local hide = "SnacksIndent:SnacksIndentHidden,SnacksIndentScope:SnacksIndentHidden"
+    if not whl:find("SnacksIndentHidden") then
+      vim.wo.winhighlight = whl == "" and hide or (whl .. "," .. hide)
     end
   end,
 })
@@ -43,41 +51,14 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
-  desc = "Re-create HiddenCursor highlight after colorscheme change",
-  callback = function()
-    vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
-  desc = "Setup hidden indent guide highlight matching Normal background",
+  desc = "Colorscheme-dependent highlights and terminal sync",
   callback = function()
     local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
     if bg then
+      io.write(string.format("\027]11;#%06x\027\\", bg))
       vim.api.nvim_set_hl(0, "SnacksIndentHidden", { fg = bg, nocombine = true })
     end
-  end,
-})
-
-vim.api.nvim_create_autocmd("WinLeave", {
-  desc = "Hide snacks indent guides in inactive windows",
-  callback = function()
-    local whl = vim.wo.winhighlight
-    local hide = "SnacksIndent:SnacksIndentHidden,SnacksIndentScope:SnacksIndentHidden"
-    if not whl:find("SnacksIndentHidden") then
-      vim.wo.winhighlight = whl == "" and hide or (whl .. "," .. hide)
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("WinEnter", {
-  desc = "Show snacks indent guides in active window",
-  callback = function()
-    local whl = vim.wo.winhighlight
-    whl = whl:gsub(",?SnacksIndent:SnacksIndentHidden", "")
-    whl = whl:gsub(",?SnacksIndentScope:SnacksIndentHidden", "")
-    whl = whl:gsub("^,", "")
-    vim.wo.winhighlight = whl
+    vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
   end,
 })
 

@@ -28,12 +28,24 @@ function M.ln(key, action, desc)
   M.n("<leader>" .. key, action, desc)
 end
 
+local pending_groups = {}
+
 function M.l_group(key, desc)
-  require("which-key").add({ mode = { "n", "v" }, { "<leader>" .. key, group = desc } })
+  pending_groups[#pending_groups + 1] = { mode = { "n", "v" }, { "<leader>" .. key, group = desc } }
 end
 
 function M.group(key, desc)
-  require("which-key").add({ mode = { "n", "v" }, { key, group = desc } })
+  pending_groups[#pending_groups + 1] = { mode = { "n", "v" }, { key, group = desc } }
+end
+
+function M._flush_groups()
+  if #pending_groups > 0 then
+    local wk = require("which-key")
+    for _, group in ipairs(pending_groups) do
+      wk.add(group)
+    end
+    pending_groups = {}
+  end
 end
 
 return M
