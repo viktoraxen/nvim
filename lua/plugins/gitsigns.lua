@@ -10,8 +10,6 @@ return {
     { "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle blame" },
   },
   config = function(_, opts)
-    require("gitsigns").setup(opts)
-
     -- Override gitsigns' number_hl_group on the cursor line with CursorLineNr
     local ns = vim.api.nvim_create_namespace("gitsigns_cursorline_nr")
     vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
@@ -34,36 +32,18 @@ return {
           GitSignsAdd = { bg = false },
           GitSignsChange = { bg = false },
           GitSignsDelete = { bg = false },
-        },
-      },
-      links = {
-        ["*"] = {
-          GitSignsStagedChange = "GitSignsChange",
-          GitSignsStagedAdd = "GitSignsAdd",
-          GitSignsStagedDelete = "GitSignsDelete",
+          GitSignsStagedAddNr = { bg = false, force = true },
+          GitSignsStagedChangeNr = { bg = false, force = true },
+          GitSignsStagedDeleteNr = { bg = false, force = true },
         },
       },
     })
+
+    require("gitsigns").setup(opts)
   end,
   opts = {
-    signs = {
-      add = { text = "│" },
-      change = { text = "│" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
-      untracked = { text = "┆" },
-    },
-    signs_staged = {
-      add = { text = "┃" },
-      change = { text = "┃" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
-      untracked = { text = "┆" },
-    },
     signs_staged_enable = true,
-    signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+    signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
     numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`

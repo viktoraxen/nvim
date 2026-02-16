@@ -41,7 +41,7 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = "yes:1"
+vim.opt.signcolumn = "no"
 
 -- Show tabline even with only one tab open
 -- vim.opt.showtabline = 2
@@ -80,7 +80,8 @@ vim.opt.tabstop = 4
 vim.opt.wrap = false
 
 vim.opt.winblend = 5
-vim.opt.winborder = config.border
+-- vim.opt.winborder = config.border
+vim.opt.winborder = "none"
 vim.opt.pumblend = 5
 vim.opt.pumheight = 10
 
