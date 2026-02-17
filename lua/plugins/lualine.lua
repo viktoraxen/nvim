@@ -330,7 +330,7 @@ return {
       })
     end
 
-    apply_highlights()
+    vim.schedule(apply_highlights)
 
     vim.api.nvim_create_autocmd("ColorScheme", {
       callback = function()
