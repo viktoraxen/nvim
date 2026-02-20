@@ -15,6 +15,8 @@ return {
       EndOfBuffer = { fg = "Normal", bg = false },
       WinSeparator = { bg = false },
 
+      PMenuExtra = { bg = false },
+
       NormalFloat = { bg = "Normal|highlight|0.98" },
       FloatTitle = { fg = "Title", bg = "NormalFloat" },
       LightFloat = { bg = "Normal|highlight|0.95" },
