@@ -143,15 +143,7 @@ map.l_group("n", "Line Numbers")
 local function sync_gitsigns_to_numcol()
   local has_nums = vim.o.number or vim.o.relativenumber
   local gs = require("gitsigns")
-  if has_nums then
-    vim.o.signcolumn = "no"
-    gs.toggle_signs(false)
-    gs.toggle_numhl(true)
-  else
-    gs.toggle_numhl(false)
-    gs.toggle_signs(true)
-    vim.o.signcolumn = "yes:1"
-  end
+  gs.toggle_numhl(has_nums)
 end
 
 map.ln("nn", function()
