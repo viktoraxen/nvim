@@ -48,6 +48,14 @@ return {
       end,
     })
 
+    local fs_components = require("neo-tree.sources.filesystem.components")
+    fs_components.python_package = function(_, node)
+      if node.type == "directory" and vim.uv.fs_stat(node.path .. "/__init__.py") then
+        return { text = " 󰌠 ", highlight = "Comment" }
+      end
+      return {}
+    end
+
     local function on_move(data)
       Snacks.rename.on_rename_file(data.source, data.destination)
     end
@@ -87,8 +95,42 @@ return {
         filtered_items = {
           show_hidden_count = false,
           hide_dotfiles = false,
+          hide_by_name = {
+            "__init__.py",
+          },
           never_show = {
             ".git",
+          },
+        },
+        renderers = {
+          directory = {
+            { "indent" },
+            { "icon" },
+            { "current_filter" },
+            {
+              "container",
+              content = {
+                { "name", zindex = 10 },
+                { "python_package", zindex = 10 },
+                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
+                { "clipboard", zindex = 10 },
+                { "git_status", zindex = 10, align = "right", hide_when_expanded = true },
+              },
+            },
+          },
+          file = {
+            { "indent" },
+            { "icon" },
+            {
+              "container",
+              content = {
+                { "name", zindex = 10 },
+                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
+                { "clipboard", zindex = 10 },
+                { "diagnostics", zindex = 20, align = "left" },
+                { "git_status", zindex = 10, align = "right" },
+              },
+            },
           },
         },
       },
@@ -136,37 +178,6 @@ return {
             info = "DiagnosticSignInfo",
             warn = "DiagnosticSignWarn",
             error = "DiagnosticSignError",
-          },
-        },
-        renderers = {
-          directory = {
-            { "indent" },
-            { "icon" },
-            { "current_filter" },
-            {
-              "container",
-              content = {
-                { "name", zindex = 10 },
-                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
-                { "clipboard", zindex = 10 },
-                -- { 'diagnostics',    errors_only = true, zindex = 20,                             align = 'right',          hide_when_expanded = true },
-                { "git_status", zindex = 10, align = "right", hide_when_expanded = true },
-              },
-            },
-          },
-          file = {
-            { "indent" },
-            { "icon" },
-            {
-              "container",
-              content = {
-                { "name", zindex = 10 },
-                { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
-                { "clipboard", zindex = 10 },
-                { "diagnostics", zindex = 20, align = "left" },
-                { "git_status", zindex = 10, align = "right" },
-              },
-            },
           },
         },
         indent = {
