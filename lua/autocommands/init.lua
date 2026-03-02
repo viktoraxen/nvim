@@ -1,3 +1,28 @@
+local function activate_venv()
+  local cwd = vim.fn.getcwd()
+  for _, name in ipairs({ ".venv", "venv", "env" }) do
+    local venv_path = cwd .. "/" .. name
+    if vim.fn.executable(venv_path .. "/bin/python") == 1 then
+      local old_venv = os.getenv("VIRTUAL_ENV")
+      if old_venv == venv_path then
+        return
+      end
+      local path = os.getenv("PATH") or ""
+      if old_venv then
+        path = path:gsub(vim.pesc(old_venv .. "/bin") .. ":", "")
+      end
+      vim.fn.setenv("VIRTUAL_ENV", venv_path)
+      vim.fn.setenv("PATH", venv_path .. "/bin:" .. path)
+      return
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter", "SessionLoadPost", "DirChanged" }, {
+  desc = "Auto-activate virtual environment",
+  callback = activate_venv,
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   desc = "Remove trailing whitespace on save",
   pattern = { "*" },
