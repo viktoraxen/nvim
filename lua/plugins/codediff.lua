@@ -10,7 +10,7 @@ return {
   dependencies = { "MunifTanjim/nui.nvim" },
   opts = {
     explorer = {
-      position = "right",
+      position = "left",
       view_mode = "tree",
       width = 33,
     },
