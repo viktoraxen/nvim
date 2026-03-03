@@ -49,6 +49,7 @@ return {
     })
 
     local fs_components = require("neo-tree.sources.filesystem.components")
+
     fs_components.python_package = function(_, node)
       if node.type == "directory" and vim.uv.fs_stat(node.path .. "/__init__.py") then
         return { text = " 󰌠 ", highlight = "Comment" }
@@ -127,7 +128,7 @@ return {
                 { "name", zindex = 10 },
                 { "symlink_target", zindex = 10, highlight = "NeoTreeSymbolicLinkTarget" },
                 { "clipboard", zindex = 10 },
-                { "diagnostics", zindex = 20, align = "left" },
+                { "diagnostics", zindex = 20, align = "right" },
                 { "git_status", zindex = 10, align = "right" },
               },
             },
