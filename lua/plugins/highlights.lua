@@ -14,6 +14,7 @@ return {
       SignColumn = { bg = false },
       EndOfBuffer = { fg = "Normal", bg = false },
       WinSeparator = { bg = false },
+      MsgSeparator = { bg = false },
 
       PMenuExtra = { bg = false },
 
@@ -50,6 +51,7 @@ return {
         ["*"] = globals,
         yin = {
           WinSeparator = { fg = "Normal|contrast|0.4" },
+          MsgSeparator = { fg = "Normal|contrast|0.4" },
         },
       },
       links = {
