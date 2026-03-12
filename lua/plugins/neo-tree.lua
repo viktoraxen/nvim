@@ -144,7 +144,7 @@ return {
           ["q"] = "cancel", -- close preview or floating neo-tree window
           ["-"] = "navigate_up",
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
-          ["l"] = "focus_preview",
+          ["l"] = "open_with_window_picker",
           ["s"] = "split_with_window_picker",
           ["v"] = "vsplit_with_window_picker",
           ["C"] = "close_node",
