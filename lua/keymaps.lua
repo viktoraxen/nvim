@@ -102,6 +102,18 @@ map.n("<C-Left>", "<C-w>2<", "Decrease window width")
 map.n("<C-Down>", "<C-w>2+", "Increase window height")
 map.n("<C-Up>", "<C-w>2-", "Decrease window height")
 
+map.n("*", function()
+  local word = "\\<" .. vim.fn.escape(vim.fn.expand("<cword>"), "\\") .. "\\>"
+  if vim.fn.getreg("/") == word then
+    vim.cmd("normal! n")
+  else
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.fn.setreg("/", word)
+    vim.opt.hlsearch = true
+    vim.api.nvim_win_set_cursor(0, pos)
+  end
+end, "Search word under cursor")
+
 map.n("n", "nzzzv", "Next search match")
 map.n("N", "Nzzzv", "Previous search match")
 map.n("-", "/", "Search")

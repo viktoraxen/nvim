@@ -54,10 +54,12 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
   desc = "Colorscheme-dependent highlights and terminal sync",
   callback = function()
     local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+
     if bg then
       io.write(string.format("\027]11;#%06x\027\\", bg))
       vim.api.nvim_set_hl(0, "SnacksIndentHidden", { fg = bg, nocombine = true })
     end
+
     vim.api.nvim_set_hl(0, "HiddenCursor", { nocombine = true, blend = 100 })
   end,
 })
