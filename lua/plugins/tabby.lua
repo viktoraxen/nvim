@@ -1,5 +1,6 @@
 return {
   "nanozuki/tabby.nvim",
+  event = "TabNew",
   config = function()
     local function tab_label(tabid)
       local custom = require("tabby.feature.tab_name").get_raw(tabid)
