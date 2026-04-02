@@ -39,4 +39,14 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("render-markdown").setup(opts)
+    require("highlights-nvim").add({
+      customizations = {
+        ["*"] = {
+          RenderMarkdownCode = { bg = "StatusLineNC" },
+        },
+      },
+    })
+  end,
 }

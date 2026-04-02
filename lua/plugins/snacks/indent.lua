@@ -1,4 +1,7 @@
 return {
+  filter = function(buf)
+    return vim.bo[buf].filetype ~= "markdown"
+  end,
   animate = {
     enabled = true,
     style = "out",

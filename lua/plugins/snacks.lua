@@ -5,9 +5,11 @@ local tmux_warned = false
 local function ensure_tmux_conf()
   local conf_dir = vim.fn.stdpath("data") .. "/tmux"
   local conf_path = conf_dir .. "/persistent.conf"
+
   if vim.uv.fs_stat(conf_path) then
     return conf_path
   end
+
   vim.fn.mkdir(conf_dir, "p")
   local f = assert(io.open(conf_path, "w"))
   f:write(table.concat({
@@ -28,20 +30,27 @@ local function tmux_session_name(id)
 end
 
 local function toggle_terminal(id)
-  if vim.fn.executable("tmux") == 1 then
-    local conf = ensure_tmux_conf()
-    local session = tmux_session_name(id)
-    Snacks.terminal.toggle({
-      "tmux", "-L", "nvim", "-f", conf,
-      "new-session", "-A", "-s", session,
-    }, { env = { id = id } })
-  else
-    if not tmux_warned then
-      tmux_warned = true
-      vim.notify("tmux not found — terminal sessions won't persist", vim.log.levels.WARN)
-    end
-    Snacks.terminal.toggle("zsh", { env = { id = id } })
-  end
+  -- if vim.fn.executable("tmux") == 1 then
+  --   local conf = ensure_tmux_conf()
+  --   local session = tmux_session_name(id)
+  --   Snacks.terminal.toggle({
+  --     "tmux",
+  --     "-L",
+  --     "nvim",
+  --     "-f",
+  --     conf,
+  --     "new-session",
+  --     "-A",
+  --     "-s",
+  --     session,
+  --   }, { env = { id = id } })
+  -- else
+  --   if not tmux_warned then
+  --     tmux_warned = true
+  --     vim.notify("tmux not found — terminal sessions won't persist", vim.log.levels.WARN)
+  --   end
+  Snacks.terminal.toggle("zsh", { env = { id = id } })
+  -- end
 end
 
 local function pick(key, method, config, desc)

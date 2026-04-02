@@ -30,17 +30,17 @@ return {
     })
   end,
   keys = {
-    {
-      "<Tab>",
-      function()
-        -- if there is a next edit, jump to it, otherwise apply it if any
-        if not require("sidekick").nes_jump_or_apply() then
-          return "<Tab>"
-        end
-      end,
-      expr = true,
-      desc = "Goto/Apply Next Edit Suggestion",
-    },
+    -- {
+    --   "<Tab>",
+    --   function()
+    --     -- if there is a next edit, jump to it, otherwise apply it if any
+    --     if not require("sidekick").nes_jump_or_apply() then
+    --       return "<Tab>"
+    --     end
+    --   end,
+    --   expr = true,
+    --   desc = "Goto/Apply Next Edit Suggestion",
+    -- },
     {
       "<leader>aA",
       function()
