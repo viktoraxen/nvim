@@ -12,7 +12,7 @@ require("options")
 
 require("keymaps")
 
-vim.lsp.enable({ "luals", "clangd", "pyright", "typescript" })
+vim.lsp.enable({ "luals", "clangd", "pyright" })
 vim.lsp.inlay_hint.enable()
 
 vim.api.nvim_create_autocmd("UIEnter", {

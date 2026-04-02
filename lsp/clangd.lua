@@ -5,7 +5,7 @@ return {
     "--clang-tidy",
     "--log=verbose",
   },
-  filetypes = { "c", "cpp", "objc", "objcpp", "hpp", "h" },
+  filetypes = { "c", "cpp", "objc", "objcpp" },
   root_markers = {
     "build.sh",
     ".clangd",
