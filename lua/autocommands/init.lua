@@ -1,3 +1,54 @@
+local venv_watcher = nil
+
+local function watch_venv(venv_path)
+  if venv_watcher then
+    venv_watcher:stop()
+    venv_watcher = nil
+  end
+
+  local lib_path = venv_path .. "/lib"
+  if vim.fn.isdirectory(lib_path) == 0 then
+    return
+  end
+
+  local w = vim.uv.new_fs_event()
+  if not w then
+    return
+  end
+
+  local debounce_timer = nil
+  w:start(lib_path, { recursive = true }, function(err)
+    if err then
+      return
+    end
+    if debounce_timer then
+      debounce_timer:stop()
+    end
+    debounce_timer = vim.uv.new_timer()
+    debounce_timer:start(2000, 0, function()
+      debounce_timer:close()
+      debounce_timer = nil
+      vim.schedule(function()
+        for _, client in ipairs(vim.lsp.get_clients({ name = "pyright" })) do
+          local bufs = vim.lsp.get_buffers_by_client_id(client.id)
+          client:stop()
+          vim.defer_fn(function()
+            for _, buf in ipairs(bufs) do
+              if vim.api.nvim_buf_is_valid(buf) then
+                vim.api.nvim_buf_call(buf, function()
+                  vim.cmd("edit")
+                end)
+              end
+            end
+          end, 500)
+        end
+      end)
+    end)
+  end)
+
+  venv_watcher = w
+end
+
 local function activate_venv()
   local cwd = vim.fn.getcwd()
   for _, name in ipairs({ ".venv", "venv", "env" }) do
@@ -13,6 +64,7 @@ local function activate_venv()
       end
       vim.fn.setenv("VIRTUAL_ENV", venv_path)
       vim.fn.setenv("PATH", venv_path .. "/bin:" .. path)
+      watch_venv(venv_path)
       return
     end
   end
