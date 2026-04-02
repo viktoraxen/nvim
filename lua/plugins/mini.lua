@@ -10,5 +10,6 @@ return {
     require("mini.align").setup()
     require("mini.surround").setup()
     require("mini.splitjoin").setup()
+    require("mini.cmdline").setup()
   end,
 }
