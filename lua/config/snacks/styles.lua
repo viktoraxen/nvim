@@ -1,0 +1,14 @@
+return {
+  notification = {
+    border = "solid",
+    wo = {
+      wrap = true,
+      winblend = 0,
+      signcolumn = "no",
+      foldcolumn = "0",
+      number = false,
+      relativenumber = false,
+      statuscolumn = "",
+    },
+  },
+}
