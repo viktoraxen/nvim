@@ -5,6 +5,7 @@ local which_key = require("which-key")
 which_key.setup({
   delay = 1000,
   preset = "helix",
+  sort = { "local", "order", "alphanum" },
   win = {
     no_overlap = false,
     border = "solid",

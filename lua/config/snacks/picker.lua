@@ -7,14 +7,6 @@ require("which-key").add({
   { "<leader>f", "<cmd>Picker files vscode<cr>", desc = "Search files" },
   { "<leader>F", "<cmd>Picker files vscode_all<cr>", desc = "Search files (All)" },
 
-  { "gr", group = "LSP" },
-
-  { "grc", Snacks.picker.lsp_declarations, desc = "Declarations" },
-  { "grd", Snacks.picker.lsp_definitions, desc = "Definintions" },
-  { "gri", Snacks.picker.lsp_implementations, desc = "Implementations" },
-  { "grr", Snacks.picker.lsp_references, desc = "References" },
-  { "grt", Snacks.picker.lsp_type_definitions, desc = "Type definitions" },
-
   { "<leader>s", group = "Search" },
 
   { "<leader>sb", "<cmd>Picker buffers<cr>", desc = "Buffers" },
