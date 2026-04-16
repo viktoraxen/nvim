@@ -7,6 +7,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
       CursorLineNr = { bg = "NONE", update = true },
       StatusLine = { bg = "NONE", update = true },
       StatusLineNC = { bg = "NONE", update = true },
+      SignColumn = { bg = "NONE", update = true },
+      Fold = { bg = "NONE", update = true },
 
       TabLine = { fg = hl.get("Comment", "fg"), bg = "NONE", update = true },
       TabLineSel = { bg = "NONE", update = true },
