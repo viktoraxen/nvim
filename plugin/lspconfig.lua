@@ -11,11 +11,13 @@ require("which-key").add({
   { "gr", group = "LSP" },
 
   { "gra", vim.lsp.buf.code_action, desc = "Codeaction" },
-  { "grc", Snacks.picker.lsp_declarations, desc = "Declarations" },
-  { "grd", Snacks.picker.lsp_definitions, desc = "Definintions" },
-  { "gri", Snacks.picker.lsp_implementations, desc = "Implementations" },
+  { "grc", "<cmd>Picker lsp_declarations<cr>", desc = "Declarations" },
+  { "grd", "<cmd>Picker lsp_definitions<cr>", desc = "Definintions" },
+  { "grI", "<cmd>Picker lsp_implementations<cr>", desc = "Implementations" },
   { "grn", vim.lsp.buf.rename, desc = "Rename" },
-  { "grr", Snacks.picker.lsp_references, desc = "References" },
-  { "grt", Snacks.picker.lsp_type_definitions, desc = "Type definitions" },
+  { "grr", "<cmd>Picker lsp_references<cr>", desc = "References" },
+  { "gri", "<cmd>Picker lsp_incoming_calls<cr>", desc = "Incoming Calls" },
+  { "gro", "<cmd>Picker lsp_outgoing_calls<cr>", desc = "Outgoing Calls" },
+  { "grt", "<cmd>Picker lsp_type_definitions<cr>", desc = "Type definitions" },
   { "grx", vim.lsp.buf.codelens, desc = "Codelens" },
 })
