@@ -10,7 +10,8 @@ vim.opt.laststatus = 3
 vim.opt.number = false
 vim.opt.showcmd = false
 vim.opt.showmode = false
-vim.g.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = "osc52"
 
 -- Enable break indent
 vim.opt.breakindent = true
