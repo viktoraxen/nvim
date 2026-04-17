@@ -25,6 +25,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
       DarkFloatTitle = { fg = hl.get("FloatTitle", "fg"), bg = hl.darken("Normal", 0.95) },
 
       FadeStart = { bg = "#7F6A9B" },
+
+      WhichKeyGroup = { fg = hl.get("KeyWord", "fg") },
+      WhichKeySeparator = { fg = hl.get("Comment", "fg") },
     })
 
     hl.link({

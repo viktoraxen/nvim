@@ -16,7 +16,7 @@ which_key.setup({
   },
   icons = {
     rules = false,
-    separator = "",
+    separator = ":",
     keys = {
       Up = " ",
       Down = " ",
@@ -52,6 +52,16 @@ which_key.add({
     mode = { "n" },
 
     { "<esc>", "<cmd>nohlsearch<cr>", desc = "Clear search" },
+
+    -- Use system clipboard for yank/delete/change/put
+    { "y", '"+y', desc = "Yank" },
+    { "Y", '"+Y', desc = "Yank" },
+    { "d", '"+d', desc = "Delete" },
+    { "D", '"+D', desc = "Delete" },
+    { "c", '"+c', desc = "Change" },
+    { "C", '"+C', desc = "Change" },
+    { "p", '"+p', desc = "Put" },
+    { "P", '"+P', desc = "Put above" },
   },
   {
     mode = { "n", "v" },
