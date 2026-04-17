@@ -52,6 +52,12 @@ which_key.add({
     mode = { "n" },
 
     { "<esc>", "<cmd>nohlsearch<cr>", desc = "Clear search" },
+  },
+  {
+    mode = { "n", "v" },
+
+    { "-", "/", desc = "Search forward" },
+    { "*", utils.search_word_under_cursor, desc = "Search word under cursor" },
 
     -- Use system clipboard for yank/delete/change/put
     { "y", '"+y', desc = "Yank" },
@@ -62,12 +68,6 @@ which_key.add({
     { "C", '"+C', desc = "Change" },
     { "p", '"+p', desc = "Put" },
     { "P", '"+P', desc = "Put above" },
-  },
-  {
-    mode = { "n", "v" },
-
-    { "-", "/", desc = "Search forward" },
-    { "*", utils.search_word_under_cursor, desc = "Search word under cursor" },
 
     { "H", "0", desc = "Start of line" },
     { "L", "$", desc = "End of line" },
