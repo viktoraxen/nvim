@@ -9,9 +9,8 @@ vim.opt.laststatus = 3
 
 vim.opt.number = false
 vim.opt.showcmd = false
+
 vim.opt.showmode = false
-vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = "osc52"
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -26,7 +25,6 @@ vim.opt.signcolumn = "no"
 vim.opt.showtabline = 1
 
 vim.opt.updatetime = 250
-
 -- Displays which-key popup later
 vim.opt.timeoutlen = 1000
 
