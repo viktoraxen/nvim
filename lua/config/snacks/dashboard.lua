@@ -4,11 +4,19 @@ require("which-key").add({
   { "<leader>A", "<cmd>Dashboard<cr>", desc = "Dashboard" },
 })
 
+local utils = require("utils")
+
 return {
   sections = {
     { padding = 1 },
     { section = "header" },
     { section = "keys", padding = 1 },
+    function()
+      return {
+        align = "center",
+        text = { { "Neovim started in ", hl = "Normal" }, { utils.get_running_time() .. "ms", hl = "special" } },
+      }
+    end,
   },
   preset = {
     keys = {

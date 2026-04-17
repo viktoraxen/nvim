@@ -18,4 +18,8 @@ M.restart_neovim = function()
   vim.cmd("restart source " .. vim.fn.fnameescape(session))
 end
 
+M.get_running_time = function()
+  return math.floor((vim.uv.hrtime() - vim.g._startuptime) / 1e6 + 0.5)
+end
+
 return M

@@ -67,14 +67,6 @@ vim.schedule(function()
     default_component_configs = {
       diagnostics = {
         symbols = {
-          -- hint = "",
-          -- info = "",
-          -- warn = "",
-          -- error = "",
-          -- hint = "󰌶",
-          -- info = "󰋽",
-          -- warn = "󰀪",
-          -- error = "󰅚",
           hint = "h",
           info = "i",
           warn = "w",
