@@ -14,26 +14,68 @@ function M.blend(c1, c2, alpha)
   )
 end
 
-function M.get(group, field)
-  return vim.api.nvim_get_hl(0, { name = group })[field]
+local set_fns = {}
+local link_fns = {}
+
+function M.get(group)
+  return vim.api.nvim_get_hl(0, { name = group })
+end
+
+function M.fg(group)
+  return function()
+    return M.get(group).fg
+  end
+end
+
+function M.bg(group)
+  return function()
+    return M.get(group).bg
+  end
 end
 
 function M.lighten(group, alpha)
-  return M.blend(M.get(group, "bg"), 0xffffff, alpha)
+  return function()
+    return M.blend(M.get(group).bg, 0xffffff, alpha)
+  end
 end
 
 function M.darken(group, alpha)
-  return M.blend(M.get(group, "bg"), 0x000000, alpha)
+  return function()
+    return M.blend(M.get(group).bg, 0x000000, alpha)
+  end
 end
 
 function M.set(groups)
   for name, opts in pairs(groups) do
-    vim.api.nvim_set_hl(0, name, opts)
+    set_fns[name] = opts
   end
+  vim.schedule(M.apply)
 end
 
 function M.link(groups)
   for name, target in pairs(groups) do
+    link_fns[name] = target
+  end
+  vim.schedule(M.apply)
+end
+
+local function resolve(val)
+  if type(val) == "function" then
+    return val()
+  end
+  return val
+end
+
+function M.apply()
+  for name, opts in pairs(set_fns) do
+    local resolved = {}
+    for k, v in pairs(opts) do
+      resolved[k] = resolve(v)
+    end
+    vim.api.nvim_set_hl(0, name, resolved)
+  end
+
+  for name, target in pairs(link_fns) do
     vim.api.nvim_set_hl(0, name, { link = target })
   end
 end

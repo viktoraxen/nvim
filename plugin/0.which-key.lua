@@ -110,3 +110,10 @@ which_key.add({
     { "<leader>R", utils.restart_neovim, desc = "Restart Neovim" },
   },
 })
+
+local hl = require("highlight-utils")
+
+hl.set({
+  WhichKeyGroup = { fg = hl.fg("KeyWord") },
+  WhichKeySeparator = { fg = hl.fg("Comment") },
+})

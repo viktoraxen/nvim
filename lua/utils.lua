@@ -19,7 +19,8 @@ M.restart_neovim = function()
 end
 
 M.get_startup_time = function()
-  return math.floor((vim.g._init_finished_time - vim.g._init_started_time) / 1e6 + 0.5)
+  local finish = vim.g._init_finished_time or vim.uv.hrtime()
+  return math.floor((finish - vim.g._init_started_time) / 1e6 + 0.5)
 end
 
 return M

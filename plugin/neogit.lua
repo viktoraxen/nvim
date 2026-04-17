@@ -36,6 +36,18 @@ vim.schedule(function()
     { "<leader>gs", ":Neogit stash<cr>", desc = "Stash" },
   })
 
+  local hl = require("highlight-utils")
+
+  hl.set({
+    NeogitDiffHeader = { fg = hl.fg("Exception"), bold = true },
+    NeogitFloatHeader = { bold = true },
+    NeogitFloatHeaderHighlight = { fg = hl.fg("Operator"), bold = true },
+  })
+
+  hl.link({
+    NeogitNormalFloat = "LightFloat",
+  })
+
   vim.api.nvim_create_autocmd("FileType", {
     desc = "Style Neogit popup floats",
     pattern = "NeogitPopup",
@@ -51,6 +63,7 @@ vim.schedule(function()
         end
 
         local ns = vim.api.nvim_get_hl_ns({ winid = win })
+
         if ns > 0 then
           vim.api.nvim_set_hl(ns, "NormalFloat", { link = "Normal" })
           vim.api.nvim_set_hl(ns, "FloatBorder", { link = "WinSeparator" })

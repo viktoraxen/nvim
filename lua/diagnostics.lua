@@ -15,3 +15,11 @@ vim.diagnostic.config({
     -- },
   },
 })
+
+require("highlight-utils").link({
+  DiagnosticSignInfo = "DiagnosticInfo",
+  DiagnosticSignTrace = "DiagnosticTrace",
+  DiagnosticSignDebug = "DiagnosticDebug",
+  DiagnosticSignWarn = "DiagnosticWarn",
+  DiagnosticSignError = "DiagnosticError",
+})

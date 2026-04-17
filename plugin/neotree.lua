@@ -209,4 +209,11 @@ vim.schedule(function()
     { "<leader>e", neo_tree, desc = "Neo-tree" },
     { "<leader>E", neo_tree_solid, desc = "Neo-tree (Solid)" },
   })
+
+  require("highlight-utils").link({
+    WindowPickerStatusLineNC = "DiagnosticOk",
+    WindowPickerStatusLine = "DiagnosticError",
+    WindowPickerWinbarNC = "DiagnosticOk",
+    WindowPickerWinbar = "DiagnosticError",
+  })
 end)

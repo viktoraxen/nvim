@@ -16,8 +16,10 @@ M.disabled_filetypes = {
 }
 
 local function setup_highlights()
-  vim.api.nvim_set_hl(0, "WinBarDir", { fg = hl.get("Comment", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "WinBarFile", { fg = hl.get("Normal", "fg"), bold = true, bg = "NONE" })
+  require("highlight-utils").set({
+    WinBarDir = { fg = hl.get("Comment").fg, bg = "NONE" },
+    WinBarFile = { fg = hl.get("Normal").fg, bold = true, bg = "NONE" },
+  })
 end
 
 setup_highlights()
@@ -104,7 +106,11 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType", "BufEnter" }, {
   desc = "Set or disable winbar per window",
   callback = function()
     vim.schedule(function()
-      if not vim.api.nvim_win_is_valid(0) or vim.api.nvim_win_get_config(0).relative ~= "" or is_disabled(vim.bo.ft) then
+      if
+        not vim.api.nvim_win_is_valid(0)
+        or vim.api.nvim_win_get_config(0).relative ~= ""
+        or is_disabled(vim.bo.ft)
+      then
         return
       end
 

@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
   desc = "Sync terminal background color to colorscheme",
   callback = function()
-    local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+    local bg = require("highlight-utils").bg("Normal")()
 
     if bg then
       io.write(string.format("\027]11;#%06x\027\\", bg))
@@ -138,4 +138,11 @@ vim.api.nvim_create_autocmd("UIEnter", {
   callback = function()
     vim.g._init_finished_time = vim.uv.hrtime()
   end,
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    require("highlight-utils").apply()
+  end,
+  desc = "Set and link highlight groups on colorscheme change",
 })

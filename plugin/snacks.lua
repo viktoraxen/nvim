@@ -19,3 +19,42 @@ require("snacks").setup({
   terminal = require("config.snacks.terminal"),
   styles = require("config.snacks.styles"),
 })
+
+require("highlight-utils").link({
+  SnacksPickerInput = "LightFloat",
+  SnacksPickerInputBorder = "SnacksPickerInput",
+  SnacksPickerInputLine = "SnacksPickerInput",
+  SnacksPickerInputFooter = "SnacksPickerInput",
+  SnacksPickerInputSearch = "SnacksPickerInput",
+  SnacksPickerInputCursorLine = "SnacksPickerInput",
+  SnacksPickerInputTitle = "LightFloatTitle",
+
+  SnacksInputNormal = "LightFloat",
+  SnacksInputIcon = "SnacksInputNormal",
+  SnacksInputBorder = "SnacksInputNormal",
+  SnacksInputTitle = "SnacksInputNormal",
+  SnacksInputCursorLine = "SnacksInputNormal",
+
+  SnacksPickerToggle = "SnacksPickerInputTitle",
+  SnacksPickerPrompt = "SnacksPickerInputTitle",
+
+  SnacksPickerPreview = "DarkFloat",
+  SnacksPickerPreviewBorder = "SnacksPickerPreview",
+  SnacksPickerPreviewFooter = "SnacksPickerPreview",
+  SnacksPickerPreviewNormal = "SnacksPickerPreview",
+  SnacksPickerPreviewTitle = "DarkFloatTitle",
+
+  SnacksPickerListBorder = "SnacksPickerList",
+  SnacksPickerListCursorLine = "PMenuSel",
+
+  SnacksNotifierBorderTrace = "NormalFloat",
+  SnacksNotifierTrace = "NormalFloat",
+  SnacksNotifierBorderInfo = "NormalFloat",
+  SnacksNotifierInfo = "NormalFloat",
+  SnacksNotifierBorderWarn = "NormalFloat",
+  SnacksNotifierWarn = "NormalFloat",
+  SnacksNotifierBorderDebug = "NormalFloat",
+  SnacksNotifierDebug = "NormalFloat",
+  SnacksNotifierBorderError = "NormalFloat",
+  SnacksNotifierError = "NormalFloat",
+})

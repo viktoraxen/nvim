@@ -102,22 +102,27 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 })
 
 local function setup_highlights()
-  vim.api.nvim_set_hl(0, "StlModeNormal", { fg = hl.get("Function", "fg"), bold = true, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlModeInsert", { fg = hl.get("String", "fg"), bold = true, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlModeVisual", { fg = hl.get("Keyword", "fg"), bold = true, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlModeReplace", { fg = hl.get("DiagnosticError", "fg"), bold = true, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlModeCommand", { fg = hl.get("DiagnosticWarn", "fg"), bold = true, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlModeTerminal", { fg = hl.get("DiagnosticInfo", "fg"), bold = true, bg = "NONE" })
+  hl.set({
+    StatusLine = { bg = "NONE", update = true },
+    StatusLineNC = { bg = "NONE", update = true },
 
-  vim.api.nvim_set_hl(0, "StlDiagError", { fg = hl.get("DiagnosticError", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlDiagWarn", { fg = hl.get("DiagnosticWarn", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlDiagInfo", { fg = hl.get("DiagnosticInfo", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlDiagHint", { fg = hl.get("DiagnosticHint", "fg"), bg = "NONE" })
+    StlModeNormal = { fg = hl.get("Function").fg, bold = true },
+    StlModeInsert = { fg = hl.get("String").fg, bold = true },
+    StlModeVisual = { fg = hl.get("Keyword").fg, bold = true },
+    StlModeReplace = { fg = hl.get("DiagnosticError").fg, bold = true },
+    StlModeCommand = { fg = hl.get("DiagnosticWarn").fg, bold = true },
+    StlModeTerminal = { fg = hl.get("DiagnosticInfo").fg, bold = true },
 
-  vim.api.nvim_set_hl(0, "StlGitBranch", { fg = hl.get("Comment", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlVenv", { fg = hl.get("Comment", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlFiletype", { fg = hl.get("Normal", "fg"), bg = "NONE" })
-  vim.api.nvim_set_hl(0, "StlPosition", { fg = hl.get("Comment", "fg"), bg = "NONE" })
+    StlDiagError = { fg = hl.get("DiagnosticError").fg },
+    StlDiagWarn = { fg = hl.get("DiagnosticWarn").fg },
+    StlDiagInfo = { fg = hl.get("DiagnosticInfo").fg },
+    StlDiagHint = { fg = hl.get("DiagnosticHint").fg },
+
+    StlGitBranch = { fg = hl.get("Comment").fg },
+    StlVenv = { fg = hl.get("Comment").fg },
+    StlFiletype = { fg = hl.get("Normal").fg },
+    StlPosition = { fg = hl.get("Comment").fg },
+  })
 end
 
 setup_highlights()
