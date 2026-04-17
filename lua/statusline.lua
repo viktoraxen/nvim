@@ -103,25 +103,25 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 local function setup_highlights()
   hl.set({
-    StatusLine = { bg = "NONE", update = true },
-    StatusLineNC = { bg = "NONE", update = true },
+    StatusLine = { bg = "NONE" },
+    StatusLineNC = { bg = "NONE" },
 
-    StlModeNormal = { fg = hl.get("Function").fg, bold = true },
-    StlModeInsert = { fg = hl.get("String").fg, bold = true },
-    StlModeVisual = { fg = hl.get("Keyword").fg, bold = true },
-    StlModeReplace = { fg = hl.get("DiagnosticError").fg, bold = true },
-    StlModeCommand = { fg = hl.get("DiagnosticWarn").fg, bold = true },
-    StlModeTerminal = { fg = hl.get("DiagnosticInfo").fg, bold = true },
+    StlModeNormal = { fg = hl.fg("Function"), bold = true },
+    StlModeInsert = { fg = hl.fg("String"), bold = true },
+    StlModeVisual = { fg = hl.fg("Keyword"), bold = true },
+    StlModeReplace = { fg = hl.fg("DiagnosticError"), bold = true },
+    StlModeCommand = { fg = hl.fg("DiagnosticWarn"), bold = true },
+    StlModeTerminal = { fg = hl.fg("DiagnosticInfo"), bold = true },
 
-    StlDiagError = { fg = hl.get("DiagnosticError").fg },
-    StlDiagWarn = { fg = hl.get("DiagnosticWarn").fg },
-    StlDiagInfo = { fg = hl.get("DiagnosticInfo").fg },
-    StlDiagHint = { fg = hl.get("DiagnosticHint").fg },
+    StlDiagError = { fg = hl.fg("DiagnosticError") },
+    StlDiagWarn = { fg = hl.fg("DiagnosticWarn") },
+    StlDiagInfo = { fg = hl.fg("DiagnosticInfo") },
+    StlDiagHint = { fg = hl.fg("DiagnosticHint") },
 
-    StlGitBranch = { fg = hl.get("Comment").fg },
-    StlVenv = { fg = hl.get("Comment").fg },
-    StlFiletype = { fg = hl.get("Normal").fg },
-    StlPosition = { fg = hl.get("Comment").fg },
+    StlGitBranch = { fg = hl.fg("Comment") },
+    StlVenv = { fg = hl.fg("Comment") },
+    StlFiletype = { fg = hl.fg("Normal") },
+    StlPosition = { fg = hl.fg("Comment") },
   })
 end
 

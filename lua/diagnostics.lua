@@ -10,16 +10,23 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.WARN] = "󰀪 ",
       [vim.diagnostic.severity.ERROR] = "󰅚 ",
     },
-    -- linehl = {
-    --   [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-    -- },
   },
 })
 
-require("highlight-utils").link({
+local hl = require("highlight-utils")
+
+hl.set({
+  DiagnosticDebug = { italic = false, update = true },
+  DiagnosticError = { italic = false, update = true },
+  DiagnosticInfo = { italic = false, update = true },
+  DiagnosticTrace = { italic = false, update = true },
+  DiagnosticWarn = { italic = false, update = true },
+})
+
+hl.link({
+  DiagnosticSignDebug = "DiagnosticDebug",
+  DiagnosticSignError = "DiagnosticError",
   DiagnosticSignInfo = "DiagnosticInfo",
   DiagnosticSignTrace = "DiagnosticTrace",
-  DiagnosticSignDebug = "DiagnosticDebug",
   DiagnosticSignWarn = "DiagnosticWarn",
-  DiagnosticSignError = "DiagnosticError",
 })

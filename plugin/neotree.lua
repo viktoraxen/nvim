@@ -211,6 +211,10 @@ vim.schedule(function()
   })
 
   require("highlight-utils").link({
+    NeoTreeNormal = "Normal",
+    NeoTreeNormalNC = "NeoTreeNormal",
+    NeoTreeEndOfBuffer = "NeoTreeNormal",
+
     WindowPickerStatusLineNC = "DiagnosticOk",
     WindowPickerStatusLine = "DiagnosticError",
     WindowPickerWinbarNC = "DiagnosticOk",

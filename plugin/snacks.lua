@@ -20,7 +20,13 @@ require("snacks").setup({
   styles = require("config.snacks.styles"),
 })
 
-require("highlight-utils").link({
+local hl = require("highlight-utils")
+
+hl.set({
+  SnacksPickerTotals = { bg = "NONE", update = true },
+})
+
+hl.link({
   SnacksPickerInput = "LightFloat",
   SnacksPickerInputBorder = "SnacksPickerInput",
   SnacksPickerInputLine = "SnacksPickerInput",

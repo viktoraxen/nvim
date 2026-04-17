@@ -17,6 +17,9 @@ M.disabled_filetypes = {
 
 local function setup_highlights()
   require("highlight-utils").set({
+    WinBar = { bg = "NONE" },
+    WinBarNC = { bg = "NONE" },
+
     WinBarDir = { fg = hl.get("Comment").fg, bg = "NONE" },
     WinBarFile = { fg = hl.get("Normal").fg, bold = true, bg = "NONE" },
   })

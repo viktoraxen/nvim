@@ -6,8 +6,9 @@ hl.set({
   SignColumn = { bg = "NONE", update = true },
   Fold = { bg = "NONE", update = true },
 
-  TabLine = { fg = hl.fg("Comment"), bg = "NONE" },
+  TabLine = { fg = hl.fg("Comment"), bg = "NONE", update = true },
   TabLineSel = { bg = "NONE", update = true },
+  TabLineFill = { bg = "NONE", update = true },
 
   NormalFloat = { bg = hl.lighten("Normal", 0.98), update = true },
   FloatBorder = { bg = hl.lighten("Normal", 0.98), update = true },
