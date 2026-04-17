@@ -11,6 +11,7 @@ M.disabled_filetypes = {
   "neo-tree",
   "nvim-pack",
   "qf",
+  "sidekick",
   "snacks",
   "terminal",
 }
