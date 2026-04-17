@@ -1,4 +1,4 @@
-vim.g._startuptime = vim.uv.hrtime()
+vim.g._init_started_time = vim.uv.hrtime()
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

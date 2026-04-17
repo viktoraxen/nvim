@@ -14,7 +14,7 @@ return {
     function()
       return {
         align = "center",
-        text = { { "Neovim started in ", hl = "Normal" }, { utils.get_running_time() .. "ms", hl = "special" } },
+        text = { { "Neovim started in ", hl = "Normal" }, { utils.get_startup_time() .. "ms", hl = "special" } },
       }
     end,
   },

@@ -131,3 +131,11 @@ vim.api.nvim_create_autocmd("UILeave", {
     io.write("\027]111\027\\")
   end,
 })
+
+vim.api.nvim_create_autocmd("UIEnter", {
+  once = true,
+  desc = "Store init finished time",
+  callback = function()
+    vim.g._init_finished_time = vim.uv.hrtime()
+  end,
+})
