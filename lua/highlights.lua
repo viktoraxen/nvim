@@ -87,6 +87,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
       WindowPickerStatusLine = "DiagnosticError",
       WindowPickerWinbarNC = "DiagnosticOk",
       WindowPickerWinbar = "DiagnosticError",
+
+      ["@markup.heading.1.delimiter.vimdoc"] = "@markup.heading",
+      ["@markup.heading.2.delimiter.vimdoc"] = "@markup.heading",
     })
   end,
 })

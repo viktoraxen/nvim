@@ -104,7 +104,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType", "BufEnter" }, {
   desc = "Set or disable winbar per window",
   callback = function()
     vim.schedule(function()
-      if not vim.api.nvim_win_is_valid(0) or is_disabled(vim.bo.ft) then
+      if not vim.api.nvim_win_is_valid(0) or vim.api.nvim_win_get_config(0).relative ~= "" or is_disabled(vim.bo.ft) then
         return
       end
 
