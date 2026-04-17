@@ -26,6 +26,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
       FadeStart = { bg = "#7F6A9B" },
 
+      NeogitDiffHeader = { fg = hl.get("Exception", "fg"), bold = true },
+      NeogitFloatHeader = { bold = true },
+      NeogitFloatHeaderHighlight = { fg = hl.get("Operator", "fg"), bold = true },
+
       WhichKeyGroup = { fg = hl.get("KeyWord", "fg") },
       WhichKeySeparator = { fg = hl.get("Comment", "fg") },
     })
