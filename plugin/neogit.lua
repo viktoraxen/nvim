@@ -34,4 +34,27 @@ vim.schedule(function()
     { "<leader>gr", ":Neogit reset<cr>", desc = "Reset" },
     { "<leader>gs", ":Neogit stash<cr>", desc = "Stash" },
   })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    desc = "Style Neogit popup floats",
+    pattern = "NeogitPopup",
+    callback = function()
+      local win = vim.api.nvim_get_current_win()
+      if vim.api.nvim_win_get_config(win).relative == "" then
+        return
+      end
+
+      vim.schedule(function()
+        if not vim.api.nvim_win_is_valid(win) then
+          return
+        end
+
+        local ns = vim.api.nvim_get_hl_ns({ winid = win })
+        if ns > 0 then
+          vim.api.nvim_set_hl(ns, "NormalFloat", { link = "Normal" })
+          vim.api.nvim_set_hl(ns, "FloatBorder", { link = "WinSeparator" })
+        end
+      end)
+    end,
+  })
 end)
