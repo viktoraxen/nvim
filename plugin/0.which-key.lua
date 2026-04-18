@@ -69,6 +69,10 @@ which_key.add({
     { "p", '"+p', desc = "Put" },
     { "P", '"+P', desc = "Put above" },
 
+    { "gp", group = "Previous", proxy = "[" },
+    { "gn", group = "Next", proxy = "]" },
+    { "gO", desc = "Document symbols" },
+
     { "H", "0", desc = "Start of line" },
     { "L", "$", desc = "End of line" },
 
