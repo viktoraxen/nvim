@@ -23,4 +23,18 @@ M.get_startup_time = function()
   return math.floor((finish - vim.g._init_started_time) / 1e6 + 0.5)
 end
 
+M.centered_input = function(prompt, cb)
+  local width = 60
+
+  Snacks.input({
+    prompt = prompt,
+    win = {
+      relative = "editor",
+      width = width,
+      row = math.floor((vim.o.lines - 3) / 2),
+      col = math.floor((vim.o.columns - width - 2) / 2),
+    },
+  }, cb)
+end
+
 return M
