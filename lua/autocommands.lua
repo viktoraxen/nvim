@@ -144,3 +144,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
   desc = "Set and link highlight groups on colorscheme change",
 })
+
+vim.api.nvim_create_autocmd("UIEnter", {
+  desc = "Launch Neovide configuration",
+  pattern = "*",
+  callback = function()
+    if vim.g.neovide then
+      require("neovide")
+    end
+  end,
+})
