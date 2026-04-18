@@ -15,7 +15,9 @@ vim.schedule(function()
   })
 
   require("which-key").add({
-    mode = { "n" },
+    mode = { "n", "v" },
+
+    { "<leader>a", group = "Sidekick" },
 
     {
       "<leader>aa",
