@@ -54,5 +54,3 @@ vim.opt.winblend = 0
 vim.opt.winborder = "solid"
 vim.opt.pumblend = 0
 vim.opt.pumheight = 7
-
-require("vim._core.ui2").enable({})

@@ -19,3 +19,5 @@ require("diagnostics")
 require("autocommands")
 
 require("usercommands")
+
+require("modules")
