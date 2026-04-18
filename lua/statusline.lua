@@ -176,12 +176,13 @@ end
 
 local function venv_component()
   local venv = os.getenv("VIRTUAL_ENV")
+
   if not venv then
     return nil
   end
 
   local name = vim.fn.fnamemodify(venv, ":t")
-  return pad(7, "%#StlVenv# 󰹩 " .. name)
+  return pad(10, "%#StlVenv# 󰹩 " .. name)
 end
 
 local function filetype_component()
