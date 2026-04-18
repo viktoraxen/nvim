@@ -113,15 +113,28 @@ function M.render()
   return table.concat(components)
 end
 
+local function apply()
+  if not vim.api.nvim_win_is_valid(0) or vim.api.nvim_win_get_config(0).relative ~= "" or is_disabled() then
+    return
+  end
+
+  vim.wo.winbar = "%{%v:lua.require('winbar').render()%}"
+end
+
 vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType", "BufEnter" }, {
   desc = "Set or disable winbar per window",
   callback = function()
-    vim.schedule(function()
-      if not vim.api.nvim_win_is_valid(0) or vim.api.nvim_win_get_config(0).relative ~= "" or is_disabled() then
-        return
-      end
+    vim.schedule(apply)
+  end,
+})
 
-      vim.wo.winbar = "%{%v:lua.require('winbar').render()%}"
+vim.api.nvim_create_autocmd({ "VimEnter", "SessionLoadPost" }, {
+  desc = "Set winbar for every window after startup/session restore",
+  callback = function()
+    vim.schedule(function()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        vim.api.nvim_win_call(win, apply)
+      end
     end)
   end,
 })
