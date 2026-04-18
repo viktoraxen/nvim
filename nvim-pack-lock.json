@@ -112,6 +112,11 @@
       "rev": "6382540b2ae5de6c793d4aa2e3fe6dbb518505ec",
       "src": "https://github.com/s1n7ax/nvim-window-picker",
       "version": "2.0.0 - 3.0.0"
+    "nvim-treesitter-textobjects": {
+      "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+      "version": "'main'"
+    },
     },
     "onedark.nvim": {
       "rev": "df4792accde9db0043121f32628bcf8e645d9aea",

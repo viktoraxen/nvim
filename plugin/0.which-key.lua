@@ -52,6 +52,7 @@ which_key.add({
     mode = { "n" },
 
     { "<esc>", "<cmd>nohlsearch<cr>", desc = "Clear search" },
+    { "U", "<cmd>Undotree<cr>", desc = "Undotree" },
   },
   {
     mode = { "n", "v" },
@@ -68,6 +69,10 @@ which_key.add({
     { "C", '"+C', desc = "Change" },
     { "p", '"+p', desc = "Put" },
     { "P", '"+P', desc = "Put above" },
+
+    { "n", desc = "Find next" },
+    { "N", desc = "Find previous" },
+    { "u", desc = "Undo" },
 
     { "gp", group = "Previous", proxy = "[" },
     { "gn", group = "Next", proxy = "]" },
