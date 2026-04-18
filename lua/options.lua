@@ -19,7 +19,7 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = "no"
+vim.opt.signcolumn = "auto"
 
 -- Show tabline only when multiple tabs are open
 vim.opt.showtabline = 1

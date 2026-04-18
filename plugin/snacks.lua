@@ -36,10 +36,10 @@ hl.link({
   SnacksPickerInputTitle = "LightFloatTitle",
 
   SnacksInputNormal = "LightFloat",
-  SnacksInputIcon = "SnacksInputNormal",
   SnacksInputBorder = "SnacksInputNormal",
-  SnacksInputTitle = "SnacksInputNormal",
   SnacksInputCursorLine = "SnacksInputNormal",
+  SnacksInputTitle = "LightFloatTitle",
+  SnacksInputIcon = "SnacksInputTitle",
 
   SnacksPickerToggle = "SnacksPickerInputTitle",
   SnacksPickerPrompt = "SnacksPickerInputTitle",
