@@ -4,12 +4,13 @@ local hl = require("highlight-utils")
 M.disabled_filetypes = {
   "Neogit",
   "codediff",
+  "dap",
   "dashboard",
   "gitcommit",
   "help",
-  "pager",
   "neo-tree",
   "nvim-pack",
+  "pager",
   "qf",
   "sidekick",
   "snacks",
@@ -59,10 +60,16 @@ local function file_component()
   return "%#WinBarFile#" .. "󰧮 " .. filename:gsub("%%", "%%%%")
 end
 
-local function is_disabled(ft)
+local function is_disabled()
   if vim.w.codediff_restore == 1 then
     return true
   end
+
+  if vim.bo.buftype == "terminal" then
+    return true
+  end
+
+  local ft = vim.bo.filetype
 
   for _, pattern in ipairs(M.disabled_filetypes) do
     if ft == pattern or ft:find(pattern, 1, true) == 1 then
@@ -74,7 +81,7 @@ local function is_disabled(ft)
 end
 
 function M.render()
-  if is_disabled(vim.bo.filetype) then
+  if is_disabled() then
     return ""
   end
 
@@ -110,11 +117,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType", "BufEnter" }, {
   desc = "Set or disable winbar per window",
   callback = function()
     vim.schedule(function()
-      if
-        not vim.api.nvim_win_is_valid(0)
-        or vim.api.nvim_win_get_config(0).relative ~= ""
-        or is_disabled(vim.bo.ft)
-      then
+      if not vim.api.nvim_win_is_valid(0) or vim.api.nvim_win_get_config(0).relative ~= "" or is_disabled() then
         return
       end
 
