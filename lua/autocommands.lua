@@ -22,8 +22,6 @@ vim.api.nvim_create_autocmd({ "VimEnter", "SessionLoadPost", "DirChanged" }, {
         vim.fn.setenv("VIRTUAL_ENV", venv_path)
         vim.fn.setenv("PATH", venv_path .. "/bin:" .. path)
 
-        watch_venv(venv_path)
-
         return
       end
     end
