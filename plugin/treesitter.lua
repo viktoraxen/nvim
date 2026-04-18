@@ -16,3 +16,10 @@ vim.api.nvim_create_autocmd("PackChanged", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Start treesitter highlighting when a parser is available",
+  callback = function(ev)
+    pcall(vim.treesitter.start, ev.buf)
+  end,
+})
