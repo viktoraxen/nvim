@@ -8,6 +8,9 @@ vim.schedule(function()
         layout = "left",
         float = { width = 0.85, height = 0.85 },
         split = { width = 0.4 },
+        wo = {
+          winhighlight = "WinSeparator:SidekickWinSeparator",
+        },
       },
     },
     nes = { enabled = false },
@@ -64,7 +67,9 @@ vim.schedule(function()
       desc = "Send Visual Selection",
     },
   })
+
   require("highlight-utils").link({
     SidekickChat = "Normal",
+    SidekickWinSeparator = "DiagnosticInfo",
   })
 end)
