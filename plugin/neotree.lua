@@ -57,6 +57,7 @@ vim.schedule(function()
     },
     filesystem = {
       use_trash = true,
+      follow_current_file = { enabled = true },
       filtered_items = {
         show_hidden_count = false,
         hide_dotfiles = false,
