@@ -88,10 +88,10 @@ vim.schedule(function()
   require("which-key").add({
     mode = { "n" },
 
-    { "<left>", "<cmd>DapStepOut<cr>", desc = "Step out 󰨰" },
-    { "<down>", "<cmd>DapStepOver<cr>", desc = "Step over 󰨰" },
-    { "<up>", "<cmd>DapRestartFrame<cr>", desc = "Restart frame 󰨰" },
-    { "<right>", "<cmd>DapStepInto<cr>", desc = "Step into 󰨰" },
+    { "<left>", "<cmd>DapStepOut<cr>", desc = "󰨰 Step out" },
+    { "<down>", "<cmd>DapStepOver<cr>", desc = "󰨰 Step over" },
+    { "<up>", "<cmd>DapRestartFrame<cr>", desc = "󰨰 Restart frame" },
+    { "<right>", "<cmd>DapStepInto<cr>", desc = "󰨰 Step into" },
 
     { "<leader>d", group = "Debug" },
 

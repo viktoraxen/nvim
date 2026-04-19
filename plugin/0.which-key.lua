@@ -16,6 +16,7 @@ which_key.setup({
   },
   icons = {
     rules = false,
+    mappings = false,
     separator = ":",
     keys = {
       Up = " ",
@@ -70,16 +71,13 @@ which_key.add({
     { "p", '"+p', desc = "Put" },
     { "P", '"+P', desc = "Put above" },
 
-    { "n", desc = "Find next" },
-    { "N", desc = "Find previous" },
-    { "u", desc = "Undo" },
-
     { "gp", group = "Previous", proxy = "[" },
     { "gn", group = "Next", proxy = "]" },
-    { "gO", desc = "Document symbols" },
 
     { "H", "0", desc = "Start of line" },
     { "L", "$", desc = "End of line" },
+    { "gH", "g0", desc = "Start of wrapped line" },
+    { "gL", "g$", desc = "End of wrapped line" },
 
     { "<leader>q", "<cmd>q<cr>", desc = "Close window" },
     { "<leader>Q", "<cmd>qa<cr>", desc = "Close all windows" },
@@ -117,6 +115,39 @@ which_key.add({
     { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close tab" },
 
     { "<leader>R", utils.restart_neovim, desc = "Restart Neovim" },
+  },
+})
+
+-- Add descriptions
+which_key.add({
+  {
+    mode = { "n", "v", "x", "o" },
+
+    { "<leader>", desc = "Leader" },
+  },
+  {
+    mode = { "n" },
+
+    { "K", desc = "Hover" },
+    { "<c-r>", desc = "Redo" },
+  },
+  {
+    mode = { "n", "v" },
+
+    { "n", desc = "Find next" },
+    { "N", desc = "Find previous" },
+    { "u", desc = "Undo" },
+    { "z", desc = "Fold" },
+
+    { "[", desc = "Previous" },
+    { "]", desc = "Next" },
+
+    { "#", desc = "Search backward word under cursor" },
+    { "*", desc = "Search forward word under cursor" },
+
+    { "g", group = "Go to" },
+
+    { "gO", desc = "Document symbols" },
   },
 })
 
