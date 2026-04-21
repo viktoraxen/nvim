@@ -194,7 +194,7 @@ local function filetype_component()
   local ok, icon, hl_group = pcall(MiniIcons.get, "filetype", ft)
 
   if ok and icon then
-    return "%#" .. hl_group .. "#" .. icon .. " %#StlFiletype#" .. ft
+    return "%#" .. hl_group .. "#" .. icon .. "  %#StlFiletype#" .. ft
   end
 
   return "%#StlFiletype#" .. ft
