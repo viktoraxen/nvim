@@ -3,6 +3,8 @@ vim.schedule(function()
 
   vim.lsp.enable({ "lua_ls" })
   vim.lsp.enable({ "pyright" })
+  vim.lsp.enable({ "clangd" })
+  vim.lsp.enable({ "cmake-language-server" })
 
   vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 
