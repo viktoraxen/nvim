@@ -14,6 +14,7 @@ vim.opt.showmode = false
 
 -- Enable break indent
 vim.opt.breakindent = true
+vim.opt.smartindent = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -32,7 +33,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "󰄾 ", trail = "·", nbsp = "␣" }
 vim.opt.fillchars = { eob = " ", msgsep = "─" }
 
 -- Live substitutions preview
