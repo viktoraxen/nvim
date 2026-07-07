@@ -217,6 +217,8 @@ function M.render()
     mode_component(),
     padding(2),
     diagnostics_component() or "",
+    padding(2),
+    vim.ui.progress_status(),
     "%=",
     venv_component() or "",
     padding(2),
