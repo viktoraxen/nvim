@@ -4,6 +4,7 @@ vim.schedule(function()
   require("sidekick").setup({
     cli = {
       mux = { enabled = true },
+      tools = { agy = { cmd = { "agy" } } },
       win = {
         layout = "left",
         float = { width = 0.85, height = 0.85 },
