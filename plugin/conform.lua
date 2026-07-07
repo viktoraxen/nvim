@@ -6,10 +6,15 @@ vim.schedule(function()
     formatters_by_ft = {
       lua = { "stylua" },
       python = { "ruff_fix", "ruff_organize_imports", "ruff_format" },
+      c = { "clang_format" },
+      cpp = { "clang_format" },
     },
     formatters = {
       ruff_format = { prepend_args = { "format", "--line-length", "100" } },
       stylua = { prepend_args = { "--indent-width", "2", "--indent-type", "spaces" } },
+      clang_format = {
+        prepend_args = { "--style=file:" .. vim.fn.expand("~/.clang-format") },
+      },
     },
   })
 end)
