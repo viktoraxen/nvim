@@ -88,11 +88,6 @@ vim.schedule(function()
   require("which-key").add({
     mode = { "n" },
 
-    { "<left>", "<cmd>DapStepOut<cr>", desc = "󰨰 Step out" },
-    { "<down>", "<cmd>DapStepOver<cr>", desc = "󰨰 Step over" },
-    { "<up>", "<cmd>DapRestartFrame<cr>", desc = "󰨰 Restart frame" },
-    { "<right>", "<cmd>DapStepInto<cr>", desc = "󰨰 Step into" },
-
     { "<leader>d", group = "Debug" },
 
     { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle breakpoint" },
@@ -105,4 +100,24 @@ vim.schedule(function()
     { "<leader>dt", "<cmd>DapTerminate<cr>", desc = "Terminate" },
     { "<leader>dw", "<cmd>DapViewWatch<cr>", desc = "Watch variable under cursor" },
   })
+
+  local function reset_keys()
+    pcall(vim.keymap.del, "n", "<left>")
+    pcall(vim.keymap.del, "n", "<down>")
+    pcall(vim.keymap.del, "n", "<up>")
+    pcall(vim.keymap.del, "n", "<right>")
+  end
+
+  dap.listeners.after.event_initialized["dap-config"] = function()
+    require("which-key").add({
+      mode = { "n" },
+      { "<left>", "<cmd>DapStepOut<cr>", desc = "󰨰 Step out" },
+      { "<down>", "<cmd>DapStepOver<cr>", desc = "󰨰 Step over" },
+      { "<up>", "<cmd>DapRestartFrame<cr>", desc = "󰨰 Restart frame" },
+      { "<right>", "<cmd>DapStepInto<cr>", desc = "󰨰 Step into" },
+    })
+  end
+
+  dap.listeners.before.event_terminated["dap-config"] = reset_keys
+  dap.listeners.before.event_exited["dap-config"] = reset_keys
 end)
