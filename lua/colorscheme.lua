@@ -15,6 +15,7 @@ vim.schedule(function()
     "https://github.com/Mofiqul/vscode.nvim",
     "https://github.com/olimorris/onedarkpro.nvim",
     "https://github.com/pgdouyon/vim-yin-yang",
+    "https://github.com/Aejkatappaja/cendre",
   })
 end)
 
