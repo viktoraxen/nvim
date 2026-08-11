@@ -106,8 +106,8 @@ which_key.add({
 
     { "<leader>n", group = "Line numbers" },
 
-    { "<leader>nn", "<cmd>set invnumber<cr>", desc = "Toggle line numbers" },
-    { "<leader>nr", "<cmd>set invrnu<cr>", desc = "Toggle relative line numbers" },
+    { "<leader>nn", "<cmd>set invnumber cursorline<cr>", desc = "Toggle line numbers" },
+    { "<leader>nr", "<cmd>set invrnu cursorline<cr>", desc = "Toggle relative line numbers" },
 
     { "<leader>t", group = "Tab" },
 
