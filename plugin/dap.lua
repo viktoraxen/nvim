@@ -101,14 +101,14 @@ vim.schedule(function()
     { "<leader>dw", "<cmd>DapViewWatch<cr>", desc = "Watch variable under cursor" },
   })
 
-  local function reset_keys()
+  local function reset_arrowkeys()
     pcall(vim.keymap.del, "n", "<left>")
     pcall(vim.keymap.del, "n", "<down>")
     pcall(vim.keymap.del, "n", "<up>")
     pcall(vim.keymap.del, "n", "<right>")
   end
 
-  dap.listeners.after.event_initialized["dap-config"] = function()
+  local function set_arrowkeys()
     require("which-key").add({
       mode = { "n" },
       { "<left>", "<cmd>DapStepOut<cr>", desc = "󰨰 Step out" },
@@ -118,6 +118,8 @@ vim.schedule(function()
     })
   end
 
-  dap.listeners.before.event_terminated["dap-config"] = reset_keys
-  dap.listeners.before.event_exited["dap-config"] = reset_keys
+  dap.listeners.after.event_initialized["dap-config"] = set_arrowkeys
+
+  dap.listeners.before.event_terminated["dap-config"] = reset_arrowkeys
+  dap.listeners.before.event_exited["dap-config"] = reset_arrowkeys
 end)

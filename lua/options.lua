@@ -42,8 +42,8 @@ vim.opt.fillchars = { eob = " ", msgsep = "─" }
 vim.opt.inccommand = "split"
 
 -- Highlight current line number
-vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
+vim.opt.cursorline = true
 
 vim.opt.scrolloff = 7
 
